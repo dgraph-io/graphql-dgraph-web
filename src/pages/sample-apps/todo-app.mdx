@@ -1,0 +1,43 @@
+---
+title: Simple Todo GraphQL Apps
+path: /sample-apps/todo-app
+share: Simple Todo apps with Dgraph GraphQL @dgraphlabs
+repo: https://github.com/dgraph-io/graphql-apps
+imgFolder: todo-app
+badges: ['React', 'Vue', 'Flutter']
+badgesUrl: ['https://github.com/dgraph-io/graphql-apps/tree/master/todo-app-react','https://github.com/dgraph-io/graphql-apps/tree/master/todo-app-vue','https://github.com/dgraph-io/graphql-apps/tree/master/todo-app-flutter']
+date: 2020-04-23
+---
+
+import TitleBar from '../../components/TitleBar';
+import Footer from "../../components/Footer"
+import ImageSlider from "../../components/ImageSlider"
+import Badges from "../../components/badges"
+
+<TitleBar
+  text={props.pageContext.frontmatter.title}
+  size={'32px'}
+  bkgdColor={'#4aae9b'}
+/>
+
+<ImageSlider imgFolder={props.pageContext.frontmatter.imgFolder} />
+
+<Badges badges={props.pageContext.frontmatter.badges} badgesUrl={props.pageContext.frontmatter.badgesUrl}/>
+
+
+This is a simple GraphQL application to demonstrate Dgraph's GraphQL capabilities.
+There are three versions of the application which are built using ReactJS, Vue.js,
+and Flutter. All of them powered by the GraphQL API of Dgraph.
+
+### Functionalites
+
+- Add a new task to the list
+- Display all tasks from the list
+- Edit an existing task
+- Delete an existing task
+- Toggle the completed status of the tasks
+- Clear completed tasks
+
+---
+
+<Footer twitterShareText={props.pageContext.frontmatter.share} repoURL={props.pageContext.frontmatter.repo} />

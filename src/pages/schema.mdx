@@ -1,0 +1,487 @@
+---
+title: Schema
+path: /schema
+---
+
+All the things you can put in your input GraphQL schema, and what gets generated from that.
+
+- [Scalars](#Scalars)
+- [Enums](#Enums)
+- [Types](#Types)
+- [Interfaces](#Interfaces)
+- [Directives](#Directives)
+    * [Inverse Edges](#Inverse)
+    * [Search](#Search)
+
+The process for serving GraphQL with Dgraph is to add a set of GraphQL type definitions using the `/admin` endpoint.  Dgraph takes those definitions, generates queries and mutations, and serves the generated GraphQL schema.  
+
+The input schema may only contain interfaces, types and enums that follow the usual GraphQL syntax and validation rules.  Additional validation rules are called out below.
+
+If you want to make your schema editing experience nicer, you should use an editor that does syntax highlighting for GraphQL.  With that, you may also want to include the definitions [here](#schemafragment) as an import.
+
+# <a name="Scalars"></a>Scalars
+
+Dgraph GraphQL comes with the standard GraphQL scalars: `Int`, `Float`, `String`, `Boolean` and `ID`.  There's also a `DateTime` scalar - represented as a string in RFC3339 format.
+
+Scalars `Int`, `Float`, `String` and `DateTime` can be used in lists.  All scalars may be nullable or non-nullable.
+
+The `ID` type is special.  IDs are auto-generated, immutable, and can be treated as strings.  Fields of type `ID` can be listed as nullable in a schema, but Dgraph will never return null. 
+
+* *Schema rule*: `ID` lists aren't allowed - e.g. `tags: [String]` is valid, but `ids: [ID]` is not.
+* *Schema rule*: Each type you define can have at most one field with type `ID`.  That includes IDs implemented through interfaces.
+
+It's not possible to define further scalars - you'll receive an error if the input schema contains the definition of a new scalar.
+
+For example, the following GraphQL type uses all of the available scalars.
+
+```graphql
+type User {
+    userID: ID!
+    name: String!
+    lastSignIn: DateTime
+    recentScores: [Float]
+    reputation: Int
+    active: Boolean
+}
+```
+
+Scalar lists in Dgraph act more like sets, so `tags: [String]` would always contain unique tags.  Similarly, `recentScores: [Float]` could never contain duplicate scores.
+
+# <a name="Enums"></a>Enums
+
+You can define enums in your input schema.  For example:
+
+```graphql
+enum Tag {
+    GraphQL
+    Database
+    Question
+    ...
+}
+
+type Post {
+    ...
+    tags: [Tag!]!
+}
+```
+
+# <a name="Types"></a>Types 
+
+From the built-in scalars and the enums you add, you can generate types in the usual way for GraphQL.  For example:
+
+```graphql
+enum Tag {
+    GraphQL
+    Database
+    Dgraph
+}
+
+type Post {
+    id: ID!
+    title: String!
+    text: String
+    datePublished: DateTime
+    tags: [Tag!]!
+    author: Author!
+}
+
+type Author {
+    id: ID!
+    name: String!
+    posts: [Post!]
+    friends [Author]
+}
+```
+
+* *Schema rule*: Lists of lists aren't accepted.  For example: `multiTags: [[Tag!]]` isn't valid.
+* *Schema rule*: Fields with arguments are not accepted in the input schema.
+
+# <a name="Interfaces"></a>Interfaces
+
+GraphQL interfaces allow you to define a generic pattern that multiple types follow.  When a type implements an interface, that means it has all fields of the interface and some extras.  
+
+When a type implements an interface, GraphQL requires that the type repeats all the fields from the interface, but that's just boilerplate and a maintenance problem, so Dgraph doesn't need that repetition in the input schema and will generate the correct GraphQL for you.
+
+For example, the following defines the schema for posts with comment threads; Dgraph will fill in the `Question` and `Comment` types to make the full GraphQL types.
+
+```graphql
+interface Post {
+    id: ID!
+    text: String
+    datePublished: DateTime
+}
+
+type Question implements Post {
+    title: String!
+}
+
+type Comment implements Post {
+    commentsOn: Post!
+}
+```
+
+The generated GraphQL will contain the full types, for example, `Question` gets expanded as:
+
+```graphql
+type Question implements Post {
+    id: ID!
+    text: String
+    datePublished: DateTime
+    title: String!
+}
+```
+
+while `Comment` gets expanded as:
+
+```
+type Comment implements Post {
+    id: ID!
+    text: String
+    datePublished: DateTime
+    commentsOn: Post!
+}
+```
+
+# <a name="Directives"></a>Directives
+
+Dgraph uses the types and fields in the schema to work out what to accept for mutations and what shape responses should take.  Dgraph also defines a set of GraphQL directives that it uses to further refine what services the GraphQL API offers.  In particular, how to handle two-way edges and what search capability to build in.
+
+## <a name="Inverse"></a>Inverse Edges
+
+GraphQL schemas are always under-specified in that
+
+```graphql
+type Author {
+    ...
+    posts: [Post]
+}
+
+type Post {
+    ...
+    author: Author
+}
+```
+
+says that an author has a list of posts and a post has an author, but it doesn't tell us that every post in the list of posts for an author has that author as their `author`.  In GraphQL, it's left up to the implementation to make the two-way connection.  Here, we'd expect an author to be the author of all their posts, but that's not what GraphQL enforces.
+
+There's not always a two-way edge. Consider if `Author` were defined as:
+
+```graphql
+type Author {
+    ...
+    posts: [Post]
+    liked: [Post]
+}
+```
+
+There should be no two-way edge for `liked`.  
+
+In Dgraph, the directive `@hasInverse` is used to sort out which edges are bi-directional and which aren't. Adding
+
+```graphql
+type Author {
+    ...
+    posts: [Post] @hasInverse(field: author)
+    liked: [Post]
+}
+
+type Post {
+    ...
+    author: Author @hasInverse(field: posts)
+}
+```
+
+tells Dgraph to link `posts` and `author`.  When a new post is added Dgraph ensures that it's also in the list of its author's posts.  Field   `liked`, on the other hand, has no such linking.
+
+## <a name="Search"></a>Search
+
+The `@search` directive tells Dgraph what search to build into your API.
+
+When a type contains an `@search` directive, Dgraph constructs a search input type and a query in the GraphQL `Query` type. For example, if the schema contains
+
+```graphql
+type post {
+    ...
+    text: Int @search(by: [term])
+}
+```
+
+then, Dgraph constructs an input type `PostFilter` and adds all possible search options for posts to that.  The search options it constructs are different for each type and argument to `@search` as explained below.
+
+### Int, Float and DateTime
+
+Search for fields of types `Int`, `Float` and `DateTime` is enabled by adding `@search` to the field.  For example, if a schema contains:
+
+```graphql
+type Post {
+    ...
+    numLikes: Int @search
+}
+```
+
+Dgraph generates search into the API for `numLikes` in two ways: a query for posts and field search on any post list.
+
+A field `queryPost` is added to the `Query` type of the schema.
+
+```graphql
+queryPost(filter: PostFilter, order: PostOrder, first: Int, offset: Int): [Post]
+```
+
+`PostFilter` will contain less than `le`, less than or equal to `le`, equal `eq`, greater than or equal to `ge` and greater than `gt` search on `numLikes`.  Allowing for example:
+
+```graphql
+queryPost(filter: { numLikes: { gt: 50 }}) { ... }
+```
+
+Also, any field with a type of list of posts has search options added to it. For example, if the input schema also contained:
+
+```graphql
+type Author {
+    ...
+    posts: [Post]
+}
+```
+
+Dgraph would insert search into `posts`, with
+
+```graphql
+type Author {
+    ...
+    posts(filter: PostFilter, order: PostOrder, first: Int, offset: Int): [Post]
+}
+```
+
+That allows search within the GraphQL query.  For example, to find Karthic's posts with more than 50 likes.
+
+```graphql
+queryAuthor(filter: { name: { eq: "Karthic" } } ) {
+    ...
+    posts(filter: { numLikes: { gt: 50 }}) {
+        title
+        text
+    }
+}
+```
+
+`DateTime` also allows specifying how the search index should be built: by year, month, day or hour.  `@search` defaults to year, but once you understand your data and query patterns, you might want to changes that like `@search(by: [day])`.
+
+### Boolean
+
+Booleans can only be tested for true or false.  If `isActiveMember: Boolean @search` is in the schema, then the search allows
+
+```graphql
+filter: { isPublished: true }
+```
+
+and
+
+```graphql
+filter: { isPublished: false }
+```
+
+### String
+
+Strings allow a wider variety of search options than other types.  For strings, you have the following options as arguments to `@search`.
+
+| argument | constructed searches |
+|----------|----------------------|
+| `hash` | `eq` |
+| `exact` | `lt`, `le`, `eq`, `ge` and `gt` (lexicographically) |
+| `regexp` | `regexp` (regular expressions) |
+| `term` | `allofterms` and `anyofterms` |
+| `fulltext` | `alloftext` and `anyoftext` |
+
+* *Schema rule*: `hash` and `exact` can't be used together.
+
+Exact and hash search have the standard lexicographic meaning. Search by regular expression requires bracketing the expression with `/` and `/`.  For example, query for "Karthic" and anyone else with "rti" in their name:
+
+```
+queryAuthor(filter: { name: { regexp: "/.*rti.*/" } }) { ... }
+```
+
+If the schema has 
+
+```graphql
+type Post {
+    title: String @search(by: [term])
+    text: String @search(by: [fulltext])
+    ...
+}
+```
+
+then 
+
+```graphql
+queryPost(filter: { title: { `allofterms: "GraphQL tutorial"` } } ) { ... }
+```
+
+will match all posts with both "GraphQL and "tutorial" in the title, while `anyofterms: "GraphQL tutorial"` would match posts with either "GraphQL" or "tutorial".
+
+`fulltext` search is Google-stye text search with stop words, stemming. etc.  So `alloftext: "run woman"` would match "run" as well as "running", etc.  For example, to find posts that talk about fantastic GraphQL tutorials:
+
+```graphql
+queryPost(filter: { title: { `alloftext: "fantastic GraphQL tutorials"` } } ) { ... }
+```
+
+It's possible to add multiple string indexes to a field.  For example to search for authors by `eq` and regular expressions, add both options to the type definition, as follows.
+
+```graphql
+type Author {
+    ...
+    name: String! @search(by: [hash, regexp])
+}
+```
+
+### Enums 
+
+Enums are serialized in Dgraph as strings.  `@search` with no arguments is the same as `@search(by: [hash])` and provides only `eq` search.  Also available for enums are `exact` and `regexp`.  For hash and exact search on enums, the literal enum value, without quotes `"..."`, is used, for regexp, strings are required. For example:
+
+```graphql
+enum Tag {
+    GraphQL
+    Database
+    Question
+    ...
+}
+
+type Post {
+    ...
+    tags: [Tag!]! @search
+}
+```
+
+would allow
+
+```graphql
+queryPost(filter: { tags: { eq: GraphQL } } ) { ... }
+```
+
+Which would find any post with the `GraphQL` tag.
+
+While `@search(by: [exact, regexp]` would also admit `lt` etc. and 
+
+```graphql
+queryPost(filter: { tags: { regexp: "/.*aph.*/" } } ) { ... }
+```
+
+which is helpful for example if the enums are something like product codes where regular expressions can match a number of values. 
+
+### and, or, and not
+
+Every search filter contains `and`, `or` and `not`.
+
+GraphQL's syntax is used to write these infix style, so "a and b" is written `a, and: { b }`, and "a or b or c" is written `a, or: { b, or: c }`.  Not is written prefix.
+
+The posts that do not have "GraphQL" in the title.
+
+```graphql
+queryPost(filter: { not: { title: { allofterms: "GraphQL"} } } ) { ... }
+```
+
+The posts that have "GraphQL" or "Dgraph" in the title.
+
+```graphql
+queryPost(filter: { 
+    title: { allofterms: "GraphQL"},
+    or: { title: { allofterms: "Dgraph" } } 
+  } ) { ... }
+```
+
+The posts that have "GraphQL" and "Dgraph" in the title.
+
+```graphql
+queryPost(filter: { 
+    title: { allofterms: "GraphQL"},
+    and: { title: { allofterms: "Dgraph" } } 
+  } ) { ... }
+```
+
+The and is implicit for a single filter object.  The above could be written equivalently as:
+
+```graphql
+queryPost(filter: { 
+    title: { allofterms: "GraphQL"},
+    title: { allofterms: "Dgraph" } 
+  } ) { ... }
+```
+
+The posts that have "GraphQL" in the title, or have the tag "GraphQL" and mention "Dgraph" in the title
+
+```graphql
+queryPost(filter: { 
+    title: { allofterms: "GraphQL"},
+    or: { title: { allofterms: "Dgraph" }, tags: { eg: "GraphQL" } }
+  } ) { ... }
+```
+
+### Order and Pagination
+
+Every type with fields whose types can be ordered (`Int`, `Float`, `String`, `DateTime`) gets ordering built into the query and any list fields of that type.  Every query and list field gets pagination with `first` and `after`.
+
+For example, find the most recent 5 posts.
+
+```graphql
+queryPost(order: { desc: datePublished }, first: 5) { ... }
+```
+
+It's also possible to give multiple orders.  For example, sort by date and within each date order the posts by number of likes.
+
+```graphql
+queryPost(order: { desc: datePublished, then: { desc: numLikes } }, first: 5) { ... }
+```
+
+# <a name="schemafragment"></a>Dgraph Schema Fragment
+
+While editing your schema, you might find it useful to include this GraphQL schema fragment.  It sets up the definitions of the directives, etc. (like `@search`) that you'll use in your schema.  If your editor is GraphQL aware, it will give you errors if you don't have this available.
+
+Don't include it in your input schema to Dgraph - use your editing environment to set it up as an import.  The details will depend on your setup.
+
+```graphql
+scalar DateTime
+
+directive @hasInverse(field: String!) on FIELD_DEFINITION
+directive @search(by: [DgraphIndex!]) on FIELD_DEFINITION
+
+enum DgraphIndex {
+  int
+  float
+  bool
+  hash
+  exact
+  term
+  fulltext
+  trigram
+  regexp
+  year
+  month
+  day
+  hour
+}
+```
+
+# Reserved Names
+
+Names `Int`, `Float`, `Boolean`, `String`, `DateTime` and `ID` are reserved and cannot be used to define any other identifiers.
+
+For each type, Dgraph generates a number of GraphQL types needed to operate the GraphQL API, these generated type names also can't be present in the input schema.  For example, for a type `Author`, Dgraph generates `AuthorFilter`, `AuthorOrderable`, `AuthorOrder`, `AuthorRef`, `AddAuthorInput`, `UpdateAuthorInput`, `AuthorPatch`, `AddAuthorPayload`, `DeleteAuthorPayload` and `UpdateAuthorPayload`.  Thus if `Author` is present in the input schema, all of those become reserved type names.
+
+# GraphQL Error Propagation
+
+Before returning query and mutation results, Dgraph uses the types in the schema to apply GraphQL [value completion](https://graphql.github.io/graphql-spec/June2018/#sec-Value-Completion) and [error handling](https://graphql.github.io/graphql-spec/June2018/#sec-Errors-and-Non-Nullability).  That is, `null` values for non-nullable fields, e.g. `String!`, cause error propagation to parent fields.  
+
+In short, the GraphQL value completion and error propagation mean the following.
+
+* Fields marked as nullable (i.e. without `!`) can return `null` in the json response.
+* For fields marked as non-nullable (i.e. with `!`) Dgraph never returns null for that field.
+* If an instance of type has a non-nullable field that has evaluated to null, the whole instance results in null.
+* Reducing an object to null might cause further error propagation.  For example, querying for a post that has an author with a null name results in null: the null name (`name: String!`) causes the author to result in null, and a null author causes the post (`author: Author!`) to result in null.
+* Error propagation for lists with nullable elements, e.g. `friends [Author]`, can result in nulls inside the result list.
+* Error propagation for lists with non-nullable elements results in null for `friends [Author!]` and would cause further error propagation for `friends [Author!]!`.
+
+Note that, a query that results in no values for a list will always return the empty list `[]`, not `null`, regardless of the nullability.  For example, given a schema for an author with `posts: [Post!]!`, if an author has not posted anything and we queried for that author, the result for the posts field would be `posts: []`.  
+
+A list can, however, result in null due to GraphQL error propagation.  For example, if the definition is `posts: [Post!]`, and we queried for an author who has a list of posts.  If one of those posts happened to have a null title (title is non-nullable `title: String!`), then that post would evaluate to null, the `posts` list can't contain nulls and so the list reduces to null.
+
+# What's to come for Dgraph GraphQL
+
+Dgraph's GraphQL features are in active development.  On the way soon are more search features as well as better mutations.  Also, expect to see GraphQL subscriptions and authorization and authentication features built in.  For existing Dgraph users, we'll be adding features to boot your existing schema into GraphQL and ways you can define your own queries backed by whatever GraphQL+- you like.

@@ -1,0 +1,41 @@
+---
+title: Stackoverflow Clone GraphQL App
+path: /sample-apps/stackoverflow-app
+share: Stackoverflow app with Dgraph GraphQL @dgraphlabs
+repo: https://github.com/dgraph-io/graphql-apps
+imgFolder: stackoverflow-app
+badges: ['React']
+badgesUrl: ['https://github.com/dgraph-io/graphql-apps/tree/master/stackoverflow-app']
+date: 2020-04-24
+---
+
+import TitleBar from '../../components/TitleBar';
+import Footer from "../../components/Footer"
+import ImageSlider from "../../components/ImageSlider"
+import Badges from "../../components/badges"
+
+<TitleBar
+  text={props.pageContext.frontmatter.title}
+  size={'32px'}
+  bkgdColor={'#4aae9b'}
+/>
+
+<ImageSlider imgFolder={props.pageContext.frontmatter.imgFolder} />
+
+<Badges badges={props.pageContext.frontmatter.badges} badgesUrl={props.pageContext.frontmatter.badgesUrl}/>
+
+This is a simple GraphQL web application to demonstrate Dgraph's GraphQL capabilities.
+The web app is built using ReactJS and Apollo-React client libraries. And the GraphQL
+API for the web app is powered by Dgraph.
+
+### Functionalites
+
+- Add author, question, answer, comment, and upvote
+- Edit them
+- Delete them
+- Search for them
+- Advanced search on the questions and answers
+
+---
+
+<Footer twitterShareText={props.pageContext.frontmatter.share} repoURL={props.pageContext.frontmatter.repo} />

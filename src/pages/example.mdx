@@ -1,0 +1,629 @@
+---
+title: 'Example'
+path: /example
+---
+
+A worked example of how to build a GraphQL API for an App.
+
+# GraphQL, Dgraph and Graphs
+
+You're familiar with GraphQL types, fields and resolvers.  Maybe you've written an app that adds GraphQL over a REST endpoint or maybe over a relational database.  So you know how GraphQL sits over those sources and issues many queries to translate the REST/relational data into something that looks like a graph.  
+
+You know there's a cognitive jump because your app is about a graph, but you've got to design a relational schema and work out how that translates as a graph; you'll think about the app in terms of the graph, but always have to mentally translate back and forth between the relational and graph models.  There are engineering challenges around the translation as well as the efficiency of the queries.  
+
+There's none of that here.  
+
+Dgraph GraphQL is part of Dgraph, which stores a graph - it's a database of nodes and edges.  So it's efficient to store, query and traverse as a graph.  Your data will get stored just like you design it in the schema, and the queries are a single graph query that does just what the GraphQL query says.
+
+
+## How it Works
+
+With Dgraph you design your application in GraphQL.  You design a set of GraphQL types that describes your requirements.  Dgraph takes those types, prepares graph storage for them and generates a GraphQL API with queries and mutations.
+
+You design a graph, store a graph and query a graph.  You think and design in terms of the graph that your app is based around.
+
+Let's move on to the design process - it's graph-first, in fact, it's GraphQL-first.  We'll design the GraphQL types that our example app is based around, and ... we'll there's no *and* ... from that, you get a GraphQL API for those types; you just move on to building the app around it.
+
+# An Example App
+
+Say you are working to build a social media app.  In the app, there are authors writing questions and others answering or making comments to form conversation threads.  You'll want to render things like a home page for each author as well as a feed of interesting posts or search results.  Maybe authors can subscribe to search terms or tags that interest them.  Navigating to a post renders the initial post as well as the following conversation thread.
+
+# Your First Schema
+
+Here we'll design a schema for the app and, in the next section, turn that into a running GraphQL API with Dgraph.
+
+It's version 0.1 of the app, so let's start small. For the first version, we are interested in an author's name and the list of things they've posted.  That's a pretty simple GraphQL type.
+
+```graphql
+type Author {
+  username: String!
+  posts: [Post] 
+}
+```
+
+But defining questions and answers is a little trickier.  We could define `type Question { ... }` and `type Answer { ... }`, but then how would comments work.  We want to be able to comment on questions and comment on answers and even have comment threads: so comments that comment on comments.  
+
+We also want to cut down on the amount of boilerplate we need to write, so it's great if we don't need to say that there's an author for a question, and an author for an answer and an author for a comment - see it gets repetitive!
+
+GraphQL has interfaces that solve this problem, and Dgraph lets you use them in a way that cuts down on repetition.
+
+Let's have a GraphQL interface that collects together the common data for the types of text the user can post on the site.  We'll need the author who posted as well as the actual text and the date.
+
+```graphql
+interface Post {
+  id: ID!
+  text: String 
+  datePublished: DateTime 
+  author: Author!
+}
+```
+
+Questions are a kind of post (that is, questions have `text`, a `datePublished` and were published by an `author`) that also have a list of answers.  Answers themselves answer a particular question (as well as having the data of a post).  And comments can comment on any kind of post: questions, answers or other comments.
+
+```graphql
+type Question implements Post {
+  answers: [Answer]
+}
+
+type Answer implements Post {
+  inAnswerTo: Question!
+}
+
+type Comment implements Post {
+  commentsOn: Post!
+}
+```
+
+Given that, we care about more than just the posts an author has made.  Let's say we want to know the questions and answers a user has posted.
+
+```graphql
+type Author {
+  username: String!
+  questions: [Question] 
+  answers: [Answer]
+}
+```
+
+## More than Types
+
+That's enough to describe the types, but, even in the first version, we'll want some ways to search the data - how else could I find the newest 10 posts about "GraphQL".  
+
+Dgraph allows adding extra declarative specifications to the schema file, and it uses these to interpret the schema in particular ways or to add features to the GraphQL API it generates.
+
+Adding the directive `@search` tells Dgraph what fields you want to search by.  The post text is an obvious candidate.  We'll want to search that Google-style, with a search like "GraphQL introduction tutorial".  That's a full-text search.  We can let the API know that's how we'd like to search posts text by updating the schema with:
+
+```graphql
+interface Post {
+  ...
+  text: String @search(by: [fulltext])
+  ...
+}
+``` 
+
+Let's say we also want to find authors by name.  A hash-based search is pretty good for that.  
+
+```graphql
+type Author {
+  ...
+  username: String! @search(by: [hash])
+  ...
+}
+```
+
+We'll also add less-than, greater-than-or-equal-to date searching on `datePublished` - no arguments required to `@search` this time.
+
+```graphql
+interface Post {
+  ... 
+  datePublished: DateTime @search
+  ...
+}
+```
+
+With those directives in the schema, Dgraph will build search capability into our GraphQL API.
+
+We also want to make sure that usernames are unique.  The `@id` directive takes care of that - it also automatically adds hash searching, so we can drop the `@search(by: [hash])`, though having it also causes no harm.
+
+```graphql
+type Author {
+  username: String! @id
+  ...
+}
+```
+
+Now the GraphQL API will ensure that usernames are unique and will build search and mutation capability such that a username can be used like an identifier/key.  The `id: ID!` in `Post` means that an auto-generated ID will be used to identify posts.
+
+The only remaining thing is to recognize how GraphQL handles relations. So far, our GraphQL schema says that an author has some questions and answers and that a post has an author, but the schema doesn't connect them as a two-way edge in the graph: e.g. it doesn't say that the questions I can reach from a particular author all have that author as their author.  
+
+GraphQL schemas are always under-specified in this way. It's left up to the documentation and implementation to make the two-way connection, if it exists.  Here, we'll make sure they hook up in the right way by adding the directive `@hasInverse`.
+
+Here it is in the complete GraphQL schema.
+
+```graphql
+type Author {
+  username: String! @id
+  questions: [Question] @hasInverse(field: author)
+  answers: [Answer] @hasInverse(field: author)
+}
+
+interface Post {
+  id: ID!
+  text: String! @search(by: [fulltext])
+  datePublished: DateTime @search
+  author: Author!
+  comments: [Comment] @hasInverse(field: commentsOn)
+}
+
+type Question implements Post {
+  answers: [Answer] @hasInverse(field: inAnswerTo)
+}
+
+type Answer implements Post {
+  inAnswerTo: Question!
+}
+
+type Comment implements Post {
+  commentsOn: Post!
+}
+```
+
+# Running
+
+Starting Dgraph with GraphQL can be done by running from the all-in-one docker image.  *Note: The Dgraph standalone image is great for quick start and exploring, but it's not meant for production use.  Once you want to build an App or persist your data for restarts, you'll need to review the [admin docs]({{< relref "admin/index.md" >}}).*
+
+```bash
+docker run -it -p 8080:8080 dgraph/standalone:v2.0.0-rc1
+```
+
+That brings Dgraph and enables GraphQL at `localhost:8080`.  Dgraph serves two GraphQL endpoints: 
+
+* at `/graphql` it serves the GraphQL API for your schema; 
+* at `/admin` it serves a GraphQL schema for administering your system.  
+
+We'll use the mutation `updateGQLSchema` at the `/admin` service to add the GraphQL schema and refresh what's served at `/graphql`. 
+
+Take the schema above, cut-and-paste it into a file called `schema.graphql` and run the following curl command.
+
+```bash
+curl -X POST localhost:8080/admin/schema -d '@schema.graphql'
+```
+
+Now Dgraph is serving a GraphQL schema for the types we defined.
+
+# Introspection
+
+So we've taken the input types and generated a running GraphQL API, but what's in the API?
+
+The API responds to GraphQL schema introspection, so you can consume it with anything that's GraphQL: e.g. [GraphQL Playground](https://github.com/prisma-labs/graphql-playground), [Insomnia](https://insomnia.rest/), [GraphiQL](https://github.com/graphql/graphiql) and [Altair](https://github.com/imolorhe/altair).  
+
+Point your favorite tool at http://localhost:8080/graphql and schema introspection will show you what's been generated.
+
+Rather than digging through everything that was generated, let's explore it by running some mutations and queries.
+
+# Mutations
+
+For each type in the input types, Dgraph generated add, update and delete mutations.
+
+Adding authors and posts is the place to start with mutations.
+
+The generated GraphQL API contains:
+
+```graphql
+type Mutation {
+  ...
+  addAuthor(input: AddAuthorInput): AddAuthorPayload
+  ...
+}
+``` 
+
+The input type `AddAuthorInput` really just requires a name for the author.  The add mutation can add multiples, so we can add some authors with:
+
+```graphql
+mutation {
+  addAuthor(input: [
+    { username: "Michael" },
+    { username: "Apoorv" }
+  ]) {
+    author {
+      username
+    }
+  }
+}
+``` 
+
+Which will return
+
+```json
+{
+  "data": {
+    "addAuthor": {
+      "author": [
+        {
+          "username": "Michael"
+        },
+        {
+          "username": "Apoorv"
+        }
+      ]
+    }
+  }
+}
+```
+
+The schema specified those usernames as `@id`, so Dgraph makes sure that they are unique and you'll get an error if you try to add an author with a username that already exists (you can update an existing author with the `updateAuthor` mutation).
+
+The generated GraphQL also contains a mutation for adding questions:
+
+```graphql
+type Mutation {
+  ...
+  addQuestion(input: AddQuestionInput): AddQuestionPayload
+  ...
+}
+``` 
+
+To add a question, you'll need to link it up to the right author, which you can do using its id - the username.  Of course, you can use GraphQL variables to supply the data.
+
+```graphql
+mutation addQuestion($question: AddQuestionInput!){
+  addQuestion(input: [$question]) {
+    question {
+      id
+      text
+      datePublished
+      author {
+        username
+      }
+    }
+  }
+}
+```
+
+With variables
+
+```json
+{
+  "question": {
+    "datePublished": "2019-10-30",
+    "text": "The very fist post about GraphQL in Dgraph.",
+    "author": { "username": "Michael" }
+  }
+}
+```
+
+That will return something like.
+
+```json
+{
+  "data": {
+    "addQuestion": {
+      "question": [
+        {
+          "id": "0x4",
+          "text": "The very fist post about GraphQL in Dgraph.",
+          "datePublished": "2019-10-30T00:00:00Z",
+          "author": {
+            "username": "Michael"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Authors can comment on posts, so let's also add a comment on that post.  
+
+```graphql
+mutation addComment($comment: AddCommentInput!){
+  addComment(input: [$comment]) {
+    comment {
+      id
+      text
+      datePublished
+      author {
+        username
+      }
+      commentsOn {
+        text
+        author {
+          username
+        }
+      }
+    }
+  }
+}
+```
+
+Because posts have an auto generated `ID`, you need to make sure you link to the right post in the following variables.
+
+```json
+{
+  "comment": {
+    "datePublished": "2019-10-30",
+    "text": "Wow, great work.",
+    "author": { "username": "Apoorv" },
+    "commentsOn": { "id": "0x4" }
+  }
+}
+```
+
+The mutation asks for more than just the mutated data, so the response digs deeper into the graph and finds the text of the post being commented on and the author.
+
+```json
+{
+  "data": {
+    "addComment": {
+      "comment": [
+        {
+          "id": "0x5",
+          "text": "Wow, great work.",
+          "datePublished": "2019-10-30T00:00:00Z",
+          "author": {
+            "username": "Apoorv"
+          },
+          "commentsOn": {
+            "text": "The very fist post about GraphQL in Dgraph.",
+            "author": {
+              "username": "Michael"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Mutations don't have to be just one new object, or just linking to existing objects.  A mutation can also add deeply nested data.  Let's add a new author and their first question as a single mutation.
+
+```graphql
+mutation {
+  addAuthor(input: [
+    { 
+      username: "Karthic",
+      questions: [
+        {
+          datePublished: "2019-10-30",
+          text: "How do I add nested data?"  
+        }
+      ]
+    }
+  ]) {
+    author {
+      username
+      questions {
+        id
+        text
+      }
+    }
+  }
+}
+```
+
+We don't need say who the author of the question is this time - Dgraph works it out from the `@hasInverse` directive in the schema.
+
+```json
+{
+  "data": {
+    "addAuthor": {
+      "author": [
+        {
+          "username": "Karthic",
+          "questions": [
+            {
+              "id": "0x6",
+              "text": "How do I add nested data?"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+```
+
+Notice how the structure of the input data for a mutation is just what you'd have as an object model in your app.  There's no special edges, no internal "add", or "link" in those deep mutations.  You don't have to build a special object to make mutations; you can just serialize the model you are using in your program and send it back to Dgraph.  
+
+It even works if you send too much data.  Let's say your app is making an update where an author is answering the question above.  It'll use the `addAnswer` mutation.  
+
+```graphql
+mutation addAnswer($answer: AddAnswerInput!){
+  addAnswer(input: [$answer]) {
+    answer {
+      id
+      text
+    }
+  }
+}
+```
+
+In your app you've got the original question, you've built the answer and linked them in whatever way is right in your programming language, but when you serialize the answer, you'll get.
+
+```json
+{
+  "answer": {
+    "text": "Don't worry deep mutations just work",
+    "author": { "username": "Michael" },
+    "inAnswerTo": { 
+      "id": "0x6",
+      "text": "How do I add nested data?" 
+    }
+  }
+}
+```
+
+It doesn't matter that the question data is repeated.  Dgraph works out that "0x6" is an existing post and links to it without trying to alter its existing contents.  So you can just serialize your client side data and you don't even have to strip out the extra data when linking to existing objects.
+
+Play around with it for a bit - add some authors and posts; there's also update and delete mutations you'll find by inspecting the schema.  Next, we'll see how to query data. 
+
+# Queries
+
+For each type in the input schema, two kinds of queries get generated.
+
+```graphql
+type Query {
+  ...
+  getAuthor(username: String!): Author
+  getPost(id: ID!): Post
+  ...
+  queryAuthor(filter: AuthorFilter, order: AuthorOrder, first: Int, offset: Int): [Author]
+  queryPost(filter: PostFilter, order: PostOrder, first: Int, offset: Int): [Post]
+  ...
+}
+```
+
+The get queries grab a single object by ID, while query is where Dgraph added the search capability it built from the `@search` directives in the schema.
+
+Because the username is an author's ID, `getAuthor` takes as input the username to find.  Posts use the auto generated ID and so `getPost` takes that as input.
+
+The filters in `AuthorFilter` and `PostFilter` are generated depending on what fields had an `@search` directive in the schema.  The possible orderings in `order` are worked out from the types of the fields.  And `first` and `offset` let you paginate results.
+
+Getting an author by their id is just
+
+```graphql
+query {
+  getAuthor(username: "Karthic") { 
+    username 
+    questions { text }
+  }
+}
+```
+
+For a post it's
+
+```graphql
+query {
+  getPost(id: "0x4") {
+    text
+    author {
+      username
+    }
+  }
+}
+```
+
+Query `queryAuthor` works by applying any `filter`, `order` or pagination, and if none are given, it's just a search for things of that type.  For example, get all authors with:
+
+```graphql
+query {
+  queryAuthor {
+    username
+    answers {
+      text
+    }
+    questions {
+      text
+    }
+  }
+}
+```
+
+Or sort the authors alphabetically by name and get the first 5.
+
+```graphql
+query {
+  queryAuthor(order: { asc: username }, first: 5) {
+    username
+  }
+}
+```
+
+More interesting is querying posts.  In the app, you'd perhaps add a search field to the UI and maybe allow search for matching questions.  Here's how you'd get the latest 10 questions that mention GraphQL.
+
+```graphql
+query {
+  queryPost(filter: { text: { anyoftext: "GraphQL"}}, order: { desc: datePublished }, first: 10) {
+    text
+    author {
+      username
+    }
+  }
+}
+```
+
+The query options also work deeper in queries.  So you can, for example, also find the most recent post of each author.
+
+```graphql
+query {
+  queryPost(filter: { text: { anyoftext: "GraphQL"}}, order: { desc: datePublished }, first: 10) {
+    text
+    author {
+      username
+      questions(order: { desc: datePublished }, first: 1) {
+        text
+        datePublished
+      }
+    }
+  }
+}
+```
+
+# Updating the App
+
+You've got v1 of your App working.  So you'll start iterating on your design an improving it.  Now you want authors to be able to tag questions and search for questions that have particular tags.
+
+Dgraph makes this easy.  You can just update your schema and keep working.
+
+That'll be updating the definition of Question to
+
+```graphql
+type Question implements Post {
+  answers: [Answer]
+  tags: [String!] @search(by: [term])
+}
+```
+
+So the full schema becomes
+
+```graphql
+type Author {
+  username: String! @id @search(by: [hash])
+  questions: [Question] @hasInverse(field: author)
+  answers: [Answer] @hasInverse(field: author)
+}
+
+interface Post {
+  id: ID!
+  text: String @search(by: [fulltext])
+  datePublished: DateTime @search
+  author: Author!
+}
+
+type Question implements Post {
+  answers: [Answer]
+  tags: [String!] @search(by: [term])
+}
+
+type Answer implements Post {
+  inAnswerTo: Question!
+}
+
+type Comment implements Post {
+  commentsOn: Post!
+}
+```
+
+Update the schema as you did before and Dgraph will adjust to the new schema.
+
+But all those existing questions won't have tags, so let's add some.  How about we tag every question that contains "GraphQL" with the tag "graphql".  The `updateQuestion` mutation allows us to filter for the questions we want to update and then either `set` new values or `remove` existing values.
+
+The same filters that work for queries and mutations (update and delete) also work in mutation results, so we can update all the matching question to have the "graphql" tag, while returning a result that only contains the most recent such questions.
+
+```graphql
+mutation {
+  updateQuestion(input: {
+    filter: { text: { anyoftext: "GraphQL" }},
+    set: { tags: ["graphql"]}
+  }) {
+    question(order: { desc: datePublished }, first: 10) {
+      text
+      datePublished
+      tags
+      author {
+        username
+      }
+    }
+  }
+}
+```
