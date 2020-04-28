@@ -644,4 +644,4 @@ pre tt:after {
   object-fit: contain;
   width: 100%;
 }
-
+.CodeMirror-cursor { background: #fff!important; }

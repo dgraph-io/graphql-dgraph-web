@@ -169,9 +169,7 @@ const SideBar = props => {
       </ul>
     </React.Fragment>
   )
-  console.log("list", list)
   return list
-  // return <div>hello</div>
 }
 
 export default SideBar
