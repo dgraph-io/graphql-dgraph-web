@@ -1,4 +1,13 @@
 ---
-title: 'React'
+title: "React"
 path: /clients-example/react
+order: 7
 ---
+
+import Expand from "../../components/Expand"
+import GraphiQLWrapper from "../../components/GraphiQL"
+import { querySample } from "../../utils/queries"
+
+<Expand>
+  <GraphiQLWrapper defaultQuery={querySample} />
+</Expand>

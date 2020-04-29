@@ -1,5 +1,5 @@
 import React from "react";
-import { FaTwitter, FaGithub } from "react-icons/fa";
+import { FaTwitter, FaGithub, FaSlack } from "react-icons/fa";
 
 export default (props) => {
   return (
@@ -7,30 +7,39 @@ export default (props) => {
       href="https://dgraph.io/"
       target="_blank"
       rel="noopener noreferrer"
-      style={{ textAlign: "center" }}
+      className="footer"
     >
-      <a
-        target="_blank"
-        className="btn btn-secondary btn-sm"
-        rel="noopener noreferrer"
-        style={{ marginRight: 5 }}
-        href={`${props.repoURL}`}
-        size="sm"
-        variant="light"
-      >
-        <FaGithub />
-        <span style={{ paddingLeft: 5 }}>Source</span>
-      </a>
-      <a
-        href={`https://twitter.com/intent/tweet?text=${props.twitterShareText}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn btn-sm"
-        style={{ backgroundColor: "#00acee" }}
-      >
-        <FaTwitter style={{ color: "white" }} />
-        <span style={{ paddingLeft: 5 }}>Tweet</span>
-      </a>
+      <span>
+          <a
+            target="_blank"
+            className="btn btn-secondary btn-sm"
+            rel="noopener noreferrer"
+            href="https://slack.dgraph.io/"
+            size="sm"
+            style={{ backgroundColor: "#3F0E40", marginRight: 5 }}
+          >
+            <FaSlack />
+          </a>
+          <a
+            href="https://twitter.com/dgraphlabs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-sm"
+            style={{ backgroundColor: "#00acee", marginRight: 5 }}
+          >
+            <FaTwitter style={{ color: "white" }} />
+          </a>
+          <a
+            target="_blank"
+            className="btn btn-secondary btn-sm"
+            href="https://github.com/dgraph-io/dgraph"
+            rel="noopener noreferrer"
+            size="sm"
+            variant="light"
+          >
+            <FaGithub />
+          </a>
+        </span>
     </div>
   );
 };
