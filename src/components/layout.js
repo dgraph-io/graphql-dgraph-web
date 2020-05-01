@@ -23,8 +23,10 @@ const Layout = ({ children }) => (
       <>
         <Header siteTitle={data.site.siteMetadata.title} />
         <SideBar />
-        <div className="landing-pg">{children}</div>
-        <Footer />
+        <div className="content-wrap">  
+          <div className="landing-pg">{children}</div>
+          <Footer />
+        </div>
       </>
     )}
   />

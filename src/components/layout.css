@@ -726,19 +726,21 @@ pre tt:after {
 }
 
 .footer {
-  position: static;
-  left: 0;
-  bottom: 0;
-  width: 100%;
   text-align: center;
   padding-bottom: 15px;
 }
 
 .landing-pg {
-  margin-left: 280px;
-  max-width: 990px;
+  min-height: calc(100vh - 170px);
   padding: 0px 1.0875rem 1.45rem;
   padding-top: 0;
+}
+
+.content-wrap {
+  display: flex;
+  flex-direction: column;
+  margin-left: 280px;
+  max-width: 990px;
 }
 
 .CodeMirror-cursor {

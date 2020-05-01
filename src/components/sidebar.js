@@ -1,27 +1,19 @@
 import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
+import { Accordion } from "react-bootstrap"
 
 const SideBar = props => {
-
   const data = useStaticQuery(graphql`
     {
-      allFile(
-        filter: { extension: { eq: "mdx" } }
-        sort: { fields: childMdx___frontmatter___order }
-      ) {
+      allMdx(sort: { fields: fields___order }) {
         edges {
           node {
-            extension
-            name
-            relativeDirectory
-            children {
-              ... on Mdx {
-                id
-                frontmatter {
-                  title
-                  path
-                }
-              }
+            fields {
+              slug
+              order
+              title
+              valParent
+              mainParent
             }
           }
         }
@@ -41,116 +33,109 @@ const SideBar = props => {
     currentIndex.push(child)
   }
 
-  function addNodes(node) {
-    if (node.name !== "index") {
+  function addNodes(field) {
+    if (field.slug.split("/").reverse()[0] !== "index") {
       let child = (
-        <li key={node.children[0].frontmatter.title}>
-          <Link
-            to={
-              "/" + node.relativeDirectory + "/" + node.name
-            }
-            getProps={isActive}
-          >
-            {node.children[0].frontmatter.title}
+        <li key={field.title}>
+          <Link to={field.slug} getProps={isActive}>
+            {field.title}
           </Link>
         </li>
       )
       addChildren(child)
     } else {
       let index = (
-        <li key={node.children[0].frontmatter.title}>
-          <Link
-            to={"/" + node.relativeDirectory}
-            getProps={isActive}
-          >
-            {node.children[0].frontmatter.title}
+        <li key={field.title}>
+          <Link to={field.slug.replace("index", "")} getProps={isActive}>
+            {field.title}
           </Link>
-          {/* <span>+</span> */}
         </li>
       )
       addIndex(index)
-    } 
+    }
   }
 
-  let currentParent = ""
+  function renderResult() {
+    const res = (
+      <React.Fragment>
+        <Accordion>
+          <Accordion.Toggle as="span" eventKey="0">
+            {currentIndex}
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
+            <ul style={{ listStyle: "none" }}>{currentChildren}</ul>
+          </Accordion.Collapse>
+        </Accordion>
+      </React.Fragment>
+    )
+    currentChildren = []
+    currentIndex = []
+    return res
+  }
+
   let currentChildren = []
   let currentIndex = []
-  
+  let currentParents = []
+  let currentOrder = data.allMdx.edges[0].node.fields.order
+
   const list = (
     <React.Fragment>
       <ul className="sidenav">
-        {data.allFile.edges.map(({node}, index) => {
-          if (
-            node.relativeDirectory !== "" &&
-            (currentParent === "" ||
-              currentParent === node.relativeDirectory)
-          ) {
-            currentParent = node.relativeDirectory
-            addNodes(node);
-            if (index + 1 === data.allFile.edges.length) {
+        {data.allMdx.edges.map(({ node }, index) => {
+          const { fields } = node
+          if (fields.slug.split("/").length == 2) {
+            if (currentOrder != fields.order) {
+              currentOrder = fields.order
               const res = (
+                <li key={fields.title}>
+                  <Link to={fields.slug} getProps={isActive}>
+                    {fields.title}
+                  </Link>
+                </li>
+              )
+              return (
                 <React.Fragment>
-                  {currentIndex}
-                  <ul style={{ listStyle: "none" }}>
-                    {currentChildren}
-                  </ul>
+                  {renderResult()}
+                  {res}
                 </React.Fragment>
               )
-              return res
             }
-            return
-          } else if (
-            currentParent !== node.relativeDirectory &&
-            currentParent !== ""
-          ) {
-            let res
-            if (node.relativeDirectory === "") {
-              res = (
-                <React.Fragment>
-                  {currentIndex}
-                  <ul style={{ listStyle: "none" }}>
-                    {currentChildren}
-                  </ul>
-                  <li key={node.children[0].frontmatter.title}>
-                    <Link to={"/" + node.name} getProps={isActive}>
-                      {node.children[0].frontmatter.title}
-                    </Link>
-                  </li>
-                </React.Fragment>
-              )
-              currentIndex = []
-              currentParent = ""
-              currentChildren = []
+            currentOrder = fields.order
+            return (
+              <li key={fields.title}>
+                <Link to={fields.slug} getProps={isActive}>
+                  {fields.title}
+                </Link>
+              </li>
+            )
+          } else {
+            
+            if (currentOrder == fields.order) {
+              addNodes(fields)
+              currentOrder = fields.order
+              if (index + 1 == data.allMdx.edges.length) {
+                return (
+                  <React.Fragment>
+                    {renderResult()}
+                  </React.Fragment>
+                ) 
+              }
             } else {
-              res = (
+              const res = renderResult()
+              addNodes(fields)
+              currentOrder = fields.order
+              return (
                 <React.Fragment>
-                  {currentIndex}
-                  <ul style={{ listStyle: "none" }}>
-                    {currentChildren}
-                  </ul>
+                  {res}
                 </React.Fragment>
               )
-              currentIndex = []
-              currentParent = ""
-              currentChildren = []
-              currentParent = node.relativeDirectory
-              addNodes(node)
             }
-            return res
           }
-
-          return (
-            <li key={node.children[0].frontmatter.title}>
-              <Link to={"/" + node.name} getProps={isActive}>
-                {node.children[0].frontmatter.title}
-              </Link>
-            </li>
-          )
         })}
       </ul>
     </React.Fragment>
   )
-  
+
   return list
 }
 
