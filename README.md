@@ -7,7 +7,7 @@ yarn start
 
 ### Adding a page 
 
-Just add a `mdx` file with the `title` on top of the file. Now if you want to add a section which can have more parts then just create a folder and add the `index.mdx` file for the main file and again add a `title` field on top and then add as many files you want `*.mdx`.
+Just add a `mdx` file with the `title` and `order` on top of the file. Now if you want to add a section which can have more parts then just create a folder and add the `index.mdx` file for the main file and again add a `title` and `order` field on top and then add as many files you want `*.mdx` with `title` and `order` (same number as parent).
 
 ### Adding GraphiQL component
 
