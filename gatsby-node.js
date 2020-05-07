@@ -11,29 +11,26 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       value = ""
     }
 
-    console.log("parent.", parent.relativePath, config.findIndex(obj =>
-      parent.relativePath.includes(obj.path.split("/")[0])
-    ))
 
-    createNodeField({
-      name: `order`,
-      node,
-      value: config.findIndex(obj =>
-        parent.relativePath.includes(obj.path.split("/")[0])
-      ),
-    })
+    // createNodeField({
+    //   name: `order`,
+    //   node,
+    //   value: config.findIndex(obj =>
+    //     parent.relativePath.includes(obj.path.split("/")[0])
+    //   ),
+    // })
 
-    createNodeField({
-        name: `valParent`,
-        node,
-        value: value.split('/').reverse()[1] === undefined? "" : value.split('/').reverse()[1]
-    })
+    // createNodeField({
+    //     name: `valParent`,
+    //     node,
+    //     value: value.split('/').reverse()[1] === undefined? "" : value.split('/').reverse()[1]
+    // })
 
-    createNodeField({
-        name: `mainParent`,
-        node,
-        value: value.split("/")[0]
-    })
+    // createNodeField({
+    //     name: `mainParent`,
+    //     node,
+    //     value: value.split("/")[0]
+    // })
 
     createNodeField({
       name: `slug`,
