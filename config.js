@@ -4,16 +4,24 @@ module.exports = [
     title: "Quick Start",
   },
   {
-    path: "admin.mdx",
-    title: "Admin",
+    path: "api.mdx",
+    title: "The API",
+  },
+  {
+    path: "example.mdx",
+    title: "Example",
   },
   {
     path: "schema.mdx",
     title: "Schema",
   },
   {
-    path: "example.mdx",
-    title: "Example",
+    path: "admin.mdx",
+    title: "Admin",
+  },
+  {
+    path: "dgraph.mdx",
+    title: "GraphQL on Existing Dgraph",
   },
   {
     path: "sample-apps/index.mdx",
@@ -30,24 +38,6 @@ module.exports = [
       {
         path: "sample-apps/stackoverflow-app.mdx",
         title: "StackOverflow App",
-      },
-    ],
-  },
-  {
-    path: "api.mdx",
-    title: "The API",
-  },
-  {
-    path: "dgraph.mdx",
-    title: "Dgraph",
-  },
-  {
-    path: "clients-example/index.mdx",
-    title: "Client-examples",
-    children: [
-      {
-        path: "clients-example/react.mdx",
-        title: "React",
       },
     ],
   },

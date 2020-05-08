@@ -1,13 +1,7 @@
 ---
-title: Simple Todo GraphQL Apps
-path: /sample-apps/todo-app
-share: Simple Todo apps with Dgraph GraphQL @dgraphlabs
-repo: https://github.com/dgraph-io/graphql-apps
+title: Simple Todo App
 imgFolder: todo-app
 badges: ['React', 'Vue', 'Flutter']
-badgesUrl: ['https://github.com/dgraph-io/graphql-apps/tree/master/todo-app-react','https://github.com/dgraph-io/graphql-apps/tree/master/todo-app-vue','https://github.com/dgraph-io/graphql-apps/tree/master/todo-app-flutter']
-date: 2020-04-23
-order: 4
 ---
 
 import TitleBar from '../../components/TitleBar';
@@ -22,7 +16,7 @@ import Badges from "../../components/badges"
 
 <ImageSlider imgFolder={props.pageContext.frontmatter.imgFolder} />
 
-<Badges badges={props.pageContext.frontmatter.badges} badgesUrl={props.pageContext.frontmatter.badgesUrl}/>
+<Badges badges={props.pageContext.frontmatter.badges} />
 
 
 This is a simple GraphQL application to demonstrate Dgraph's GraphQL capabilities.

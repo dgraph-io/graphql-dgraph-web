@@ -1,35 +1,24 @@
-import React, { useState } from "react"
+import React from "react"
 import {  Link } from "gatsby"
 import { Accordion } from "react-bootstrap"
 
 const config = require("../../config")
 
 const SideBar = props => {
-  const [partialCurrent, setpartialCurrent] = useState([])
   function isActive(obj) {
-    if (
-      obj.isPartiallyCurrent === true &&
-      partialCurrent.length < config.length
-    ) {
-      setpartialCurrent(partialCurrent => [...partialCurrent, obj.href])
-    }
     return obj.isCurrent ? { className: "active" } : null
   }
-  //isPartiallyCurrent href
-  function addChildren(child) {
-    currentChildren.push(child)
-  }
-
+  
   let currentChildren = []
   let currentParent
   let completeRes = []
 
-  config.map(node => {
+  completeRes = config.map(node => {
     currentParent = node.title
     let mainNode = (
       <li key={node.title} className="sidebar-inline">
         <Link
-          to={node.path.replace("index.mdx", "/").replace(".mdx", "/")}
+          to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
         >
           {node.title}
@@ -37,30 +26,33 @@ const SideBar = props => {
       </li>
     )
     if (node.children !== undefined) {
-      node.children.map(childNode => {
+      currentChildren = node.children.map(childNode => {
         let child = (
           <li key={childNode.title}>
-            <Link to={childNode.path.replace(".mdx", "")} getProps={isActive}>
+            <Link
+              to={"/" + childNode.path.replace(".mdx", "")}
+              getProps={isActive}
+            >
               {childNode.title}
             </Link>
           </li>
         )
-        addChildren(child)
+        return child
       })
     }
-    
+
     const res = (
-      <React.Fragment>
+      <React.Fragment key={currentParent}>
         <Accordion defaultActiveKey={currentParent}>
           {mainNode}
           {currentChildren.length !== 0 && (
             <Accordion.Toggle as="span" eventKey={currentParent}>
-              <span style={{ cursor: "pointer" }}> - </span>
+              <span className="cursor-pointer"> - </span>
             </Accordion.Toggle>
           )}
           {currentChildren.length !== 0 && (
             <Accordion.Collapse eventKey={currentParent}>
-              <ul style={{ listStyle: "none" }}>{currentChildren}</ul>
+              <ul className="list-no-style">{currentChildren}</ul>
             </Accordion.Collapse>
           )}
         </Accordion>
@@ -68,7 +60,7 @@ const SideBar = props => {
     )
 
     currentChildren = []
-    completeRes.push(res)
+    return res
   })
 
   const list = (

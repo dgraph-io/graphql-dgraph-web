@@ -1,8 +1,8 @@
 ---
 title: Quick Start
-path: /quick-start
-order: 6
 ---
+
+<h1>{props.pageContext.frontmatter.title}</h1>
 
 Let's go from nothing to a running GraphQL API in just two steps.
 
@@ -37,10 +37,10 @@ With Dgraph you can turn that schema into a running GraphQL API in just two step
 
 ## Step 1 - Start Dgraph GraphQL
 
-It's a one-liner to bring up Dgraph with GraphQL.  *Note: The Dgraph standalone image is great for quick start and exploring, but it's not meant for production use.  Once you want to build an App or persist your data for restarts, you'll need to review the [admin docs]({{< relref "admin/index.md" >}}).*
+It's a one-liner to bring up Dgraph with GraphQL.  *Note: The Dgraph standalone image is great for quick start and exploring, but it's not meant for production use.  Once you want to build an App or persist your data for restarts, you'll need to review the   [admin docs](/admin).*
 
 ```bash
-docker run -it -p 8080:8080 dgraph/standalone:v2.0.0-rc1
+docker run -it -p 8080:8080 dgraph/standalone:v20.03.0
 ```
 
 With that, GraphQL has started at localhost:8080/graphql, but it doesn't have a schema to serve yet. 
@@ -52,7 +52,7 @@ Dgraph will run your GraphQL API at `/graphql` and an admin interface at `/admin
 Take the schema above, cut-and-paste it into a file called `schema.graphql` and run the following curl command.
 
 ```bash
-curl -X POST localhost:8080/admin/schema -d '@schema.graphql'
+curl -X POST localhost:8080/admin/schema --data-binary '@schema.graphql'
 ```
 
 It'll post back the types it's currently serving a schema for, which should be the same as the input schema.
@@ -65,7 +65,7 @@ No, really, that's all; nothing else to do; it's there, serving GraphQL --- let'
 
 If you've followed the steps above, there's a GraphQL server up and running.  You can access that GraphQL endpoint with any of the great GraphQL developer tools.  Good choices include [GraphQL Playground](https://github.com/prisma-labs/graphql-playground), [Insomnia](https://insomnia.rest/), [GraphiQL](https://github.com/graphql/graphiql) and [Altair](https://github.com/imolorhe/altair).  
 
-Fire one of those up and point it at http://localhost:8080/graphql.  If you know lots about GraphQL, you might want to explore the schema, queries and mutations that were generated from the input.
+Fire one of those up and point it at `http://localhost:8080/graphql`.  If you know lots about GraphQL, you might want to explore the schema, queries and mutations that were generated from the input.
 
 We'll begin by adding some products and an author.  GraphQL can accept multiple mutations at a time, so it's one request.  Neither the products nor the author will have any reviews yet, so all we need is the names.
 

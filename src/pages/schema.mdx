@@ -1,8 +1,8 @@
 ---
 title: Schema
-path: /schema
-order: 9
 ---
+
+<h1>{props.pageContext.frontmatter.title}</h1>
 
 All the things you can put in your input GraphQL schema, and what gets generated from that.
 
@@ -90,7 +90,7 @@ type Author {
     id: ID!
     name: String!
     posts: [Post!]
-    friends [Author]
+    friends: [Author]
 }
 ```
 
@@ -134,7 +134,7 @@ type Question implements Post {
 
 while `Comment` gets expanded as:
 
-```
+```graphql
 type Comment implements Post {
     id: ID!
     text: String
@@ -228,7 +228,7 @@ A field `queryPost` is added to the `Query` type of the schema.
 queryPost(filter: PostFilter, order: PostOrder, first: Int, offset: Int): [Post]
 ```
 
-`PostFilter` will contain less than `le`, less than or equal to `le`, equal `eq`, greater than or equal to `ge` and greater than `gt` search on `numLikes`.  Allowing for example:
+`PostFilter` will contain less than `lt`, less than or equal to `le`, equal `eq`, greater than or equal to `ge` and greater than `gt` search on `numLikes`.  Allowing for example:
 
 ```graphql
 queryPost(filter: { numLikes: { gt: 50 }}) { ... }

@@ -1,13 +1,7 @@
 ---
 title: Simple Blog App
-path: /sample-apps/blog-app
-share: Simple Blog app with Dgraph GraphQL @dgraphlabs
-repo: https://github.com/dgraph-io/graphql-apps
 imgFolder: blog-app
 badges: ['React', 'Vue']
-badgesUrl: ['https://github.com/dgraph-io/graphql-apps/tree/master/blog-app','https://github.com/dgraph-io/graphql-apps/tree/master/blog-post-vue']
-date: 2019-08-25
-order: 4
 ---
 
 import TitleBar from '../../components/TitleBar';
@@ -22,7 +16,7 @@ import Badges from "../../components/badges"
 
 <ImageSlider imgFolder={props.pageContext.frontmatter.imgFolder} />
 
-<Badges badges={props.pageContext.frontmatter.badges} badgesUrl={props.pageContext.frontmatter.badgesUrl}/>
+<Badges badges={props.pageContext.frontmatter.badges} />
 
 This is a simple GraphQL web application to demonstrate Dgraph's GraphQL capabilities.
 The web app is built using ReactJS and Apollo-React client libraries. And the GraphQL
@@ -37,4 +31,3 @@ API for the web app is powered by Dgraph.
 - Advanced search on the blog title or content
 
 ---
-

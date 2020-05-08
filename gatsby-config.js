@@ -14,14 +14,14 @@ module.exports = {
         extensions: [`.md`, `.mdx`],
         gatsbyRemarkPlugins: [
           {
-            resolve: 'gatsby-remark-images',
+            resolve: "gatsby-remark-images",
             options: {
               // maxWidth: 500,
               linkImagesToOriginal: false,
             },
           },
         ],
-        defaultLayouts: { default: path.resolve('./src/components/layout.js') },
+        defaultLayouts: { default: path.resolve("./src/components/layout.js") },
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -36,8 +36,8 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `pages`,
-        path: `${__dirname}/src/pages`
-     },
+        path: `${__dirname}/src/pages`,
+      },
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -50,7 +50,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/graphql-logo.png`, // This path is relative to the root of the site.
+        icon: `src/images/logo.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

@@ -4,21 +4,12 @@ import React from "react";
 import DgraphLogo from "../images/graphql-logo.png";
 
 const Header = ({ siteTitle }) => (
-  <div
-    style={{
-      marginBottom: "1.45rem",
-    }}
-  >
+  <div className="header-spacing">
      <div className="page-header">
      <div className="page-logo">
         <Link
           to="/"
-          style={{
-            display: 'block',
-            margin: '0 auto',
-            textDecoration: 'none',
-          }}
-          className="img-logo"
+          className="img-logo header-link"
         >
           <img src={DgraphLogo} alt="Dgraph logo"/>
         </Link>

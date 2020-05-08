@@ -28,7 +28,7 @@ const ImageSlider = (props) => (
         data.allFile.edges.map(pic => {
           if (pic.node.relativeDirectory === props.imgFolder) {
             return <Carousel.Item
-              style={{ maxWidth: "100%", height: 400 }}
+            className="img-slider-item" 
               key={pic.node.id}
             >
                 <Img

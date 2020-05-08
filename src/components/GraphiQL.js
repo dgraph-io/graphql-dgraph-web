@@ -38,10 +38,10 @@ export default function GraphiQLWrapper({ defaultQuery }) {
 
   useEffect(() => {
     getSchema()
-  }, [])
+  })
 
   return (
-    <div className="graphiql-wrapper" style={{ height: 500 }}>
+    <div className="graphiql-wrapper graphiql-tab">
       <div className="graphiql-container">
         <GraphiQLExplorer
           schema={schema}

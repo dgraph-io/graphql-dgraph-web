@@ -2,10 +2,7 @@ import React from "react";
 
 const TitleBar = ({ text, size, bkgdColor }) => (
   <div
-    style={{
-      textAlign: "center",
-      paddingBottom: 10,
-    }}
+  className="titlebar-heading" 
   >
     <h2
       style={{

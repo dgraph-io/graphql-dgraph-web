@@ -1,8 +1,8 @@
 ---
 title: 'Example'
-path: /example
-order: 2
 ---
+
+<h1>{props.pageContext.frontmatter.title}</h1>
 
 A worked example of how to build a GraphQL API for an App.
 
@@ -25,11 +25,11 @@ You design a graph, store a graph and query a graph.  You think and design in te
 
 Let's move on to the design process - it's graph-first, in fact, it's GraphQL-first.  We'll design the GraphQL types that our example app is based around, and ... we'll there's no *and* ... from that, you get a GraphQL API for those types; you just move on to building the app around it.
 
-# An Example App
+## An Example App
 
 Say you are working to build a social media app.  In the app, there are authors writing questions and others answering or making comments to form conversation threads.  You'll want to render things like a home page for each author as well as a feed of interesting posts or search results.  Maybe authors can subscribe to search terms or tags that interest them.  Navigating to a post renders the initial post as well as the following conversation thread.
 
-# Your First Schema
+## Your First Schema
 
 Here we'll design a schema for the app and, in the next section, turn that into a running GraphQL API with Dgraph.
 
@@ -170,10 +170,10 @@ type Comment implements Post {
 
 # Running
 
-Starting Dgraph with GraphQL can be done by running from the all-in-one docker image.  *Note: The Dgraph standalone image is great for quick start and exploring, but it's not meant for production use.  Once you want to build an App or persist your data for restarts, you'll need to review the [admin docs]({{< relref "admin/index.md" >}}).*
+Starting Dgraph with GraphQL can be done by running from the all-in-one docker image.  *Note: The Dgraph standalone image is great for quick start and exploring, but it's not meant for production use.  Once you want to build an App or persist your data for restarts, you'll need to review the  [admin docs](/admin).*
 
 ```bash
-docker run -it -p 8080:8080 dgraph/standalone:v2.0.0-rc1
+docker run -it -p 8080:8080 dgraph/standalone:v20.03.0
 ```
 
 That brings Dgraph and enables GraphQL at `localhost:8080`.  Dgraph serves two GraphQL endpoints: 
@@ -186,7 +186,7 @@ We'll use the mutation `updateGQLSchema` at the `/admin` service to add the Grap
 Take the schema above, cut-and-paste it into a file called `schema.graphql` and run the following curl command.
 
 ```bash
-curl -X POST localhost:8080/admin/schema -d '@schema.graphql'
+curl -X POST localhost:8080/admin/schema --data-binary '@schema.graphql'
 ```
 
 Now Dgraph is serving a GraphQL schema for the types we defined.
@@ -197,7 +197,7 @@ So we've taken the input types and generated a running GraphQL API, but what's i
 
 The API responds to GraphQL schema introspection, so you can consume it with anything that's GraphQL: e.g. [GraphQL Playground](https://github.com/prisma-labs/graphql-playground), [Insomnia](https://insomnia.rest/), [GraphiQL](https://github.com/graphql/graphiql) and [Altair](https://github.com/imolorhe/altair).  
 
-Point your favorite tool at http://localhost:8080/graphql and schema introspection will show you what's been generated.
+Point your favorite tool at `http://localhost:8080/graphql` and schema introspection will show you what's been generated.
 
 Rather than digging through everything that was generated, let's explore it by running some mutations and queries.
 
