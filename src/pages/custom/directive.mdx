@@ -1,22 +1,233 @@
-
 ---
 title: 'The `@custom` directive'
 ---
 
 <h1>{props.pageContext.frontmatter.title}</h1>
 
+The `@custom` directive can be used to define custom queries, custom mutations and custom fields.
+
 In all cases, the result type (of the query, mutation or field) can be either:
 
 * a type that's stored in Dgraph (that's any type you've defined in your schema), or
 * a type that's not stored in Dgraph and is marked with the `@remote` directive.
 
-Because the result types can be local or remote, you can call other HTTP endpoints, call remote GraphQL, or even call back to your Dgraph instance to add extra logic on top of Dgraph's graph search.
+Because the result types can be local or remote, you can call other HTTP endpoints, call remote GraphQL, or even call back to your Dgraph instance to add extra logic on top of Dgraph's graph search or mutations.
 
-Let's look at some examples.
+Here's the GraphQL definition of the directives:
+
+```
+directive @custom(http: CustomHTTP) on FIELD_DEFINITION
+directive @remote on OBJECT | INTERFACE
+
+input CustomHTTP {
+	url:            String!
+	method:         HTTPMethod!
+    forwardHeaders: [String!]
+	body:           String
+	graphql:        String
+}
+
+enum HTTPMethod { GET POST PUT PATCH DELETE }
+```
+
+Each definition of custom logic must include:
+
+* the `url` where the custom logic is called.  This can include a path and parameters that depend on query/mutation arguments or other fields.
+* the HTTP `method` to use in the call.  For example, when calling a REST endpoint with `GET`, `POST`, etc.
+
+Optionally, the custom logic definition can also include:
+
+* a list of `forwardHeaders` to take from the incoming request and add to the outgoing HTTP call.  Used, for example, if the incoming request contains an auth token that must be passed to the custom logic.
+* a `body` definition that can be used to construct a HTTP body from from arguments and fields.
+* the `graphql` query/mutation to call if the custom logic is a GraphQL server.
+
+The method can be any of the HTTP methods; let's look at each of the other `http` arguments in detail.
+
+## The URL and method
+
+The URL can be as simple as a fixed URL string, or include details drawn from the arguments or fields.
+
+A simple string might look like:
+
+```
+type Query {
+    myCustomQuery: MyResult @custom(http: {
+        url: "https://my.api.com/theQuery",
+        method: GET
+    })
+}
+```
+
+It's also possible to use the arguments of the query/mutation as a pattern for the URL, such as:
+
+```
+type Query {
+    myGetPerson(id: ID!): Person @custom(http: {
+        url: "https://my.api.com/person/$id",
+        method: GET
+    })
+
+    getPosts(authorID: ID!, numToFetch: Int!): [Post] @custom(http: {
+        url: "https://my.api.com/person/$authorID/posts?limit=$numToFetch",
+        method: GET
+    })
+}
+```
+
+Thus a query like
+
+```
+query {
+    getPosts(authorID: "auth123", numToFetch: 10) { title }
+}
+```
+
+gets transformed to outgoing HTTP GET request to the URL `https://my.api.com/person/auth123/posts?limit=10`.
+
+When using custom logic on fields, the URL can draw from other fields in the type.  For example:
+
+```
+type User {
+    username: String! @id
+    ...
+    posts: [Post] @custom(http: {
+        url: "https://my.api.com/person/$username/posts",
+        method: GET
+    })
+}
+```
+
+## How custom fields are resolved
+
+When evaluating a request that includes custom fields, Dgraph might run multiple resolution stages to resolve all the fields.  Dgraph must also ensure it requests enough data to forfull the custom fields.  For example, given the `User` type defined above, a query such as:
+
+```
+query {
+    queryUser {
+        username
+        posts
+    }
+}
+```
+
+is executed by first querying for `username` and then using that to resolve `posts` (which relies on username).  For a request like:
+
+```
+query {
+    queryUser {
+        posts
+    }
+}
+```
+
+Dgraph works out that it must first get `username` so it can run the custom field `posts`.  So Dgraph first retrieves enough data to satisfy the custom request, even if that involves data that isn't asked for in the query.
+
+There are currently a few limitations on custom fields: 
+
+* each custom call must include either an `ID` or `@id` field
+* arguments are not allowed (soon custom field arguments will be allowed and will be used in the `@custom` directive in the same maner as for custom queries and mutations), and
+* a custom field can't depend on another custom field (longer term, we intend to lift this restriction).
+
+
+## The body
+
+Many HTTP requests, such as add and update operations on REST APIs, require a JSON formatted body to suply the data.  In a similar way to how `url` allows specifying a url pattern to use in resolving the custom request, Dgraph allows a `body` pattern that is used to build HTTP request bodies.
+
+For example, this body can be structured JSON that relates a mutation's arguments to the JSON structure required by the remote endpoint.
+
+```
+type Mutation {
+        newMovies(title: String!, desc: String, dir: ID, imdb: ID): [Movie] @custom(http: {
+                url: "http://myapi.com/movies",
+                method: "POST",
+                body: "{ title: $title, imdbID: $imdb, storyLine: $desc, director: { id: $dir }}",
+        })
+```
+
+Both `url` and `body` templates can be used in a single custom definition.
+
+For both `url` and `body` templates, the following rules are applied when building the request from the template.
+
+* If the value of a nullable argument is present, it's used in the template.
+* If a nullable argument is present, but null, then in a body `null` is inserted, while in a url nothing is added.  For example, if the `desc` argument above is null then `{ ..., storyLine: null, ...}` is constructed for the body.  Whereas, in a URL pattern like `https://a.b.c/endpoint?arg=$gqlArg`, if `gqlArg` is present, but nul, the generated URL is `https://a.b.c/endpoint?arg=`.
+* If a nullable argument is not present, nothing is added to the URL/body.  That would mean the constructed body would not contain `storyLine` if the `desc` argument is missing, and in `https://a.b.c/endpoint?arg=$gqlArg` the result would be `https://a.b.c/endpoint` if `gqlArg` were not present in the request arguments.
 
 
 
+## Calling GraphQL custom resolvers
 
+...to add...
+
+## How Dgraph processes custom results
+
+Given types like
+
+```
+type Post {
+    id: ID!
+    title: String!
+    datePublished: DateTime
+    author: Author
+}
+
+type Author { ... }
+```
+
+and a custom query
+
+```
+type Query {
+    getPost(id: ID!): Post @custom(http: {
+        url: "https://my.api.com/post/$id",
+        method: GET
+    })
+
+    getPosts(authorID: ID!, numToFetch: Int!): [Post] @custom(http: {
+        url: "https://my.api.com/person/$authorID/posts?limit=$numToFetch",
+        method: GET
+    })
+}
+```
+
+For `getPost` Dgraph expects a HTTP request to `https://my.api.com/post/$id` to return a single JSON object with fields `id`, `title`, `datePublished` and `author`.  Any additional fields are ignored, while if non-nullable fields (like `id` and `title`) are missing, GraphQL error propagation will be triggered.
+
+For `getPosts`, Dgraph expects the HTTP call to `https://my.api.com/person/$authorID/posts?limit=$numToFetch` to return a JSON array of JSON objects, with each object matching the `Post` type as described above.
+
+If the custom resolvers are GraphQL calls, like:
+
+```
+type Query {
+    getPost(id: ID!): Post @custom(http: {
+        url: "https://my.api.com/graphql",
+        method: POST,
+        graphql: "query(id: ID) { post(postID: $id) }"
+    })
+
+    getPosts(authorID: ID!, numToFetch: Int!): [Post] @custom(http: {
+        url: "https://my.api.com/graphql",
+        method: POST,
+        graphql: "query(id: ID) { postByAuthor(authorID: $id, first: $numToFetch) }"
+    })
+}
+```
+
+then Dgraph expects a GraphQL call to `post` to return a valid GraphQL result like `{ "data": { "post": {...} } }` and will use the JSON object that is the value of `post` as the data resolved by the request.
+
+Similarly, Dgraph expects `postByAuthor` to return data like `{ "data": { "postByAuthor": [ {...}, ... ] } }` and will use the array value of `postByAuthor` to build its array of posts result.
+
+## Forwarding headers
+
+
+
+## Remote types
+
+Any type annotated with the `@remote` directive is not stored in Dgraph.  This allows your Dgraph GraphQL instance to serve an API that includes both data stored locally and data stored or generated elsewhere.  You can also use custom fields, for example, to join data from disparate datasets.
+
+Remote types can only be returned by custom resolvers and Dgraph won't generate any search or CRUD operations for remote types.
+
+## Restrictions / Roadmap
+
+...to complete...
 
 side notes:
 
