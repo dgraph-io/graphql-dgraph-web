@@ -1,0 +1,34 @@
+---
+title: 'Custom Mutations'
+---
+
+# Custom Mutation
+
+Let's say we have an application about authors and posts.  Logged in authors can add posts, but we want to do some input validation and add extra values to mutations that add posts.
+
+So we can write a custom function that just takes in the text of the new post.  Internally, it then builds a full post object by adding the current time as the datePublished, adding the author from the JWT information it gets from the forward header, checks that this user has enough account balance to make a post, etc.  It can then call the `addPost` mutation constructed by Dgraph from the input types to add the post into Dgraph and returns the resulting post as its GraphQL output.
+
+```
+type Author { ... }
+
+type Post {
+    id: ID:
+    text: String
+    datePublished: DateTime
+    author: Author
+    ...
+}
+
+type Mutation {
+    newPost(text: String): Post @custom(http:{
+        url: "https://my.api.com/addPost"
+        method: "POST",
+        body: "{ postText: $text }"
+        forwardHeaders: ["AuthHdr"]
+    })
+}
+```
+
+(there's more docs coming about turning off the generated mutations, protecting them with authorization rules etc.)
+
+---

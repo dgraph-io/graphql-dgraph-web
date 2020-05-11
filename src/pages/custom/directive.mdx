@@ -1,0 +1,25 @@
+
+---
+title: 'The `@custom` directive'
+---
+
+<h1>{props.pageContext.frontmatter.title}</h1>
+
+In all cases, the result type (of the query, mutation or field) can be either:
+
+* a type that's stored in Dgraph (that's any type you've defined in your schema), or
+* a type that's not stored in Dgraph and is marked with the `@remote` directive.
+
+Because the result types can be local or remote, you can call other HTTP endpoints, call remote GraphQL, or even call back to your Dgraph instance to add extra logic on top of Dgraph's graph search.
+
+Let's look at some examples.
+
+
+
+
+
+side notes:
+
+* current implementation doesn't do recursive evaluation of custom (so you can't have `@custom` inside an `@remote` type, for example) ... coming  soon
+
+---
