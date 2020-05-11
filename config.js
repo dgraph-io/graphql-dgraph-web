@@ -1,4 +1,4 @@
-module.exports = [
+const sidebarOptions = [
   {
     path: "quick-start.mdx",
     title: "Quick Start",
@@ -42,3 +42,12 @@ module.exports = [
     ],
   },
 ]
+
+const versions = ["master", "v1", "v2"]
+const currentVersion = "master"
+const URL = "http://localhost:8000/"
+
+module.exports.sidebarOptions = sidebarOptions
+module.exports.versions = versions
+module.exports.currentVersion = currentVersion
+module.exports.URL = URL

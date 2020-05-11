@@ -907,3 +907,7 @@ pre tt:after {
  text-align: center;
  padding-bottom: 10px;
 }
+
+.dropdown {
+  margin-left: 20px;
+}

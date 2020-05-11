@@ -1,4 +1,5 @@
-const path = require('path')
+const path = require("path")
+const config = require("./config")
 
 module.exports = {
   siteMetadata: {
@@ -6,6 +7,7 @@ module.exports = {
     description: `GraphQL docs`,
     author: `@gatsbyjs`,
   },
+  pathPrefix: `/` + config.currentVersion,
   plugins: [
     {
       resolve: `gatsby-plugin-mdx`,
