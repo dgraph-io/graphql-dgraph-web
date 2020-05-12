@@ -16,7 +16,7 @@ There are three places you can use the `@custom` directive and thus tell Dgraph 
 
 1) You can add custom queries to the Query type
 
-```
+```graphql
 type Query {
     myCustomQuery(...): QueryResultType @custom(...)
 }
@@ -24,7 +24,7 @@ type Query {
 
 2) You can add custom mutations to the Mutation type
 
-```
+```graphql
 type Mutation {
     myCustomMutation(...): MutationResult @custom(...)
 }
@@ -32,7 +32,7 @@ type Mutation {
 
 3) You can add custom fields to your types
 
-```
+```graphql
 type MyType {
     ...
     customField: FieldType @custom(...)
