@@ -14,6 +14,16 @@ const sidebarOptions = [
   {
     path: "schema.mdx",
     title: "Schema",
+    subOptions: [
+      { name: "Scalars" },
+      { name: "Enums" },
+      { name: "Types" },
+      { name: "Interfaces" },
+      {
+        name: "Directives",
+        children: [{ name: "Inverse" }, { name: "Search" }],
+      },
+    ],
   },
   {
     path: "admin.mdx",

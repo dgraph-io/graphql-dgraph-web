@@ -23,26 +23,28 @@ const Header = ({ siteTitle }) => {
             <img src={DgraphLogo} alt="Dgraph logo" />
           </Link>
         </div>
+        <div>
+          <Dropdown
+            onSelect={(eventKey, event) => changeVersion(eventKey)}
+            size="xs"
+          >
+            <Dropdown.Toggle variant="primary" id="dropdown-basic">
+              Version
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {config.versions.map(version => (
+                <Dropdown.Item
+                  key={version}
+                  active={version === config.currentVersion}
+                  eventKey={version}
+                >
+                  {version}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
       </div>
-      <Dropdown
-        onSelect={(eventKey, event) => changeVersion(eventKey)}
-        size="xs"
-      >
-        <Dropdown.Toggle variant="primary" id="dropdown-basic">
-          Version
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {config.versions.map(version => (
-            <Dropdown.Item
-              key={version}
-              active={version === config.currentVersion}
-              eventKey={version}
-            >
-              {version}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
     </div>
   )
 }

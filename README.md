@@ -13,6 +13,10 @@ yarn start
 
 The common GraphiQL component can be used throughout the site, just include it in the `mdx` file you want and you can even pass a `query` to fill it with a default value. 
 
+### Adding suboptions (right sidebar)
+
+Refer `schema.mdx` and make sure to add the `<a>` tag for each suboption and then look `config` to see how to add the options there.
+
 ### Deploy
 
 Build all tags with `pathPrefix` execpt master like -
