@@ -1,5 +1,5 @@
 import React from "react"
-import {  Link } from "gatsby"
+import { Link } from "gatsby"
 import { Accordion } from "react-bootstrap"
 
 const config = require("../../config")
@@ -8,12 +8,12 @@ const SideBar = props => {
   function isActive(obj) {
     return obj.isCurrent ? { className: "active" } : null
   }
-  
+
   let currentChildren = []
   let currentParent
   let completeRes = []
 
-  completeRes = config.map(node => {
+  completeRes = config.sidebarOptions.map(node => {
     currentParent = node.title
     let mainNode = (
       <li key={node.title} className="sidebar-inline">
