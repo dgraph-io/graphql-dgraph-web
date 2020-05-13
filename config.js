@@ -26,6 +26,20 @@ const sidebarOptions = [
     ],
   },
   {
+    path: "authorization/index.mdx",
+    title: "Authorization",
+    children: [
+      {
+        path: "authorization/directive.mdx",
+        title: "The `@auth` directive"
+      },
+      {
+        path: "authorization/mutations.mdx",
+        title: "Mutations"
+      }
+    ]
+  },
+  {
     path: "admin.mdx",
     title: "Admin",
   },
