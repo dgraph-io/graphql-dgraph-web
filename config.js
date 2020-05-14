@@ -51,6 +51,32 @@ const sidebarOptions = [
       },
     ],
   },
+  {
+    path: "todo-app-tutorial/index.mdx",
+    title: "Todo App Tutorial",
+    children: [
+      {
+        path: "todo-app-tutorial/todo-schema-design.mdx",
+        title: "Schema Design",
+      },
+      {
+        path: "todo-app-tutorial/todo-UI.mdx",
+        title: "Basic UI",
+      },
+      {
+        path: "todo-app-tutorial/todo-auth-rules.mdx",
+        title: "Auth Rules",
+      },
+      {
+        path: "todo-app-tutorial/todo-auth0-jwt.mdx",
+        title: "Using Auth0's JWT",
+      },
+      {
+        path: "todo-app-tutorial/deploy.mdx",
+        title: "Deploy on Slash GraphQL",
+      },
+    ],
+  },
 ]
 
 const versions = ["master", "v1", "v2"]

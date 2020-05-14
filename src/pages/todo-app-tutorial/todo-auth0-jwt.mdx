@@ -1,0 +1,76 @@
+---
+title: "Using Auth0"
+---
+
+<h1>{props.pageContext.frontmatter.title}</h1>
+
+Let's start by going to our Auth0 dashboard where we can see the application which we have already created and used in our frontend-application.
+
+![Rule](../../images/tutorial/todo/dashboard.png)
+
+Now we want to use the JWT that Auth0 generates, but we also need to add custom claims to that token which will be used by our auth rules.
+So we can use something known as "Rules" (left sidebar on dashboard page) to add custom claims to a token. Let's create a new empty rule.
+
+![Rule](../../images/tutorial/todo/rule.png)
+
+Replace the content with the the following -
+```javascript
+function (user, context, callback) {
+  const namespace = "https://dgraph.io/jwt/claims";
+  context.idToken[namespace] =
+    {
+      'USER': user.email,
+    };
+  
+  return callback(null, user, context);
+}
+```
+
+In the above function, we are only just adding the custom claim to the token with a field as `USER` which if you recall from the last step is being used in our auth rules, so it needs to match exactly with that name. 
+
+Now let's go to `Settings` of our Auth0 application and then go down to view the `Advanced Settings` to check the JWT signature algorithm (OAuth tab) and then get the certificate (Certificates tab). We will be using `RS256` in this example so let's make sure it's set to that and then copy the certificate which we will use to get the public key.  Use the download certificate button there to get the certificate in `PEM`. 
+
+![Rule](../../images/tutorial/todo/certificate.png)
+
+Now let's run a command to get the public key from it, which we will add to our schema. Just change the `file_name` and run the command.
+
+```
+openssl x509 -pubkey -noout -in file_name.pem
+```
+
+Copy the public key and now let's add it to our schema. For doing that we will add something like this, to the bottom of our schema file - 
+
+```
+# Authorization X-Auth0 https://dgraph.io/jwt/claims RS256 "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp/qw/KXH23bpOuhXzsDp\ndo9bGNqjd/OkH2LkCT0PKFx5i/lmvFXdd04fhJD0Z0K3pUe7xHcRn1pIbZWlhwOR\n7siaCh9L729OQjnrxU/aPOKwsD19YmLWwTeVpE7vhDejhnRaJ7Pz8GImX/z/Xo50\nPFSYdX28Fb3kssfo+cMBz2+7h1prKeLZyDk30ItK9MMj9S5y+UKHDwfLV/ZHSd8m\nVVEYRXUNNzLsxD2XaEC5ym2gCjEP1QTgago0iw3Bm2rNAMBePgo4OMgYjH9wOOuS\nVnyvHhZdwiZAd1XtJSehORzpErgDuV2ym3mw1G9mrDXDzX9vr5l5CuBc3BjnvcFC\nFwIDAQAB\n-----END PUBLIC KEY-----"
+```
+
+Let me just quickly explain what each thing means in that, so firstly we start the line with a `#  Authorization`, next is the name of the header `X-Auth0` (can be anything) which will be used to send the value of the JWT. Next is the custom-claim name `https://dgraph.io/jwt/claims` (again can be anything, just needs to match with the name specified in Auth0). Then next is the `RS256` the JWT signature algorithm (another option is `HS256` but remember to use the same algorithm in Auth0) and lastly, the public key, update it with your public key and make sure to have it in a single line and add `\n` where ever needed.  The updated schema will look something like this (update the public key with your key) - 
+
+```graphql
+type Task @auth(
+    query: { rule: """
+        query($USER: String!) {
+            queryTask {
+                user(filter: { username: { eq: $USER } }) {
+                    __typename
+                }
+            }
+        }"""}), {
+    id: ID!
+    title: String! @search(by: [fulltext])
+    completed: Boolean! @search
+    user: User!
+}
+type User {
+  username: String! @id @search(by: [hash])
+  name: String
+  tasks: [Task] @hasInverse(field: user)
+}
+# Authorization X-Auth0 https://dgraph.io/jwt/claims RS256 "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp/qw/KXH23bpOuhXzsDp\ndo9bGNqjd/OkH2LkCT0PKFx5i/lmvFXdd04fhJD0Z0K3pUe7xHcRn1pIbZWlhwOR\n7siaCh9L729OQjnrxU/aPOKwsD19YmLWwTeVpE7vhDejhnRaJ7Pz8GImX/z/Xo50\nPFSYdX28Fb3kssfo+cMBz2+7h1prKeLZyDk30ItK9MMj9S5y+UKHDwfLV/ZHSd8m\nVVEYRXUNNzLsxD2XaEC5ym2gCjEP1QTgago0iw3Bm2rNAMBePgo4OMgYjH9wOOuS\nVnyvHhZdwiZAd1XtJSehORzpErgDuV2ym3mw1G9mrDXDzX9vr5l5CuBc3BjnvcFC\nFwIDAQAB\n-----END PUBLIC KEY-----"
+```
+
+Now we need to update our frontend application to include the `X-Auth0` header with value as JWT from Auth0 when sending a  request.
+
+To do this, we need to update the Apollo client setup to include the header while sending the request, and we need to get the JWT from Auth0. 
+
+The value we want is in field `idToken` from Auth0. We get that by quickly updating `react-auth0-spa.js` to get `idToken` and pass it as a prop to our `App`. Now let's use that token while creating an Apollo client instance and give it to a header `X-Auth0` in our case. Refer this commit for more info on the code.
