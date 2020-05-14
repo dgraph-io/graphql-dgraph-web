@@ -4,7 +4,7 @@ title: 'The `@auth` directive'
 
 <h1>{props.pageContext.frontmatter.title}</h1>
 
-Given an authentication mechanism and signed JWT, it's the `@auth` directive that tells Dgraph how to apply authorization.  The directive can be used on any type (that isn't an `@remote` type) and specifies the authorization for `query` as well as `add`, `update` and `delete` mutations.
+Given an authentication mechanism and signed JWT, it's the `@auth` directive that tells Dgraph how to apply authorization.  The directive can be used on any type (that isn't a `@remote` type) and specifies the authorization for `query` as well as `add`, `update` and `delete` mutations.
 
 In each case, `@auth` specifies rules that Dgraph applies during queries and mutations.  Those rules are expressed in exactly the same syntax as GraphQL queries.  Why?  Because the authorization you add to your app is about the graph of your application, so graph rules make sense.  It's also the syntax you already know about, you get syntax help from GraphQL tools in writing such rules, and it turns out to be exactly the kinds of rules Dgraph already knows how to evaluate.
 
@@ -32,7 +32,7 @@ type Todo @auth(
 
 Here we define a type `Todo`, that's got an `id`, the `text` of the todo and the username of the `owner` of the todo.  What todos can a user query?  Any `Todo` that the `query` rule would also return.
 
-The rule expects the JWT to contain a claim `"USER": "..."` giving the username of the logged in user, and says: you can query any todo that has your username as the owner.
+The `query` rule in this case expects the JWT to contain a claim `"USER": "..."` giving the username of the logged in user, and says: you can query any todo that has your username as the owner.
 
 This rule is applied automatically at query time.  For example, the query
 
@@ -66,10 +66,10 @@ This means your frontend doesn't need to be sensitive to the auth rules.  Your a
 
 Often you authorization depends not on the object being queried, but on the connections in the graph that object has or doesn't have.  Because the auth rules are graph queries, you can express very powerful graph search and traversal as the auth rules.
 
-For a simple todo app, it's more likely that you'll have types like this
+For a simple todo app, it's more likely that you'll have types like this:
 
 ```graphql
-type Author {
+type User {
     username: String! @id
     todos: [Todo]
 }
@@ -77,16 +77,16 @@ type Author {
 type Todo {
     id: ID!
     text: String!
-    author: Author
+    owner: User
 }
 ```
 
-so your auth rule for todos depends not on a value in the todo, but on checking which author it's linked to.  This means our auth rule must make a step further into the graph to check who the author is.
+This means your auth rule for todos will depend not on a value in the todo, but on checking which owner it's linked to.  This means our auth rule must make a step further into the graph to check who the owner is.
 
 ```graphql
 query ($USER: String!) { 
     queryTodo {
-        author(filter: { username: { eq: $USER } } ) { 
+        owner(filter: { username: { eq: $USER } } ) { 
             username
         } 
     } 
@@ -95,13 +95,13 @@ query ($USER: String!) {
 
 You can express a lot with these kinds of graph traversals.  For example, multitenancy rules can express that you can only see an object if it's linked (through what ever graph search you define) to the organization you were authenticated from.  That means your app can split data per customer easily.
 
-You can also express rules that can be administered by the app itself.  You might define type `Role` and enum `Privileges` that can have values like `VIEW`, `ADD`, etc. and state in your auth rules that a user needs to have a role with particular privileges to query/add/update/delete and those roles can then be allocated inside the app.  For example, stating that when a project is created the admin can decide which users have view or edit permission, etc.
+You can also express rules that can be administered by the app itself.  You might define type `Role` and enum `Privileges` that can have values like `VIEW`, `ADD`, etc. and state in your auth rules that a user needs to have a role with particular privileges to query/add/update/delete and those roles can then be allocated inside the app.  For example, in an app about project management, when a project is created the admin can decide which users have view or edit permission, etc.
 
 # Role Based Access Control
 
 As well a rules that relate a user's claims to a graph traversal, role based access control rules are also possible.  These rules relate a claim in the JWT to a known value.  
 
-For example, perhaps if someone logs in as the `ADMIN`, they are the only ones allowed to delete users.  For that, we might expect the JWT to contain a claim `"ROLE": "ADMIN"`, and can thus express a rule that only allows users with the `ADMIN` claim to delete.
+For example, perhaps only someone logged in with the `ADMIN` role is allowed to delete users.  For that, we might expect the JWT to contain a claim `"ROLE": "ADMIN"`, and can thus express a rule that only allows users with the `ADMIN` claim to delete.
 
 ```graphql
 type User @auth(
@@ -112,7 +112,7 @@ type User @auth(
 }
 ```
 
-Not all claims need to be present in all JWTs.  For example, if the `ROLE` claim isn't present in a JWT, any rule that relies on `ROLE` simply evaluates to false.  As well as simplifying your JWTs (e.g. not all users need a role if it doesn't make sense to do so), this means you can also simply disallow some queries and mutations.  If you know that your JWTs never contain the claim `DENIED`, then
+Not all claims need to be present in all JWTs.  For example, if the `ROLE` claim isn't present in a JWT, any rule that relies on `ROLE` simply evaluates to false.  As well as simplifying your JWTs (e.g. not all users need a role if it doesn't make sense to do so), this means you can also simply disallow some queries and mutations.  If you know that your JWTs never contain the claim `DENIED`, then a rule such as
 
 ```graphql
 type User @auth(
@@ -122,7 +122,7 @@ type User @auth(
 }
 ```
 
-can never be true and this prevents users ever being deleted.
+can never be true and this would prevent users ever being deleted.
 
 # and, or & not 
 
@@ -133,7 +133,7 @@ In the todo app, you can express, for example, that you can delete a `Todo` if y
 ```graphql
 type Todo @auth(
     delete: { or: [ 
-        { rule:  "query ... " },
+        { rule:  "query ($USER: String!) { ... }" }, # you are the author graph query
         { rule:  "{$ROLE: { eq: \"ADMIN\" } }" }
     ]}
 )
@@ -143,12 +143,12 @@ type Todo @auth(
 
 Many apps have data that can be accessed by anyone, logged in or not.  That also works nicely with Dgraph auth rules.  
 
-For example, in Twitter, StackOverflow, etc. you can see authors and posts without being signed it - but you'd need to be signed in to add a post.  With Dgraph auth rules, if a type doesn't have a `query` auth rule or the auth rule doesn't depend on a JWT value, then the data can be accessed without a signed JWT.
+For example, in Twitter, StackOverflow, etc. you can see authors and posts without being signed it - but you'd need to be signed in to add a post.  With Dgraph auth rules, if a type doesn't have, for example, a `query` auth rule or the auth rule doesn't depend on a JWT value, then the data can be accessed without a signed JWT.
 
-For example, the todo app might allow you to view any author, but not make any mutations unless you are the author or an admin.  That would be achieved by this kind of setup.
+For example, the todo app might allow anyone, logged in or not, to view any author, but not make any mutations unless logged in as the author or an admin.  That would be achieved by rules like the following.
 
 ```graphql
-type Author @auth(
+type User @auth(
     # no query rule
     add: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
     update: ...
@@ -159,7 +159,7 @@ type Author @auth(
 }
 ```
 
-Maybe some todos can be marked as public and anyone can see those.
+Maybe some todos can be marked as public and users you aren't logged in can see those.
 
 ```graphql
 type Todo @auth(
@@ -186,7 +186,7 @@ Ensuring that requests are from an authenticated JWT, and no further restriction
 
 
 ```graphql
-type Author @auth(
+type User @auth(
     query: { rule:  "{$isAuthenticated: { eq: \"true\" } }" },
 ) {
     username: String! @id

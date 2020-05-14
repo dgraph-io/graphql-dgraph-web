@@ -8,7 +8,7 @@ Mutations with auth work similarly to query.  However, mutations involve a state
 
 # Add
 
-Rules for `add` auth state that the rule must hold of nodes created by the mutation data if committed to the database.
+Rules for `add` authorization state that the rule must hold of nodes created by the mutation data once committed to the database.
 
 For example, a rule such as:
 
@@ -17,7 +17,7 @@ type Todo type Todo @auth(
     add: { rule: """
         query ($USER: String!) { 
             queryTodo {
-                author(filter: { username: { eq: $USER } } ) { 
+                owner(filter: { username: { eq: $USER } } ) { 
                     username
                 } 
             } 
@@ -26,10 +26,10 @@ type Todo type Todo @auth(
 ){{
     id: ID!
     text: String!
-    author: Author
+    owner: User
 }
 
-type Author {
+type User {
     username: String! @id
     todos: [Todo]
 }
@@ -49,7 +49,7 @@ type Todo type Todo @auth(
         { rule: """
             query ($USER: String!) { 
                 queryTodo {
-                    author(filter: { username: { eq: $USER } } ) { 
+                    owner(filter: { username: { eq: $USER } } ) { 
                         username
                     } 
                 } 
@@ -60,10 +60,10 @@ type Todo type Todo @auth(
 ){{
     id: ID!
     text: String! @search(by: [term])
-    author: Author
+    owner: User
 }
 
-type Author {
+type User {
     username: String! @id
     todos: [Todo]
 }
@@ -87,7 +87,7 @@ For add, what matters is the resulting state of the database, for delete it's th
 
 Updates have both a before and after state that can be important for auth.  
 
-For example, consider a rule stating that you can only update your own todos.  If evaluated in the database before the mutation, it would prevent you updating anyone elses todos, but does it stop you updating your own todo to have a different `owner`.  If evaluated in the database after the mutation occurs, it would stop setting the `owner` to another user, but would it prevent editing other's posts.
+For example, consider a rule stating that you can only update your own todos.  If evaluated in the database before the mutation, like the delete rules, it would prevent you updating anyone elses todos, but does it stop you updating your own todo to have a different `owner`.  If evaluated in the database after the mutation occurs, like for add rules, it would stop setting the `owner` to another user, but would it prevent editing other's posts.
 
 Currently, Dgraph evaluates `update` rules _before_ the mutation.  Our auth support is still in beta and we may extend this for example to make the `update` rule an invariant of the mutation, or enforce pre and post conditions, or even allow custom logic to validate the update data.
 
@@ -97,7 +97,7 @@ Update mutations can also insert new data.  For example, you might allow a mutat
 
 ```graphql
 mutation {
-    updateAuthor(input: {
+    updateUser(input: {
         filter: { username: { eq: "aUser" }},
         set: { todos: [ { text: "do this new todo"} ] }
     }) {
@@ -106,6 +106,6 @@ mutation {
 }
 ```
 
-Such a mutation would have to satisfy the rules to update the author _and_ the rules to add a todo.  If either fail, the mutation has no effect.
+Such a mutation updates a user's todo list by inserting a new todo.  It would have to satisfy the rules to update the author _and_ the rules to add a todo.  If either fail, the mutation has no effect.
 
 ---
