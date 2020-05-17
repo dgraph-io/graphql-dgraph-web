@@ -44,6 +44,6 @@ for RSA Signature with SHA-256 asymmetric cryptography (the JWT is signed with t
 
 Both cases expect the JWT to be in a header `X-My-App-Auth` and expect the JWT to contain custom claims object `"https://my.app.io/jwt/claims": { ... }` with the claims used in authorization rules.
 
-Note: authorization is in beta and some aspects may change - for example, it's possible that the method to specify the header, key, etc. will move into the /admin `updateGQLSchema` mutation that sets the schema.
+Note: authorization is in beta and some aspects may change - for example, it's possible that the method to specify the header, key, etc. will move into the /admin `updateGQLSchema` mutation that sets the schema.  Some features are also in active improvement and development - for example, auth is supported an on types, but interfaces (and the types that implement them) don't correctly support auth in the current beta.
 
 ---

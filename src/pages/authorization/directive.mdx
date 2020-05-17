@@ -10,7 +10,7 @@ In each case, `@auth` specifies rules that Dgraph applies during queries and mut
 
 Here's how the rules work.
 
-# Authorization rules
+## Authorization rules
 
 A valid type and rule looks like the following.
 
@@ -62,9 +62,11 @@ will return the first ten todos, ordered ascending by title of the user that mad
 
 This means your frontend doesn't need to be sensitive to the auth rules.  Your app can simply query for the todos and that query behaves properly depending on who's logged in.
 
-# Graph traversal in auth rules
+In general, an auth rule should select a field that's expected to exist at the inner most field, often that's the `ID` or `@id` field.  Auth rules are run in a mode that requires all fields in the rule to find a value in order to succeed.  
 
-Often you authorization depends not on the object being queried, but on the connections in the graph that object has or doesn't have.  Because the auth rules are graph queries, you can express very powerful graph search and traversal as the auth rules.
+## Graph traversal in auth rules
+
+Often authorization depends not on the object being queried, but on the connections in the graph that object has or doesn't have.  Because the auth rules are graph queries, they can express very powerful graph search and traversal.
 
 For a simple todo app, it's more likely that you'll have types like this:
 
@@ -97,9 +99,9 @@ You can express a lot with these kinds of graph traversals.  For example, multit
 
 You can also express rules that can be administered by the app itself.  You might define type `Role` and enum `Privileges` that can have values like `VIEW`, `ADD`, etc. and state in your auth rules that a user needs to have a role with particular privileges to query/add/update/delete and those roles can then be allocated inside the app.  For example, in an app about project management, when a project is created the admin can decide which users have view or edit permission, etc.
 
-# Role Based Access Control
+## Role Based Access Control
 
-As well a rules that relate a user's claims to a graph traversal, role based access control rules are also possible.  These rules relate a claim in the JWT to a known value.  
+As well as rules that relate a user's claims to a graph traversal, role based access control rules are also possible.  These rules relate a claim in the JWT to a known value.  
 
 For example, perhaps only someone logged in with the `ADMIN` role is allowed to delete users.  For that, we might expect the JWT to contain a claim `"ROLE": "ADMIN"`, and can thus express a rule that only allows users with the `ADMIN` claim to delete.
 
@@ -124,7 +126,7 @@ type User @auth(
 
 can never be true and this would prevent users ever being deleted.
 
-# and, or & not 
+## and, or & not 
 
 Rules can be combined with the logical connectives and, or and not, so a permission can be a mixture of graph traversals and role based rules.
 
@@ -139,7 +141,7 @@ type Todo @auth(
 )
 ```
 
-# Public Data
+## Public Data
 
 Many apps have data that can be accessed by anyone, logged in or not.  That also works nicely with Dgraph auth rules.  
 
