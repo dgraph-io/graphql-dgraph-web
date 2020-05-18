@@ -32,6 +32,11 @@ type User {
 }
 ```
 
+Resubmit the updated schema -
+```bash
+curl -X POST localhost:8080/admin/schema --data-binary '@schema.graphql'
+```
+
 Now let's see what does the definition inside the `auth` directive means. Firstly, we can see that this rule applies to `query` (similarly we can define rules on `add`, `update` etc.). 
 
 ```graphql
