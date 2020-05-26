@@ -68,6 +68,13 @@ const sidebarOptions = [
       {
         path: "todo-app-tutorial/todo-UI.mdx",
         title: "Basic UI",
+        subOptions: [
+          { name: "Create React app" },
+          { name: "Install dependencies" },
+          { name: "Setup Apollo Client" },
+          { name: "Queries and Mutations" },
+          { name: "Auth0 integration" },
+        ],
       },
       {
         path: "todo-app-tutorial/todo-auth-rules.mdx",

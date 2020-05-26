@@ -100,7 +100,7 @@ const SideBarRight = props => {
   
   list = (
     <React.Fragment>
-      <ul className="sidenav">{completeRes}</ul>
+      <ul className="sidenav" style={{position: "fixed"}}>{completeRes}</ul>
     </React.Fragment>
   )
 
