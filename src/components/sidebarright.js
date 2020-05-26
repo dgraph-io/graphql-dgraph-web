@@ -11,9 +11,10 @@ const SideBarRight = props => {
   let currentChildren = []
   let currentParent
   let completeRes = []
+  let optsChildren = []
   let list
 
-  const opts = config.sidebarOptions.filter(function (sidebar) {
+  let opts = config.sidebarOptions.filter(function (sidebar) {
     if (
       "/" + sidebar.path.replace("index.mdx", "").replace(".mdx", "") ===
         props.file ||
@@ -27,21 +28,24 @@ const SideBarRight = props => {
       }
     } else {
       if (sidebar.children !== undefined) {
-        sidebar.children.map(child => {
+        optsChildren = sidebar.children.filter(child => {
           if (
-            child.path.replace("index.mdx", "").replace(".mdx", "") ===
-              props.file ||
+            (child.path.replace("index.mdx", "").replace(".mdx", "") ===
+              props.file) || (
             "/" +
               child.path.replace("index.mdx", "").replace(".mdx", "") +
               "/" ===
-              props.file
+              props.file) || (
+            "/" +
+              child.path.replace("index.mdx", "").replace(".mdx", "")
+              ===
+              props.file)
           ) {
             if (child.subOptions === undefined) {
-              return
             } else {
-              return sidebar
+              return true
             }
-          }
+          } 
         })
       } else {
         return
@@ -49,6 +53,9 @@ const SideBarRight = props => {
     }
   })
 
+  if (optsChildren.length !== 0)
+    opts = optsChildren
+  
   if (opts.length !== 0) {
     completeRes = opts[0].subOptions.map(node => {
       currentParent = node.name

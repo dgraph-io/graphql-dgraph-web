@@ -58,6 +58,12 @@ const sidebarOptions = [
       {
         path: "todo-app-tutorial/todo-schema-design.mdx",
         title: "Schema Design",
+        subOptions: [
+          { name: "Running" },
+          { name: "Mutating" },
+          { name: "Querying" },
+          { name: "Querying with Filters" },
+        ],
       },
       {
         path: "todo-app-tutorial/todo-UI.mdx",

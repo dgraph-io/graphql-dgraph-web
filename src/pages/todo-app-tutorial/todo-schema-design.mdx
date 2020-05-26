@@ -52,7 +52,7 @@ type User {
 
 Save the content in a file `schema.graphql`.
 
-### Running
+### <a name="Running"></a>Running
 
 Before we begin, make sure that you have [Docker](https://docs.docker.com/install/)
 installed on your machine.
@@ -74,7 +74,7 @@ Good choices include GraphQL Playground, Insomnia, GraphiQL and Altair.
 
 Set up any of them and point it at `http://localhost:8080/graphql`. If you know lots about GraphQL, you might want to explore the schema, queries and mutations that were generated from the schema.
 
-### Mutating Data
+### <a name="Mutating"></a>Mutating Data
 
 Let's add a user and some todos in our Todo App.
 
@@ -116,7 +116,7 @@ mutation {
 }
 ```
 
-### Querying Data
+### <a name="Querying"></a>Querying Data
 
 Let's fetch the todos to list in our Todo App:
 
@@ -176,7 +176,7 @@ Running the query above should return JSON response as shown below:
 }
 ```
 
-### Querying Data with Filters
+### <a name="Querying with Filters"></a>Querying Data with Filters
 
 Before we get into querying data with filters, we will be required
 to define search indexes to the specific fields.
