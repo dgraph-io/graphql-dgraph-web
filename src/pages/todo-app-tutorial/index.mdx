@@ -1,0 +1,28 @@
+---
+title: Simple Todo Tutorial 
+imgFolder: todo-app
+---
+
+import TitleBar from '../../components/TitleBar';
+import ImageSlider from "../../components/ImageSlider"
+import Badges from "../../components/badges"
+
+<TitleBar
+  text={props.pageContext.frontmatter.title}
+  size={'32px'}
+  bkgdColor={'#4aae9b'}
+/>
+
+<ImageSlider imgFolder={props.pageContext.frontmatter.imgFolder} />
+
+This is a simple tutorial which will take you through making a basic todo app using Dgraph's GraphQL API and integrating it with Auth0.
+
+### Steps
+
+- Schema Design
+- Basic UI
+- Add Auth Rules
+- Use Auth0's JWT
+- Deploy on Slash GraphQL
+
+---

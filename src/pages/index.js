@@ -63,6 +63,14 @@ const IndexPage = () => (
           How to use GraphQL on an existing Dgraph instance.
         </div>
       </div>
+      <div>
+        <Link to="/todo-app-tutorial">
+          <h2 className="page-title-summary">Todo App Tutorial</h2>
+        </Link>
+        <div className="spacing-title-summary">
+         Building a simple Todo App
+        </div>
+      </div>
     </div>
 
     <div className="note">
