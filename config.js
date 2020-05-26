@@ -40,6 +40,28 @@ const sidebarOptions = [
     ]
   },
   {
+    path: "custom/index.mdx",
+    title: "Custom Resolvers",
+    children: [
+      {
+        path: "custom/directive.mdx",
+        title: "The `@custom` directive"
+      },
+      {
+        path: "custom/query.mdx",
+        title: "Custom Queries"
+      },
+      {
+        path: "custom/mutation.mdx",
+        title: "Custom Mutations"
+      },
+      {
+        path: "custom/field.mdx",
+        title: "Custom Fields"
+      }
+    ]
+  },
+  {
     path: "admin.mdx",
     title: "Admin",
   },
