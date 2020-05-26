@@ -36,7 +36,7 @@ const sidebarOptions = [
 ]
 
 const versions = ["master", "v20.03.1"]
-const currentVersion = "master"
+const currentVersion = "v20.03.1"
 const URL = "https://graphql.dgraph.io/docs/"
 
 module.exports.sidebarOptions = sidebarOptions
