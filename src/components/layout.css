@@ -837,7 +837,7 @@ pre tt:after {
   display: flex;
   flex-direction: column;
   margin-left: 280px;
-  max-width: 990px;
+  max-width: 1250px;
 }
 
 .CodeMirror-cursor {
@@ -855,7 +855,8 @@ pre tt:after {
 .page-title-summary {
   letter-spacing: -.2px;
   margin-bottom: 10px;
-  font-size: xx-large;
+  font-weight: 100;
+  font-size: 1.6rem;
 }
 
 .spacing-title-summary {
@@ -910,4 +911,13 @@ pre tt:after {
 
 .dropdown {
   margin-left: 20px;
+}
+
+.pink-link {
+color: #fc1fb8;
+}
+
+.pink-link:hover {
+  color: #CA1993;
+  text-decoration: underline;
 }

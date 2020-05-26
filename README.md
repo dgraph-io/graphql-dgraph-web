@@ -19,7 +19,7 @@ Refer `schema.mdx` and make sure to add the `<a>` tag for each suboption and the
 
 ### Deploy
 
-Build all tags with `pathPrefix` execpt master like -
+Build all tags with `pathPrefix` except master like -
 
 ```
 yarn build --prefix-paths

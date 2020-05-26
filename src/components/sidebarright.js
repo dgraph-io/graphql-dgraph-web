@@ -4,9 +4,6 @@ import { Accordion } from "react-bootstrap"
 const config = require("../../config")
 
 const SideBarRight = props => {
-  function isActive(obj) {
-    return obj.isCurrent ? { className: "active" } : null
-  }
 
   let currentChildren = []
   let currentParent

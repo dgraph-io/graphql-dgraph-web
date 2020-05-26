@@ -28,7 +28,7 @@ const Layout = ({children}) => {
           <SideBar />
           <div className="content-wrap">
             <div className="landing-pg">
-              <div style={{ float: "right" }}>
+              <div style={{ float: "right", paddingTop: "150px" }}>
                 <Location>
                   {({ location }) => {
                     return <SideBarRight file={location.pathname} />

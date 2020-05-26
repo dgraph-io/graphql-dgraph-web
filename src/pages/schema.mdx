@@ -6,14 +6,6 @@ title: Schema
 
 All the things you can put in your input GraphQL schema, and what gets generated from that.
 
-- [Scalars](#Scalars)
-- [Enums](#Enums)
-- [Types](#Types)
-- [Interfaces](#Interfaces)
-- [Directives](#Directives)
-    * [Inverse Edges](#Inverse)
-    * [Search](#Search)
-
 The process for serving GraphQL with Dgraph is to add a set of GraphQL type definitions using the `/admin` endpoint.  Dgraph takes those definitions, generates queries and mutations, and serves the generated GraphQL schema.  
 
 The input schema may only contain interfaces, types and enums that follow the usual GraphQL syntax and validation rules.  Additional validation rules are called out below.

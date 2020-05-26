@@ -1,7 +1,7 @@
 {
   "name": "GraphQL-docs",
   "private": true,
-  "description": "A simple GraphQL docs website",
+  "description": "Dgraph GraphQL docs website",
   "version": "0.1.0",
   "author": "Apoorv Vardhan <vardhanapoorv@gmail.com>",
   "dependencies": {
