@@ -46,6 +46,36 @@ const IndexPage = () => (
         </div>
       </div>
       <div>
+        <Link to="/authorization">
+          <h2 className="page-title-summary pink-link">Authorization</h2>
+        </Link>
+        <div className="spacing-title-summary">
+          Dgraph GraphQL comes with inbuilt authorization.
+        </div>
+      </div>
+      <div>
+        <Link to="/custom">
+          <h2 className="page-title-summary pink-link">Custom Resolvers</h2>
+        </Link>
+        <div className="spacing-title-summary">Adding custom logic.</div>
+      </div>
+      <div>
+        <Link to="/todo-app-tutorial">
+          <h2 className="page-title-summary pink-link">Todo App Tutorial</h2>
+        </Link>
+        <div className="spacing-title-summary">Building a simple Todo App</div>
+      </div>
+      <div>
+        <Link to="/slash-quick-start">
+          <h2 className="page-title-summary pink-link">
+            Slash Quick Start (draft)
+          </h2>
+        </Link>
+        <div className="spacing-title-summary">
+          These are draft docs for Slash GraphQL, which is currently in beta
+        </div>
+      </div>
+      <div>
         <Link to="/admin">
           <h2 className="page-title-summary pink-link">Admin</h2>
         </Link>
@@ -61,14 +91,6 @@ const IndexPage = () => (
         </Link>
         <div className="spacing-title-summary">
           How to use GraphQL on an existing Dgraph instance.
-        </div>
-      </div>
-      <div>
-        <Link to="/todo-app-tutorial">
-          <h2 className="page-title-summary">Todo App Tutorial</h2>
-        </Link>
-        <div className="spacing-title-summary">
-         Building a simple Todo App
         </div>
       </div>
     </div>

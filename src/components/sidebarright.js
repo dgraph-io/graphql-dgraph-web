@@ -58,14 +58,18 @@ const SideBarRight = props => {
       currentParent = node.name
       let mainNode = (
         <li key={node.name} className="sidebar-inline">
-          <a href={"#" + node.name}>{node.name}</a>
+          <a href={"#" + node.name} className="pink-link">
+            {node.name}
+          </a>
         </li>
       )
       if (node.children !== undefined) {
         currentChildren = node.children.map(childNode => {
           let child = (
             <li key={childNode.name}>
-              <a href={"#" + childNode.name}>{childNode.name}</a>
+              <a href={"#" + childNode.name} className="pink-link">
+                {childNode.name}
+              </a>
             </li>
           )
           return child

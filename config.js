@@ -31,13 +31,13 @@ const sidebarOptions = [
     children: [
       {
         path: "authorization/directive.mdx",
-        title: "The `@auth` directive"
+        title: "The `@auth` directive",
       },
       {
         path: "authorization/mutations.mdx",
-        title: "Mutations"
-      }
-    ]
+        title: "Mutations",
+      },
+    ],
   },
   {
     path: "custom/index.mdx",
@@ -45,29 +45,21 @@ const sidebarOptions = [
     children: [
       {
         path: "custom/directive.mdx",
-        title: "The `@custom` directive"
+        title: "The `@custom` directive",
       },
       {
         path: "custom/query.mdx",
-        title: "Custom Queries"
+        title: "Custom Queries",
       },
       {
         path: "custom/mutation.mdx",
-        title: "Custom Mutations"
+        title: "Custom Mutations",
       },
       {
         path: "custom/field.mdx",
-        title: "Custom Fields"
-      }
-    ]
-  },
-  {
-    path: "admin.mdx",
-    title: "Admin",
-  },
-  {
-    path: "dgraph.mdx",
-    title: "GraphQL on Existing Dgraph",
+        title: "Custom Fields",
+      },
+    ],
   },
   {
     path: "todo-app-tutorial/index.mdx",
@@ -108,10 +100,22 @@ const sidebarOptions = [
       },
     ],
   },
+  {
+    path: "slash-quick-start.mdx",
+    title: "Slash Quick Start (draft)",
+  },
+  {
+    path: "admin.mdx",
+    title: "Admin",
+  },
+  {
+    path: "dgraph.mdx",
+    title: "GraphQL on Existing Dgraph",
+  },
 ]
 
 const versions = ["master", "v20.03.1"]
-const currentVersion = "v20.03.1"
+const currentVersion = "master"
 const URL = "https://graphql.dgraph.io/docs/"
 
 module.exports.sidebarOptions = sidebarOptions

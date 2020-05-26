@@ -24,7 +24,7 @@ type B @auth(...) {
     ...
 }
 
-# Authorization HEADER CLAIMS-KEY ALGORITHM KEY
+# Dgraph.Authorization HEADER CLAIMS-KEY ALGORITHM KEY
 ```
 
 * `HEADER` is the header in which requests will send the signed JWT
@@ -34,11 +34,11 @@ type B @auth(...) {
 
 Valid examples look like
 
-`# Authorization X-My-App-Auth https://my.app.io/jwt/claims HS256 "secretkey"`
+`# Dgraph.Authorization X-My-App-Auth https://my.app.io/jwt/claims HS256 "secretkey"`
 
 for HMAC-SHA256 JWT with symmetric cryptography (the signing key and verification key are the same), and like
 
-`# Authorization X-My-App-Auth https://my.app.io/jwt/claims RS256 "-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----"`
+`# Dgraph.Authorization X-My-App-Auth https://my.app.io/jwt/claims RS256 "-----BEGIN PUBLIC KEY-----\n...\n-----END PUBLIC KEY-----"`
 
 for RSA Signature with SHA-256 asymmetric cryptography (the JWT is signed with the private key and Dgraph checks with the public key).
 
