@@ -9,8 +9,9 @@ import SideBar from "./sidebar"
 import Footer from "./Footer"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
+import SEO from "../components/seo"
 
-const Layout = ({children}) => {
+const Layout = (props) => {
   return (
     <StaticQuery
       query={graphql`
@@ -24,6 +25,7 @@ const Layout = ({children}) => {
       `}
       render={data => (
         <>
+          <SEO title={props.pageContext !== undefined? props.pageContext.frontmatter.title:  "Dgraph GraphQL"} />
           <Header siteTitle={data.site.siteMetadata.title} />
           <SideBar />
           <div className="content-wrap">
@@ -34,9 +36,8 @@ const Layout = ({children}) => {
                     return <SideBarRight file={location.pathname} />
                   }}
                 </Location>
-                
               </div>
-              {children}
+              {props.children}
             </div>
             <Footer />
           </div>

@@ -1,17 +1,30 @@
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
+import { useMDXScope } from "gatsby-plugin-mdx/context"
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live"
+import prismTheme from "prism-react-renderer/themes/nightOwl"
 import Highlight, { defaultProps } from "prism-react-renderer"
+import { copyToClipboard } from "./src/utils/copy-to-clipboard"
 
-const LiveCode = props => (
-  <LiveProvider code={props.children.props.children.trim()}>
-    <LiveEditor />
-    <LiveError />
-    <LivePreview />
-  </LiveProvider>
-)
+const LiveCode = props => {
+  const components = useMDXScope()
+  return (
+    <LiveProvider
+      code={props.children.props.children.trim()}
+      scope={components}
+    >
+      <LiveEditor />
+      <LiveError />
+      <LivePreview />
+    </LiveProvider>
+  )
+}
 
 const SyntaxHighlighter = props => {
+  const handleClick = () => {
+    copyToClipboard(props.children.props.children.trim())
+  }
+
   const className = props.children.props.className || ""
   const matches = className.match(/language-(?<lang>.*)/)
   return (
@@ -23,9 +36,21 @@ const SyntaxHighlighter = props => {
           ? matches.groups.lang
           : ""
       }
+      theme={prismTheme}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
+          <button
+            onClick={handleClick}
+            style={{
+              position: "relative",
+              border: "0px",
+              borderRadius: "3px",
+              float: "right",
+            }}
+          >
+            Copy
+          </button>
           {tokens.map((line, i) => (
             <div {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (

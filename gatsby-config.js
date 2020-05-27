@@ -5,10 +5,13 @@ module.exports = {
   siteMetadata: {
     title: `Dgraph GraphQL`,
     description: `GraphQL docs`,
-    author: `@gatsbyjs`,
+    author: `@dgraph`,
+    siteUrl: `https://graphql.dgraph.io`,
   },
   pathPrefix: `/` + config.currentVersion,
   plugins: [
+    `gatsby-plugin-sitemap`,
+    // `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {

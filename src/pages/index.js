@@ -7,7 +7,7 @@ import { Link } from "gatsby"
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
+    
     <h1 className="page-title">GraphQL with Dgraph</h1>
     <div className="spacing-title-summary">
       These docs tell you everything you need to know about Dgraph's GraphQL
