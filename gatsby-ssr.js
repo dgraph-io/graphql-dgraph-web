@@ -1,15 +1,23 @@
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
+import { useMDXScope } from "gatsby-plugin-mdx/context"
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live"
+import prismTheme from "prism-react-renderer/themes/nightOwl"
 import Highlight, { defaultProps } from "prism-react-renderer"
 
-const LiveCode = props => (
-  <LiveProvider code={props.children.props.children.trim()}>
-    <LiveEditor />
-    <LiveError />
-    <LivePreview />
-  </LiveProvider>
-)
+const LiveCode = props => {
+  const components = useMDXScope()
+  return (
+    <LiveProvider
+      code={props.children.props.children.trim()}
+      scope={components}
+    >
+      <LiveEditor />
+      <LiveError />
+      <LivePreview />
+    </LiveProvider>
+  )
+}
 
 const SyntaxHighlighter = props => {
   const className = props.children.props.className || ""
@@ -23,6 +31,7 @@ const SyntaxHighlighter = props => {
           ? matches.groups.lang
           : ""
       }
+      theme={prismTheme}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
