@@ -1,5 +1,7 @@
 ---
 title: 'Slash Quick Start (draft)'
+redirect_from:
+  - /docs/slash-quick-start/
 ---
 <h1>{props.pageContext.frontmatter.title}</h1>
 
@@ -88,8 +90,6 @@ You'll see that Slash figured out that users are unique by their username, and s
 ## Auth
 
 Now that we have a schema working, let's update that schema to add some authorization. We'll update the schema so that users can only read their own tasks back.
-
-For an easy to copy version of this schema [Click Here](/schema-with-auth.txt)
 
 ```graphql
 type Task @auth(
