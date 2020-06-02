@@ -17,7 +17,7 @@ PUBLIC="${PUBLIC:-public}"
 DOCS="${DOCS:-pubDir}"
 # LOOP true makes this script run in a loop to check for updates
 LOOP="${LOOP:-true}"
-# Binary of hugo command to run.
+# Binary of  Gatsby command to run.
 GATSBY="${GATSBY:-npm}"
 
 VERSIONS_ARRAY=(
