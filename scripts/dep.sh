@@ -54,13 +54,13 @@ rebuild() {
     ${GATSBY} install
 
     if [[ $2 != "${VERSIONS_ARRAY[0]}" ]]; then
-        GATSBY_URL=${HOST}
+        GATSBY_URL=${HOST} \
             GATSBY_VERSIONS=${VERSION_STRING} \
             GATSBY_CURRENT_BRANCH=${1} \
             GATSBY_CURRENT_VERSION=${2} ${GATSBY} \
             run build --prefix-paths
     else
-        GATSBY_URL=${HOST}
+        GATSBY_URL=${HOST} \
             GATSBY_VERSIONS=${VERSION_STRING} \
             GATSBY_CURRENT_BRANCH=${1} \
             GATSBY_CURRENT_VERSION=${2} ${GATSBY} \
@@ -122,9 +122,9 @@ while true; do
 
     currentBranch=$(git rev-parse --abbrev-ref HEAD)
 
-    if branchUpdated "master"; then
-        echo -e "$(date) $GREEN Theme has been updated. Now will update the docs.$RESET"
-    fi
+    # if branchUpdated "master"; then
+    #     echo -e "$(date) $GREEN Theme has been updated. Now will update the docs.$RESET"
+    # fi
 
     # Now lets check the theme.
     echo -e "$(date)  Starting to check branches."
