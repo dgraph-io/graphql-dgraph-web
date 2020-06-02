@@ -23,14 +23,14 @@ input CustomHTTP {
 	url:            String!
 	method:         HTTPMethod!
 	forwardHeaders: [String!]
-    mode:           CustomMode
+    mode:           Mode
 	body:           String
 	graphql:        String
     skipIntrospection: Boolean
 }
 
 enum HTTPMethod { GET POST PUT PATCH DELETE }
-enum CustomMode { SINGLE BATCH }
+enum Mode { SINGLE BATCH }
 ```
 
 Each definition of custom logic must include:
