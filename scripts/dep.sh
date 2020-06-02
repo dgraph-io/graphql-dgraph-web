@@ -36,7 +36,7 @@ rebuild() {
 
     # The latest documentation is generated in the root of /public dir
     # Older documentations are generated in their respective `/public/vx.x.x` dirs
-    dir=''
+    dir=' '
     if [[ $2 != "${VERSIONS_ARRAY[0]}" ]]; then
         dir=$2
     fi
@@ -78,7 +78,7 @@ branchUpdated() {
 }
 
 publicFolder() {
-    dir=''
+    dir=' '
     if [[ $1 == "${VERSIONS_ARRAY[0]}" ]]; then
         echo "${PUBLIC}"
     else
@@ -132,9 +132,9 @@ while true; do
 
     for version in "${VERSIONS_ARRAY[@]}"; do
         if [[ $version == "master" ]]; then
-            [ -f ${version} ] && mv ${version}/* ${PUBLIC}/
+            [ -d ${version} ] && mv ${version}/* ${PUBLIC}/ && rm -rf ${version} 
         else
-            [ -f ${version} ] && mv ${version} ${PUBLIC}/
+            [ -d ${version} ] && mv ${version} ${PUBLIC}/
         fi
     done
 
