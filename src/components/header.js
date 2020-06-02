@@ -8,9 +8,9 @@ const config = require("../../config")
 
 const changeVersion = eventKey => {
   if (eventKey !== "master") {
-    window.location.assign(config.URL + eventKey)
+    window.location.assign(process.env.GATSBY_URL + eventKey)
   } else {
-    window.location.assign(config.URL)
+    window.location.assign(process.env.GATSBY_URL)
   }
 }
 
@@ -32,10 +32,10 @@ const Header = ({ siteTitle }) => {
               Version
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {config.versions.map(version => (
+              {process.env.GATSBY_VERSIONS.split(",").map(version => (
                 <Dropdown.Item
                   key={version}
-                  active={version === config.currentVersion}
+                  active={version === process.env.GATSBY_CURRENT_VERSION}
                   eventKey={version}
                 >
                   {version}

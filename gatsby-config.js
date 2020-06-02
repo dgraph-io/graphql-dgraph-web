@@ -5,10 +5,21 @@ module.exports = {
   siteMetadata: {
     title: `Dgraph GraphQL`,
     description: `GraphQL docs`,
-    author: `@gatsbyjs`,
+    author: `@dgraph`,
   },
-  pathPrefix: `/` + config.currentVersion,
+  pathPrefix: `/` + process.env.GATSBY_CURRENT_VERSION,
   plugins: [
+    {
+      resolve: `gatsby-plugin-gtag`,
+      options: {
+        // your google analytics tracking id
+        trackingId: `UA-75364122-7`,
+        // Puts tracking script in the head instead of the body
+        head: false,
+        // enable ip anonymization
+        anonymize: true,
+      },
+    },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
