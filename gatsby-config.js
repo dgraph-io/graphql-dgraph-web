@@ -8,7 +8,7 @@ module.exports = {
     author: `@dgraph`,
     siteUrl: `https://graphql.dgraph.io`,
   },
-  pathPrefix: `/` + process.env.GATSBY_VER,
+  pathPrefix: `/` + process.env.GATSBY_CURRENT_VERSION,
   plugins: [
     `gatsby-plugin-sitemap`,
     // `gatsby-plugin-feed`,
