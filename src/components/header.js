@@ -4,8 +4,6 @@ import React from "react"
 import DgraphLogo from "../images/graphql-logo.png"
 import { Dropdown } from "react-bootstrap"
 
-const config = require("../../config")
-
 const changeVersion = eventKey => {
   if (eventKey !== "master") {
     window.location.assign(process.env.GATSBY_URL + eventKey)
