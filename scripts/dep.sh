@@ -11,7 +11,7 @@ set -e
 
 GREEN='\033[32;1m'
 RESET='\033[0m'
-HOST="${HOST:-http://localhost:8000/}"
+HOST="${HOST:-http://localhost:8000}"
 # Name of output public directory
 PUBLIC="${PUBLIC:-public}"
 # LOOP true makes this script run in a loop to check for updates
@@ -54,12 +54,14 @@ rebuild() {
     ${GATSBY} install
 
     if [[ $2 != "${VERSIONS_ARRAY[0]}" ]]; then
-        GATSBY_VERSIONS=${VERSION_STRING} \
+        GATSBY_URL=${HOST}
+            GATSBY_VERSIONS=${VERSION_STRING} \
             GATSBY_CURRENT_BRANCH=${1} \
             GATSBY_CURRENT_VERSION=${2} ${GATSBY} \
             run build --prefix-paths
     else
-        GATSBY_VERSIONS=${VERSION_STRING} \
+        GATSBY_URL=${HOST}
+            GATSBY_VERSIONS=${VERSION_STRING} \
             GATSBY_CURRENT_BRANCH=${1} \
             GATSBY_CURRENT_VERSION=${2} ${GATSBY} \
             run build
@@ -123,7 +125,6 @@ while true; do
     if branchUpdated "master"; then
         echo -e "$(date) $GREEN Theme has been updated. Now will update the docs.$RESET"
     fi
-    popd >/dev/null
 
     # Now lets check the theme.
     echo -e "$(date)  Starting to check branches."
