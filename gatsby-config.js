@@ -8,10 +8,21 @@ module.exports = {
     author: `@dgraph`,
     siteUrl: `https://graphql.dgraph.io`,
   },
-  pathPrefix: `/` + config.currentVersion,
+  pathPrefix: `/` + process.env.GATSBY_VER,
   plugins: [
     `gatsby-plugin-sitemap`,
     // `gatsby-plugin-feed`,
+    {
+      resolve: `gatsby-plugin-gtag`,
+      options: {
+        // your google analytics tracking id
+        trackingId: `UA-75364122-7`,
+        // Puts tracking script in the head instead of the body
+        head: false,
+        // enable ip anonymization
+        anonymize: true,
+      },
+    },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
