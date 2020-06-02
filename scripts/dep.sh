@@ -11,7 +11,7 @@ set -e
 
 GREEN='\033[32;1m'
 RESET='\033[0m'
-HOST="${HOST:-http://localhost:8000}"
+HOST="${HOST:-http://localhost:8000/}"
 # Name of output public directory
 PUBLIC="${PUBLIC:-public}"
 # LOOP true makes this script run in a loop to check for updates
@@ -48,9 +48,9 @@ rebuild() {
     fi
 
     VERSION_STRING=$(joinVersions)
-    
+
     rm -rf .cache
-	rm -rf node_modules
+    rm -rf node_modules
     ${GATSBY} install
 
     if [[ $2 != "${VERSIONS_ARRAY[0]}" ]]; then
@@ -58,7 +58,7 @@ rebuild() {
             GATSBY_VERSIONS=${VERSION_STRING} \
             GATSBY_CURRENT_BRANCH=${1} \
             GATSBY_CURRENT_VERSION=${2} ${GATSBY} \
-            run build --prefix-paths
+            run build-version
     else
         GATSBY_URL=${HOST} \
             GATSBY_VERSIONS=${VERSION_STRING} \
@@ -134,13 +134,13 @@ while true; do
         checkAndUpdate "$version"
     done
 
-    mkdir ${PUBLIC}
+    mkdir -p ${PUBLIC}
 
     for version in "${VERSIONS_ARRAY[@]}"; do
         if [[ $version == "master" ]]; then
-            cp -r ${version}/ ${PUBLIC}/
+            mv ${version}/ ${PUBLIC}/
         else
-            cp -r ${version} ${PUBLIC}/
+            mv ${version} ${PUBLIC}/
         fi
     done
 
