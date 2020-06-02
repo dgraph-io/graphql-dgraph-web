@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script runs in a loop (configurable with LOOP), checks for updates to the
-# Hugo docs theme or to the docs on certain branches and rebuilds the public
+# docs on certain branches and rebuilds the public
 # folder for them. It has be made more generalized, so that we don't have to
 # hardcode versions.
 
@@ -19,12 +19,6 @@ LOOP="${LOOP:-true}"
 # Binary of hugo command to run.
 GATSBY="${GATSBY:-npm}"
 
-# TODO - Maybe get list of released versions from Github API and filter
-# those which have docs.
-# Place the latest version at the beginning so that version selector can
-# append '(latest)' to the version string, followed by the master version,
-# and then the older versions in descending order, such that the
-# build script can place the artifact in an appropriate location.
 VERSIONS_ARRAY=(
     'master'
     'v20.03.1'
@@ -138,9 +132,9 @@ while true; do
 
     for version in "${VERSIONS_ARRAY[@]}"; do
         if [[ $version == "master" ]]; then
-            mv ${version}/ ${PUBLIC}/
+            [ -f ${version} ] && mv ${version}/* ${PUBLIC}/
         else
-            mv ${version} ${PUBLIC}/
+            [ -f ${version} ] && mv ${version} ${PUBLIC}/
         fi
     done
 
