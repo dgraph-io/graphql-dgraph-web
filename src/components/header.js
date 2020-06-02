@@ -8,9 +8,9 @@ const config = require("../../config")
 
 const changeVersion = eventKey => {
   if (eventKey !== "master") {
-    window.location.assign(GATSBY_URL + eventKey)
+    window.location.assign(process.env.GATSBY_URL + eventKey)
   } else {
-    window.location.assign(GATSBY_URL)
+    window.location.assign(process.env.GATSBY_URL)
   }
 }
 
