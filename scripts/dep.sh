@@ -125,7 +125,6 @@ while true; do
     if branchUpdated "master"; then
         echo -e "$(date) $GREEN Theme has been updated. Now will update the docs.$RESET"
     fi
-    popd >/dev/null
 
     # Now lets check the theme.
     echo -e "$(date)  Starting to check branches."
