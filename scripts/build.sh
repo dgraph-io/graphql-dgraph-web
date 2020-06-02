@@ -11,12 +11,13 @@ set -e
 
 GREEN='\033[32;1m'
 RESET='\033[0m'
-HOST="${HOST:-http://localhost:8000/}"
+HOST="${HOST:-https://graphql.dgraph.io/}"
 # Name of output public directory
 PUBLIC="${PUBLIC:-public}"
+DOCS="${DOCS:-pubDir}"
 # LOOP true makes this script run in a loop to check for updates
 LOOP="${LOOP:-true}"
-# Binary of hugo command to run.
+# Binary of  Gatsby command to run.
 GATSBY="${GATSBY:-npm}"
 
 VERSIONS_ARRAY=(
@@ -80,9 +81,9 @@ branchUpdated() {
 publicFolder() {
     dir=' '
     if [[ $1 == "${VERSIONS_ARRAY[0]}" ]]; then
-        echo "${PUBLIC}"
+        echo "${DOCS}"
     else
-        echo "${PUBLIC}/$1"
+        echo "${DOCS}/$1"
     fi
 }
 
@@ -110,17 +111,11 @@ checkAndUpdate() {
 firstRun=1
 while true; do
     # Lets move to the docs directory.
-    echo -e $(dirname "$0")
-
     pushd "$(dirname "$0")/.." >/dev/null
 
     currentBranch=$(git rev-parse --abbrev-ref HEAD)
 
-    # if branchUpdated "master"; then
-    #     echo -e "$(date) $GREEN Theme has been updated. Now will update the docs.$RESET"
-    # fi
-
-    # Now lets check the theme.
+    # Now lets check the docs.
     echo -e "$(date)  Starting to check branches."
     git remote update >/dev/null
 
@@ -128,13 +123,13 @@ while true; do
         checkAndUpdate "$version"
     done
 
-    mkdir -p ${PUBLIC}
+    mkdir -p ${DOCS}
 
     for version in "${VERSIONS_ARRAY[@]}"; do
         if [[ $version == "master" ]]; then
-            [ -d ${version} ] && mv ${version}/* ${PUBLIC}/ && rm -rf ${version} 
+            [ -d ${version} ] && cp -r ${version}/ ${DOCS}/ && rm -rf ${version}
         else
-            [ -d ${version} ] && mv ${version} ${PUBLIC}/
+            [ -d ${version} ] && cp -r ${version} ${DOCS}/ && rm -rf ${version}
         fi
     done
 
