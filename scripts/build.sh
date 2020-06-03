@@ -127,7 +127,7 @@ while true; do
 
     for version in "${VERSIONS_ARRAY[@]}"; do
         if [[ $version == "master" ]]; then
-            [ -d ${version} ] && cp -r ${version}/ ${DOCS}/ && rm -rf ${version}
+            [ -d ${version} ] && cp -r ${version}/. ${DOCS}/ && rm -rf ${version}
         else
             [ -d ${version} ] && cp -r ${version} ${DOCS}/ && rm -rf ${version}
         fi
