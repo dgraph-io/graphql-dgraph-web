@@ -6,6 +6,7 @@ import Header from "./header"
 import "./layout.css"
 import "./seti.css"
 import SideBar from "./sidebar"
+import Back from "./back"
 import Footer from "./Footer"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
@@ -28,8 +29,10 @@ const Layout = (props) => {
           <SEO title={props.pageContext !== undefined? props.pageContext.frontmatter.title:  "Dgraph GraphQL"} />
           <Header siteTitle={data.site.siteMetadata.title} />
           <SideBar />
+          
           <div className="content-wrap">
             <div className="landing-pg">
+              <Back />
               <div style={{ float: "right", paddingTop: "150px" }}>
                 <Location>
                   {({ location }) => {
