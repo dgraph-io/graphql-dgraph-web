@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 import React from "react"
 import DgraphLogo from "../images/graphql-logo.png"
 import { Dropdown } from "react-bootstrap"
+import Back from "./back"
+
 
 const config = require("../../config")
 
@@ -23,7 +25,7 @@ const Header = ({ siteTitle }) => {
             <img src={DgraphLogo} alt="Dgraph logo" />
           </Link>
         </div>
-        <div>
+        <div class="d-flex align-items-center justify-content-between" style={{flex:1}}>
           <Dropdown
             onSelect={(eventKey, event) => changeVersion(eventKey)}
             size="xs"
@@ -43,6 +45,8 @@ const Header = ({ siteTitle }) => {
               ))}
             </Dropdown.Menu>
           </Dropdown>
+          <Back/>
+
         </div>
       </div>
     </div>

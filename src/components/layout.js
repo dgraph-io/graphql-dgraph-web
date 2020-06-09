@@ -6,7 +6,6 @@ import Header from "./header"
 import "./layout.css"
 import "./seti.css"
 import SideBar from "./sidebar"
-import Back from "./back"
 import Footer from "./Footer"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
@@ -32,7 +31,6 @@ const Layout = (props) => {
           
           <div className="content-wrap">
             <div className="landing-pg">
-              <Back />
               <div style={{ float: "right", paddingTop: "150px" }}>
                 <Location>
                   {({ location }) => {
