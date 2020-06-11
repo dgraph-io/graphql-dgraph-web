@@ -5,6 +5,9 @@ redirect_from:
   - /docs/
 ---
 
+import GraphiQLWrapper from "../components/GraphiQL"
+import {quickStartMut1, quickStartMut2, quickStartQry1, quickStartQry2, quickStartQry3} from "../utils/queries"
+
 <h1>{props.pageContext.frontmatter.title}</h1>
 
 Let's go from nothing to a running GraphQL API in just two steps.
@@ -72,24 +75,7 @@ Fire one of those up and point it at `http://localhost:8080/graphql`.  If you kn
 
 We'll begin by adding some products and an author.  GraphQL can accept multiple mutations at a time, so it's one request.  Neither the products nor the author will have any reviews yet, so all we need is the names.
 
-```graphql
-mutation {
-  addProduct(input: [
-    { name: "GraphQL on Dgraph"},
-    { name: "Dgraph: The GraphQL Database"}
-  ]) {
-    product {
-      productID
-      name
-    }
-  }
-  addCustomer(input: [{ username: "Michael"}]) {
-    customer {
-      username
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={quickStartMut1} />
 
 The GraphQL server will return a json response like:
 
@@ -126,23 +112,7 @@ And, of course, our author bought "GraphQL on Dgraph", loved it, and added a glo
 
 Because the schema defined Customer with the field `username: String! @id`, the `username` field acts like an ID, so we can identify customers just with their names.  Products, on the other hand, had `productID: ID!`, so they'll get an auto-generated ID.  Your ID for the product might be different.  Make sure you check the result of adding the products and use the right ID -  it's no different to linking primary/foreign keys correctly in a relational DB.
 
-```graphql
-mutation {
-  addReview(input: [{
-    by: {username: "Michael"}, 
-    about: { productID: "0x2"}, 
-    comment: "Fantastic, easy to install, worked great.  Best GraphQL server available",
-    rating: 10}]) 
-  {
-    review {
-      comment
-      rating
-      by { username }
-      about { name }
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={quickStartMut2} />
 
 This time, the mutation result queries for the author making the review and the product being reviewed, so it's gone deeper into the graph to get the result than just the mutation data.
 
@@ -194,54 +164,17 @@ The directive `@search(by: [fulltext])` tells Dgraph we want to be able to searc
 
 Let's find all the products that were easy to install.
 
-```graphql
-query {
-  queryReview(filter: { comment: {alloftext: "easy to install"}}) {
-    comment
-    by {
-      username
-    }
-    about {
-      name
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={quickStartQry1} />
 
 What reviews did you get back?  It'll depend on the data you added, but you'll at least get the initial review we added.  
 
 Maybe you want to find reviews that describe best GraphQL products and give a high rating.
 
-```graphql
-query {
-  queryReview(filter: { comment: {alloftext: "best GraphQL"}, rating: { ge: 10 }}) {
-    comment
-    by {
-      username
-    }
-    about {
-      name
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={quickStartQry2} />
 
 How about we find the customers with names starting with "Mich" and the five products that each of those liked the most.
 
-```graphql
-query {
-  queryCustomer(filter: { username: { regexp: "/Mich.*/" } }) {
-    username
-    reviews(order: { asc: rating }, first: 5) {
-      comment
-      rating
-      about {
-        name
-      }
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={quickStartQry3} />
 
 We started with nothing more than the definition of three GraphQL types, yet already we have a running GraphQL API that keeps usernames unique, can run queries and mutations, and we are on our way for an e-commerce app.  
 

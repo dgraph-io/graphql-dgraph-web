@@ -4,6 +4,9 @@ redirect_from:
   - /docs/walk-through-example/
 ---
 
+import GraphiQLWrapper from "../components/GraphiQL"
+import {exampleMut1, exampleMut2, exampleMut2Vars, exampleMut3, exampleMut3Vars, exampleMut4, exampleMut5, exampleQry1, exampleQry2, exampleQry3} from "../utils/queries"
+
 <h1>{props.pageContext.frontmatter.title}</h1>
 
 A worked example of how to build a GraphQL API for an App.
@@ -221,18 +224,7 @@ type Mutation {
 
 The input type `AddAuthorInput` really just requires a name for the author.  The add mutation can add multiples, so we can add some authors with:
 
-```graphql
-mutation {
-  addAuthor(input: [
-    { username: "Michael" },
-    { username: "Apoorv" }
-  ]) {
-    author {
-      username
-    }
-  }
-}
-``` 
+<GraphiQLWrapper defaultQuery={exampleMut1} />
 
 Which will return
 
@@ -267,32 +259,7 @@ type Mutation {
 
 To add a question, you'll need to link it up to the right author, which you can do using its id - the username.  Of course, you can use GraphQL variables to supply the data.
 
-```graphql
-mutation addQuestion($question: AddQuestionInput!){
-  addQuestion(input: [$question]) {
-    question {
-      id
-      text
-      datePublished
-      author {
-        username
-      }
-    }
-  }
-}
-```
-
-With variables
-
-```json
-{
-  "question": {
-    "datePublished": "2019-10-30",
-    "text": "The very fist post about GraphQL in Dgraph.",
-    "author": { "username": "Michael" }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={exampleMut2} defaultVariables={exampleMut2Vars} />
 
 That will return something like.
 
@@ -317,39 +284,9 @@ That will return something like.
 
 Authors can comment on posts, so let's also add a comment on that post.  
 
-```graphql
-mutation addComment($comment: AddCommentInput!){
-  addComment(input: [$comment]) {
-    comment {
-      id
-      text
-      datePublished
-      author {
-        username
-      }
-      commentsOn {
-        text
-        author {
-          username
-        }
-      }
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={exampleMut3} defaultVariables={exampleMut3Vars} />
 
 Because posts have an auto generated `ID`, you need to make sure you link to the right post in the following variables.
-
-```json
-{
-  "comment": {
-    "datePublished": "2019-10-30",
-    "text": "Wow, great work.",
-    "author": { "username": "Apoorv" },
-    "commentsOn": { "id": "0x4" }
-  }
-}
-```
 
 The mutation asks for more than just the mutated data, so the response digs deeper into the graph and finds the text of the post being commented on and the author.
 
@@ -380,29 +317,7 @@ The mutation asks for more than just the mutated data, so the response digs deep
 
 Mutations don't have to be just one new object, or just linking to existing objects.  A mutation can also add deeply nested data.  Let's add a new author and their first question as a single mutation.
 
-```graphql
-mutation {
-  addAuthor(input: [
-    { 
-      username: "Karthic",
-      questions: [
-        {
-          datePublished: "2019-10-30",
-          text: "How do I add nested data?"  
-        }
-      ]
-    }
-  ]) {
-    author {
-      username
-      questions {
-        id
-        text
-      }
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={exampleMut4} />
 
 We don't need say who the author of the question is this time - Dgraph works it out from the `@hasInverse` directive in the schema.
 
@@ -430,16 +345,7 @@ Notice how the structure of the input data for a mutation is just what you'd hav
 
 It even works if you send too much data.  Let's say your app is making an update where an author is answering the question above.  It'll use the `addAnswer` mutation.  
 
-```graphql
-mutation addAnswer($answer: AddAnswerInput!){
-  addAnswer(input: [$answer]) {
-    answer {
-      id
-      text
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={exampleMut5} />
 
 In your app you've got the original question, you've built the answer and linked them in whatever way is right in your programming language, but when you serialize the answer, you'll get.
 
@@ -484,43 +390,15 @@ The filters in `AuthorFilter` and `PostFilter` are generated depending on what f
 
 Getting an author by their id is just
 
-```graphql
-query {
-  getAuthor(username: "Karthic") { 
-    username 
-    questions { text }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={exampleQry1} />
 
 For a post it's
 
-```graphql
-query {
-  getPost(id: "0x4") {
-    text
-    author {
-      username
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={exampleQry2} />
 
 Query `queryAuthor` works by applying any `filter`, `order` or pagination, and if none are given, it's just a search for things of that type.  For example, get all authors with:
 
-```graphql
-query {
-  queryAuthor {
-    username
-    answers {
-      text
-    }
-    questions {
-      text
-    }
-  }
-}
-```
+<GraphiQLWrapper defaultQuery={exampleQry3} />
 
 Or sort the authors alphabetically by name and get the first 5.
 
