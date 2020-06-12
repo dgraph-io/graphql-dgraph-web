@@ -785,6 +785,7 @@ pre tt:after {
   .page-cta {
     margin-left: auto;
   }
+
 }
 
 .btn-dgraph {
@@ -920,4 +921,108 @@ color: #fc1fb8;
 .pink-link:hover {
   color: #CA1993;
   text-decoration: underline;
+}
+
+@media (min-width: 1281px) {
+ .content-wrap {
+   display: flex;
+   flex-direction: column;
+   margin-left: 280px;
+   max-width: calc(100vw - 470px);
+ }
+
+ .sidenav {
+   width: 160px;
+   position: absolute;
+   list-style: none;
+ }
+}
+
+
+@media screen and (max-width: 1280px) {
+  .content-wrap {
+    display: flex;
+    flex-direction: column;
+     margin-left: 200px;
+     max-width: 920px;
+  }
+
+  .sidenav {
+    width: 160px;
+    position: absolute;
+    list-style: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .content-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: 190px;
+    max-width: 680px;
+  }
+
+  .sidenav {
+    width: 160px;
+    position: absolute;
+    list-style: none;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .content-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: 120px;
+    max-width: 950px;
+  }
+  .sidenav {
+    width: 100px;
+    position: absolute;
+    list-style: none;
+  }
+}
+
+@media screen and (max-width: 991px) and (orientation: landscape) {
+  .content-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: 120px;
+    max-width: 580px;
+  }
+  .sidenav {
+    width: 100px;
+    position: absolute;
+    list-style: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .content-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: 120px;
+    max-width: 950px;
+  }
+
+  .sidenav {
+    width: 100px;
+    position: absolute;
+    list-style: none;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .content-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-left: 120px;
+    max-width: 950px;
+  }
+
+  .sidenav {
+    width: 100px;
+    position: absolute;
+    list-style: none;
+  }
 }
