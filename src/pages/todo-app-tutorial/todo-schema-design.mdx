@@ -204,7 +204,7 @@ Now, let's fetch all todos which are completed :
 ```graphql
 query {
   queryTask(filter: {
-    complete: {
+    completed: {
       eq: "true"
     }
   }) {
@@ -239,7 +239,7 @@ Now, let's try to fetch todos whose title has the word _"remember"_ :
 query {
   queryTask(filter: {
     title: {
-      alloftext: "remember"
+      alloftext: "avoid"
     }
   }) {
     id
