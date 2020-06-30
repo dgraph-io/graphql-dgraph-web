@@ -1,4 +1,6 @@
 import React from "react"
+import Helmet from 'react-helmet'
+
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 
@@ -11,6 +13,8 @@ import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
 import SEO from "../components/seo"
 
+
+const canonical = window.location.href; 
 const Layout = (props) => {
   return (
     <StaticQuery
@@ -26,6 +30,10 @@ const Layout = (props) => {
       render={data => (
         <>
           <SEO title={props.pageContext !== undefined? props.pageContext.frontmatter.title:  "Dgraph GraphQL"} />
+          <Helmet>
+            <link rel="canonical" href={canonical} />
+            </Helmet>
+
           <Header siteTitle={data.site.siteMetadata.title} />
           <SideBar />
           <div className="content-wrap">
