@@ -5,6 +5,8 @@ import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
+import Helmet from 'react-helmet'
+
 import "./layout.css"
 import "./seti.css"
 import SideBar from "./sidebar"
