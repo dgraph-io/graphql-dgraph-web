@@ -1,5 +1,5 @@
 import React from "react";
-import { FaTwitter, FaGithub, FaSlack } from "react-icons/fa";
+import { FaTwitter, FaGithub } from "react-icons/fa";
 
 export default (props) => {
   return (
