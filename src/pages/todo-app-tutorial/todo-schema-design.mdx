@@ -60,7 +60,7 @@ installed on your machine.
 Let's begin by starting Dgraph standalone by running the command below:
 
 ```bash
-docker run --rm -it -p 8080:8080 -v ~/dgraph:/dgraph dgraph/standalone:v20.03.1
+docker run -it -p 8080:8080 dgraph/standalone:master
 ```
 
 Let's load up the GraphQL schema file to Dgraph:
@@ -204,7 +204,7 @@ Now, let's fetch all todos which are completed :
 ```graphql
 query {
   queryTask(filter: {
-    complete: {
+    completed: {
       eq: "true"
     }
   }) {
@@ -239,7 +239,7 @@ Now, let's try to fetch todos whose title has the word _"remember"_ :
 query {
   queryTask(filter: {
     title: {
-      alloftext: "remember"
+      alloftext: "avoid"
     }
   }) {
     id

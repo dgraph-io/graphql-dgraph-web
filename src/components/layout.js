@@ -1,7 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
-
 import Header from "./header"
 import "./layout.css"
 import "./seti.css"
@@ -26,6 +25,8 @@ const Layout = (props) => {
       render={data => (
         <>
           <SEO title={props.pageContext !== undefined? props.pageContext.frontmatter.title:  "Dgraph GraphQL"} />
+   
+
           <Header siteTitle={data.site.siteMetadata.title} />
           <SideBar />
           
