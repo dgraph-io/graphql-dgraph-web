@@ -1,4 +1,5 @@
 import React from "react"
+import Helmet from 'react-helmet'
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 import Header from "./header"
@@ -9,6 +10,7 @@ import Footer from "./Footer"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
 import SEO from "../components/seo"
+
 
 const Layout = (props) => {
   return (
@@ -25,8 +27,14 @@ const Layout = (props) => {
       render={data => (
         <>
           <SEO title={props.pageContext !== undefined? props.pageContext.frontmatter.title:  "Dgraph GraphQL"} />
-   
-
+          <Location>
+                  {({ location }) => {
+                    return (
+                  <Helmet>
+                    <link rel="canonical" href={location.href}/>
+                    </Helmet>)
+             }}
+             </Location>
           <Header siteTitle={data.site.siteMetadata.title} />
           <SideBar />
           <div className="content-wrap">
