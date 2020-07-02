@@ -23,7 +23,7 @@ const Header = ({ siteTitle }) => {
             <img src={DgraphLogo} alt="Dgraph logo" />
           </Link>
         </div>
-        <div>
+        <div className="mt-4 d-flex justify-content-center mb-2">
           <Dropdown
             onSelect={(eventKey, event) => changeVersion(eventKey)}
             size="xs"
