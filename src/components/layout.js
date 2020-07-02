@@ -45,7 +45,7 @@ const Layout = (props) => {
           <TopBar />
 
 
-            <div className="landing-pg pt-5 pl-5">
+            <div className="landing-pg  pl-5">
 
               <div style={{ float: "right", paddingTop: "150px" }}>
                 {/* <Location>
