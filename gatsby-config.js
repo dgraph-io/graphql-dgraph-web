@@ -11,6 +11,7 @@ module.exports = {
   pathPrefix: `/` + process.env.GATSBY_CURRENT_VERSION,
   plugins: [
     `gatsby-plugin-sitemap`,
+    `gatsby-plugin-sass`,
     // `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-gtag`,
