@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import React from "react"
 import DgraphLogo from "../images/graphql-logo.png"
 import { Dropdown } from "react-bootstrap"
+import {IoIosArrowDown,IoIosArrowUp} from 'react-icons/io';
 
 const config = require("../../config")
 
@@ -23,6 +24,8 @@ const VersionDropdown = ({ siteTitle }) => {
       >
         <Dropdown.Toggle id="dropdown-basic">
           Version
+          <IoIosArrowDown className="arrow-down" />
+          <IoIosArrowUp className="arrow-up" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {process.env.GATSBY_VERSIONS.split(",").map(version => (
