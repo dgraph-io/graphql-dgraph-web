@@ -6,7 +6,7 @@ import { StaticQuery, graphql } from "gatsby"
 import "./layout.css"
 import "./seti.css"
 import SideBar from "./sidebar"
-import Header from "./Header"
+import Header from "./header"
 
 import { Location } from "@reach/router"
 import { Fontawesome } from "fontawesome"
