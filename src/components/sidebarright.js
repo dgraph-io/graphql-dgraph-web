@@ -1,9 +1,11 @@
-import React from "react"
+import React,{useState} from "react"
 import { Accordion } from "react-bootstrap"
 
 const config = require("../../config")
 
 const SideBarRight = props => {
+
+  const [selectedLink , getSelectedLink] = useState('');
 
   let currentChildren = []
   let currentParent
@@ -58,7 +60,7 @@ const SideBarRight = props => {
       currentParent = node.name
       let mainNode = (
         <li key={node.name} className="sidebar-inline">
-          <a href={"#" + node.name} className={document.URL===`${process.env.GATSBY_URL}schema#${node.name}`?"pink-link-active":"pink-link"}>
+          <a href={"#" + node.name} className={selectedLink===node.name?"pink-link-active":"pink-link"} onClick={()=>{getSelectedLink(node.name)}}>
             {node.name}
           </a>
         </li>
@@ -67,7 +69,7 @@ const SideBarRight = props => {
         currentChildren = node.children.map(childNode => {
           let child = (
             <li key={childNode.name}>
-              <a href={"#" + childNode.name} className={document.URL===`${process.env.GATSBY_URL}schema#${childNode.name}`?"pink-link-active":"pink-link"}>
+              <a href={"#" + childNode.name} className={selectedLink===childNode.name?"pink-link-active":"pink-link"} onClick={()=>{getSelectedLink(childNode.name)}}>
                 {childNode.name}
               </a>
             </li>
