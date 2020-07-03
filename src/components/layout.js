@@ -8,8 +8,6 @@ import "./seti.css"
 import SideBar from "./sidebar"
 import Header from "./Header"
 
-import Footer from "./Footer"
-import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
 import { Fontawesome } from "fontawesome"
 import SEO from "../components/seo"
@@ -43,7 +41,8 @@ const Layout = (props) => {
           <SideBar />
 
           <div className="content-wrap">
-            <Header />
+          <Header siteTitle={data.site.siteMetadata.title} />
+
             <div className="landing-pg  pl-5">
 
               <div style={{ float: "right", paddingTop: "150px" }}>
