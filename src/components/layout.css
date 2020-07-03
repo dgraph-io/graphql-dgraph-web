@@ -1041,4 +1041,7 @@ h2.page-title-summary {
     padding-left: 160px;
     padding-right: 20px;
   }
+  .content-wrap .landing-pg {
+    padding: 15px !important;
+  }
 }
