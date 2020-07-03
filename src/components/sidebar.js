@@ -1,7 +1,9 @@
 import React from 'react';
 import {Link} from 'gatsby';
 import {Accordion} from 'react-bootstrap';
-import Header from './header';
+import VersionDropdown from './VersionDropdown';
+
+import DgraphLogo from "../images/graphql-logo.png"
 
 const config = require ('../../config');
 
@@ -48,7 +50,7 @@ const SideBar = props => {
           {mainNode}
           {currentChildren.length !== 0 &&
             <Accordion.Toggle as="span" eventKey={currentParent}>
-              <span className="cursor-pointer"> - </span>
+              <span className="cursor-pointer"></span>
             </Accordion.Toggle>}
           {currentChildren.length !== 0 &&
             <Accordion.Collapse eventKey={currentParent}>
@@ -65,11 +67,17 @@ const SideBar = props => {
   const list = (
     <React.Fragment>
       <div className="sidenav">
-        <Header />
-        <ul>
-
-          {completeRes}
-        </ul>
+        <div className="page-logo">
+          <Link to="/" className="img-logo header-link">
+            <img src={DgraphLogo} alt="Dgraph logo" />
+          </Link>
+        </div>
+        <VersionDropdown />
+        <div className="sidebar-wrap">
+          <ul>
+            {completeRes}
+          </ul>
+        </div>
       </div>
     </React.Fragment>
   );

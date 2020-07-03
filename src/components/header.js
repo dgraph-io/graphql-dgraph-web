@@ -1,51 +1,35 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
-import DgraphLogo from "../images/graphql-logo.png"
-import { Dropdown } from "react-bootstrap"
+import Twitter from "../images/twitter.svg"
+import Github from "../images/github.svg"
 
 const config = require("../../config")
 
-const changeVersion = eventKey => {
-  if (eventKey !== "master") {
-    window.location.assign(process.env.GATSBY_URL + eventKey)
-  } else {
-    window.location.assign(process.env.GATSBY_URL)
-  }
-}
-
 const Header = ({ siteTitle }) => {
   return (
-    <div className="header-spacing">
-      <div className="page-header">
-        <div className="page-logo">
-          <Link to="/" className="img-logo header-link">
-            <img src={DgraphLogo} alt="Dgraph logo" />
-          </Link>
-        </div>
-        <div className="mt-4 d-flex justify-content-center mb-2">
-          <Dropdown
-            onSelect={(eventKey, event) => changeVersion(eventKey)}
-            size="xs"
+    <div className="topbar d-flex">
+        <div className="page-header">
+          
+          <a
+            href="https://twitter.com/dgraphlabs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-auto"
           >
-            <Dropdown.Toggle variant="primary" id="dropdown-basic">
-              Version
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {process.env.GATSBY_VERSIONS.split(",").map(version => (
-                <Dropdown.Item
-                  key={version}
-                  active={version === process.env.GATSBY_CURRENT_VERSION}
-                  eventKey={version}
-                >
-                  {version}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
+            <img src={Twitter} alt="Twitter" className="mb-0"/>
+          </a>
+          <a
+            target="_blank"
+            href="https://github.com/dgraph-io/graphql-dgraph-web"
+            rel="noopener noreferrer"
+         
+          >
+           <img src={Github} alt="Github" className="mb-0" />
+          </a>
         </div>
-      </div>
     </div>
+    
   )
 }
 

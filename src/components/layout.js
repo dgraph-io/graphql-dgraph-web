@@ -6,11 +6,12 @@ import { StaticQuery, graphql } from "gatsby"
 import "./layout.css"
 import "./seti.css"
 import SideBar from "./sidebar"
-import TopBar from "./TopBar"
+import Header from "./Header"
 
 import Footer from "./Footer"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
+import { Fontawesome } from "fontawesome"
 import SEO from "../components/seo"
 
 const Layout = (props) => {
@@ -38,13 +39,11 @@ const Layout = (props) => {
              }}
              </Location>
 
-         
+          
           <SideBar />
 
           <div className="content-wrap">
-          <TopBar />
-
-
+            <Header />
             <div className="landing-pg  pl-5">
 
               <div style={{ float: "right", paddingTop: "150px" }}>
@@ -56,7 +55,6 @@ const Layout = (props) => {
               </div>
               {props.children}
             </div>
-            <Footer />
           </div>
         </>
       )}
