@@ -58,7 +58,7 @@ const SideBarRight = props => {
       currentParent = node.name
       let mainNode = (
         <li key={node.name} className="sidebar-inline">
-          <a href={"#" + node.name} className="pink-link">
+          <a href={"#" + node.name} className={document.URL===`${process.env.GATSBY_URL}schema#${node.name}`?"pink-link-active":"pink-link"}>
             {node.name}
           </a>
         </li>
@@ -67,7 +67,7 @@ const SideBarRight = props => {
         currentChildren = node.children.map(childNode => {
           let child = (
             <li key={childNode.name}>
-              <a href={"#" + childNode.name} className="pink-link">
+              <a href={"#" + childNode.name} className={document.URL===`${process.env.GATSBY_URL}schema#${childNode.name}`?"pink-link-active":"pink-link"}>
                 {childNode.name}
               </a>
             </li>
@@ -101,7 +101,7 @@ const SideBarRight = props => {
   
   list = (
     <React.Fragment>
-      <ul className="sidenav">{completeRes}</ul>
+      <ul className="sidenav-right ">{completeRes}</ul>
     </React.Fragment>
   )
 

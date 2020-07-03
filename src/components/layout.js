@@ -7,7 +7,7 @@ import "./layout.css"
 import "./seti.css"
 import SideBar from "./sidebar"
 import Header from "./header"
-
+import SideBarRight from './sidebarright'
 import { Location } from "@reach/router"
 import { Fontawesome } from "fontawesome"
 import SEO from "../components/seo"
@@ -46,16 +46,18 @@ const Layout = (props) => {
 
             <div className="landing-pg  pl-5">
 
-              <div style={{ float: "right", paddingTop: "150px" }}>
-                {/* <Location>
+             
+              {props.children}
+            </div>
+            <div className="sidebar-right-container">
+                <Location>
                   {({ location }) => {
                     return <SideBarRight file={location.pathname} />
                   }}
-                </Location> */}
+                </Location>
               </div>
-              {props.children}
-            </div>
           </div>
+        
         </>
       )}
     />

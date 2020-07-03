@@ -716,6 +716,7 @@ pre tt:after {
 .landing-pg {
   min-height: calc(100vh - 170px);
   padding: 0px 1.0875rem 1.45rem;
+  margin-right: 150px;
   padding-top: 33px;
 }
 .CodeMirror-cursor {
@@ -771,7 +772,6 @@ pre tt:after {
 .page-title-summary {
   font-size: 26px;
   color: #555555;
-  font-family: ;
 }
 .landing-pg pre {
   margin-bottom: 30px;
@@ -953,10 +953,15 @@ h2.page-title-summary {
 }
 
 .pink-link:hover,
-.pink-link:active,
 .pink-link:focus {
   background: linear-gradient(135deg, #ff1800 20px, #ff009b calc(100% - 20px));
-  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  text-decoration: none;
+}
+.pink-link-active {
+  background: linear-gradient(135deg, #ff1800 20px, #ff009b calc(100% - 20px));
+  -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   text-decoration: none;
 }
@@ -1007,11 +1012,29 @@ h2.page-title-summary {
   padding: 20px;
   margin: 0;
 }
+.sidebar-right-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  max-width: 250px;
+}
+.sidebar-right-container .sidenav-right {
+  width: 100%;
+  padding-top: 250px;
+}
+.sidebar-right-container .sidenav-right .cursor-pointer {
+  display: inline-block;
+  margin-left: 5px;
+}
 .content-wrap {
   padding-left: 280px;
-  padding-right: 50px;
+  padding-right: 56px;
   z-index: 1;
   position: relative;
+
+  /* max-width: calc(100vw - 470px); */
 }
 
 /* .accordion-toggle {
