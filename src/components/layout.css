@@ -1,21 +1,4 @@
-@font-face {
-  font-family: "HelveticaNeue";
-  src: url("../assets/fonts/HelveticaNeue.svg#HelveticaNeue") format("svg"),
-    url("../assets/fonts/HelveticaNeue.ttf") format("truetype"),
-    url("../assets/fonts/HelveticaNeue.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
 
-@font-face {
-  font-family: "HelveticaNeue-Medium";
-  src: url("../assets/fonts/HelveticaNeue-Medium.svg#HelveticaNeue-Medium")
-      format("svg"),
-    url("../assets/fonts/HelveticaNeue-Medium.ttf") format("truetype"),
-    url("../assets/fonts/HelveticaNeue-Medium.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
 
 html {
   -ms-text-size-adjust: 100%;
@@ -24,7 +7,7 @@ html {
 
 body {
   margin: 0;
-  font-family: HelveticaNeue, Helvetica, sans-serif !important;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
 }
 
 article,
@@ -753,7 +736,6 @@ pre tt:after {
   font-size: 32px;
   color: #212121;
   margin-bottom: 30px;
-  font-family: HelveticaNeue-Medium;
 }
 .landing-pg h1.page-title {
   margin-bottom: 5px;

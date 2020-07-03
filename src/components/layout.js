@@ -9,9 +9,7 @@ import SideBar from "./sidebar"
 import Header from "./header"
 
 import { Location } from "@reach/router"
-import { Fontawesome } from "fontawesome"
 import SEO from "../components/seo"
-import "../assets/style/custom.scss"
 
 const Layout = (props) => {
   return (

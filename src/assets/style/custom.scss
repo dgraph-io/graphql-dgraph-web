@@ -1,7 +1,4 @@
-$primary-color: #333 !important;
-$pink: #fc1fb8;
+@import "./vender/scss/bootstrap.scss";
 
-.active {
-    color: $pink;
-  }
+
 
