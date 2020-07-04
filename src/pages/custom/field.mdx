@@ -50,7 +50,7 @@ type User {
     username: String! @id 
 
     # join local data with remote
-    gitDetails: User @custom(http: {
+    gitDetails: GitHubUser @custom(http: {
         url:  "https://api.github.com/graphql",
         method: POST,
         graphql: "query(username: String!) { user(login: $username) }",
