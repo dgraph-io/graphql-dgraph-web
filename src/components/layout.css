@@ -975,7 +975,7 @@ h2.page-title-summary {
 .sidenav .sidebar-wrap {
   padding: 0 20px 20px 20px;
   position: absolute;
-  top: 140px;
+  top: 218px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -1028,6 +1028,10 @@ h2.page-title-summary {
   display: inline-block;
   margin-left: 5px;
 }
+
+.sidebar-content-dropdown-container {
+  padding: 16px 0px 32px 0px;
+}
 .content-wrap {
   padding-left: 280px;
   padding-right: 56px;
@@ -1067,4 +1071,78 @@ h2.page-title-summary {
   .content-wrap .landing-pg {
     padding: 15px !important;
   }
+}
+
+.sidebar-content-dropdown-container .lighter-button {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 66, 0, 0.05) 0.01%,
+    rgba(229, 6, 149, 0.05) 99.99%
+  ) !important;
+  border: none !important;
+  width: 100%;
+  max-width: 100%;
+}
+.sidebar-content-dropdown-container .sidebar-container-dropdown-menu {
+  width: 700px;
+  max-width: 700px;
+  background: #fff !important;
+  height: 374px;
+  max-height: 374px;
+  z-index: 2;
+  border: #e5e5e5 1.5px solid;
+  border-radius: 4px;
+}
+
+.sidebar-content-dropdown-container
+  .sidebar-container-dropdown-menu
+  .list-item-menu-header {
+  padding: 24px 0;
+}
+
+.sidebar-content-dropdown-container
+  .sidebar-container-dropdown-menu
+  .list-item-row {
+  height: calc(400px / 4);
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.sidebar-content-dropdown-container
+  .sidebar-container-dropdown-menu
+  .list-item-content {
+}
+
+.list-item-title a {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #212121;
+  margin-bottom: 8px;
+}
+.list-item-title a:hover {
+  background-image: linear-gradient(
+    135deg,
+    #ff1800 20px,
+    #ff009b calc(100% - 20px)
+  ) !important;
+  color: transparent;
+  -webkit-background-clip: text;
+  text-decoration: none;
+  -webkit-text-fill-color: transparent;
+}
+.list-item-subtitle {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #555555;
+}
+.gradient-text {
+  background: linear-gradient(135deg, #ff1800 20px, #ff009b calc(100% - 20px));
+  color: transparent;
+  -webkit-background-clip: text;
+  text-decoration: none;
 }

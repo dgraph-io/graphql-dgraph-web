@@ -2,6 +2,7 @@ import React , {useState} from "react"
 import { Link } from "gatsby"
 import { Accordion } from "react-bootstrap"
 import VersionDropdown from "./VersionDropdown"
+import SideBarContentDropdown from './sideBarContentDropdown';
 
 import DgraphLogo from "../images/graphql-logo.png"
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md"
@@ -85,6 +86,7 @@ const SideBar = props => {
           </Link>
         </div>
         <VersionDropdown />
+        <SideBarContentDropdown />
         <div className="sidebar-wrap">
           <ul>{completeRes}</ul>
         </div>
