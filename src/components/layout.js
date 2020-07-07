@@ -7,11 +7,12 @@ import "./layout.css"
 import "./seti.css"
 import SideBar from "./sidebar"
 import Header from "./header"
-
+import SideBarRight from './sidebarright'
 import { Location } from "@reach/router"
 import SEO from "../components/seo"
 
 const Layout = (props) => {
+
   return (
     <StaticQuery
       query={graphql`
@@ -37,23 +38,25 @@ const Layout = (props) => {
              </Location>
 
           
-          <SideBar />
+          <SideBar/>
 
           <div className="content-wrap">
           <Header siteTitle={data.site.siteMetadata.title} />
 
             <div className="landing-pg  pl-5">
 
-              <div style={{ float: "right", paddingTop: "150px" }}>
-                {/* <Location>
+             
+              {props.children}
+            </div>
+            <div className="sidebar-right-container">
+                <Location>
                   {({ location }) => {
                     return <SideBarRight file={location.pathname} />
                   }}
-                </Location> */}
+                </Location>
               </div>
-              {props.children}
-            </div>
           </div>
+        
         </>
       )}
     />

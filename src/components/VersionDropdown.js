@@ -3,7 +3,8 @@ import PropTypes from "prop-types"
 import React from "react"
 import DgraphLogo from "../images/graphql-logo.png"
 import { Dropdown } from "react-bootstrap"
-import {IoIosArrowDown,IoIosArrowUp} from 'react-icons/io';
+import {GoChevronDown,GoChevronUp} from 'react-icons/go';
+
 
 const config = require("../../config")
 
@@ -22,10 +23,10 @@ const VersionDropdown = ({ siteTitle }) => {
         onSelect={(eventKey, event) => changeVersion(eventKey)}
         size="xs"
       >
-        <Dropdown.Toggle id="dropdown-basic">
+        <Dropdown.Toggle id="dropdown-basic" className="dropdown-version">
           Version
-          <IoIosArrowDown className="arrow-down" />
-          <IoIosArrowUp className="arrow-up" />
+          <GoChevronDown className="arrow-down"/>
+          <GoChevronUp className="arrow-up" />
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {process.env.GATSBY_VERSIONS.split(",").map(version => (

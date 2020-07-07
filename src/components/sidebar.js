@@ -2,9 +2,10 @@ import React , {useState} from "react"
 import { Link } from "gatsby"
 import { Accordion } from "react-bootstrap"
 import VersionDropdown from "./VersionDropdown"
+import SideBarContentDropdown from './sideBarContentDropdown';
 
 import DgraphLogo from "../images/graphql-logo.png"
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md"
+import {GoChevronDown,GoChevronUp} from 'react-icons/go';
 
 const config = require("../../config")
 
@@ -20,10 +21,13 @@ const SideBar = props => {
   let currentParent
   let completeRes = []
 
+  /** this function helps in identifying what is the current url of the page */
+  
+
   completeRes = config.sidebarOptions.map(node => {
     currentParent = node.title
     let mainNode = (
-      <li key={node.title} className="sidebar-inline">
+      <li key={node.title} className="sidebar-inline" >
         <Link
           to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
@@ -57,7 +61,7 @@ const SideBar = props => {
              showAccordion?toggleAccordion(false):toggleAccordion(true);
             }}>
               <span className="cursor-pointer">
-              <MdKeyboardArrowDown className="collapsible-arrow-down" />
+              <GoChevronDown className="collapsible-arrow-down" />
               </span>
             </Accordion.Toggle>
           )}
@@ -85,6 +89,7 @@ const SideBar = props => {
           </Link>
         </div>
         <VersionDropdown />
+        {/* <SideBarContentDropdown /> */}
         <div className="sidebar-wrap">
           <ul>{completeRes}</ul>
         </div>
