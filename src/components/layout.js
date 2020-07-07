@@ -44,7 +44,6 @@ const Layout = (props) => {
           <Header siteTitle={data.site.siteMetadata.title} />
 
             <div className="landing-pg  pl-5">
-
              
               {props.children}
             </div>

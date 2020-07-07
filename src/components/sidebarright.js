@@ -61,7 +61,7 @@ const SideBarRight = props => {
     completeRes = opts[0].subOptions.map(node => {
       currentParent = node.name
       let mainNode = (
-        <li key={node.name} className="sidebar-inline">
+        <li key={node.name} className="sidebar-inline font-weight-medium">
           <a href={"#" + node.name} className={selectedLink === node.name ? "pink-link-active" : "pink-link"} onClick={() => { getSelectedLink(node.name) }}>
             {node.name}
           </a>
@@ -70,7 +70,7 @@ const SideBarRight = props => {
       if (node.children !== undefined) {
         currentChildren = node.children.map(childNode => {
           let child = (
-            <li key={childNode.name}>
+            <li key={childNode.name} className="sidebar-inline-block">
               <a href={"#" + childNode.name} className={selectedLink === childNode.name ? "pink-link-active" : "pink-link"} onClick={() => { getSelectedLink(childNode.name) }}>
                 {childNode.name}
               </a>
