@@ -984,7 +984,7 @@ h2.page-title-summary {
 .sidenav .sidebar-wrap {
   padding: 0 20px 20px 24px;
   position: absolute;
-  top: 218px;
+  top: 146px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -1033,11 +1033,16 @@ h2.page-title-summary {
 
 .sidebar-right-container .sidenav-right {
   width: 100%;
+  padding-top: 200px;
 }
 .sidebar-right-container .sidenav-right-schema {
   padding-top: 200px;
 }
 .sidebar-right-container .sidenav-right-schema .cursor-pointer {
+  display: inline;
+  margin-left: 5px;
+}
+.sidebar-right-container .sidenav-right .cursor-pointer {
   display: inline;
   margin-left: 5px;
 }

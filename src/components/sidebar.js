@@ -89,7 +89,7 @@ const SideBar = props => {
           </Link>
         </div>
         <VersionDropdown />
-        <SideBarContentDropdown />
+        {/* <SideBarContentDropdown /> */}
         <div className="sidebar-wrap">
           <ul>{completeRes}</ul>
         </div>

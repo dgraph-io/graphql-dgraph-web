@@ -1,6 +1,6 @@
 import React from "react"
 import { Dropdown, Row, Col, Container } from "react-bootstrap"
-import { BsLayoutSidebar } from "react-icons/bs"
+// import { BsLayoutSidebar } from "react-icons/bs"
 import { sideBarContentClasses } from "../utils/graphQLConstants/sideBarContents"
 
 export default function SideBarContentDropdown() {
@@ -11,12 +11,12 @@ export default function SideBarContentDropdown() {
           <Dropdown.Toggle id="dropdown-basic" bsPrefix="lighter-button">
             <div className="gradient-text-toggle-button">
               <span className="gradient-text">Dgraph GraphQL</span>
-              <BsLayoutSidebar
+              {/* <BsLayoutSidebar
                 className="layout-icon"
                 strokeWidth="1px"
                 fill="pink"
                 stroke="linearGradient(135deg, #ff1800 20px, #ff009b)"
-              />
+              /> */}
             </div>
           </Dropdown.Toggle>
           <Dropdown.Menu bsPrefix="sidebar-container-dropdown-menu">
