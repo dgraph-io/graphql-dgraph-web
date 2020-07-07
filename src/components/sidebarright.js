@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Accordion } from "react-bootstrap";
 import { GoChevronDown, GoChevronUp } from 'react-icons/go';
-import {getCurrentPageURL} from '../helperFunctions/stringModify';
 
 const config = require("../../config")
 
@@ -112,7 +111,7 @@ const SideBarRight = props => {
 
   list = (
     <React.Fragment>
-      <ul className={getCurrentPageURL(props)}>{completeRes}</ul>
+      <ul className="sidenav-right">{completeRes}</ul>
     </React.Fragment>
   )
 

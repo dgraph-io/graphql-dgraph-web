@@ -893,11 +893,13 @@ h2.page-title-summary {
 .show > .btn-primary.dropdown-toggle {
   background: #fff !important;
   color: #212121 !important;
-  font-size: 14px;
+  font-size: 16px;
   text-align: left;
   border: 2px solid rgba(214, 214, 214, 0.5) !important;
   box-shadow: none !important;
   outline: none !important;
+  font-weight: 500;
+  font-family: Helvetica Neue;
 }
 .dropdown-menu {
   width: 100%;
@@ -1022,9 +1024,9 @@ h2.page-title-summary {
   margin: 0;
 }
 .sidebar-right-container {
-  position: absolute;
+  position: fixed;
   right: 0;
-  top: 0;
+  top: 198px;
   bottom: 0;
   width: 200px;
   max-width: 250px;
@@ -1032,19 +1034,7 @@ h2.page-title-summary {
 }
 
 .sidebar-right-container .sidenav-right {
-  width: 100%;
-  padding-top: 200px;
-}
-.sidebar-right-container .sidenav-right-schema {
-  padding-top: 200px;
-}
-.sidebar-right-container .sidenav-right-schema .cursor-pointer {
-  display: inline;
-  margin-left: 5px;
-}
-.sidebar-right-container .sidenav-right .cursor-pointer {
-  display: inline;
-  margin-left: 5px;
+  margin: 0;
 }
 
 .sidebar-content-dropdown-container {

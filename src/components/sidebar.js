@@ -27,7 +27,7 @@ const SideBar = props => {
   completeRes = config.sidebarOptions.map(node => {
     currentParent = node.title
     let mainNode = (
-      <li key={node.title} className="sidebar-inline" onClick={()=>{props.setSideBarSectionCategory(node.title)}}>
+      <li key={node.title} className="sidebar-inline" >
         <Link
           to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
@@ -39,7 +39,7 @@ const SideBar = props => {
     if (node.children !== undefined) {
       currentChildren = node.children.map(childNode => {
         let child = (
-          <li key={childNode.title} onClick={()=>{props.setSideBarSectionCategory(node.title+'/'+childNode.title)}}>
+          <li key={childNode.title}>
             <Link
               to={"/" + childNode.path.replace(".mdx", "")}
               getProps={isActive}

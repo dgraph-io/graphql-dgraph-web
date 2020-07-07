@@ -1,4 +1,4 @@
-import React,{useState} from "react"
+import React from "react"
 import Helmet from 'react-helmet'
 
 import PropTypes from "prop-types"
@@ -14,11 +14,7 @@ import SEO from "../components/seo"
 import "../assets/style/custom.scss"
 
 const Layout = (props) => {
-  const [setURL , selectSideBarCategory] = useState('/');
 
-  const setSideBarSectionCategory = (nodeTitle) =>{
-    selectSideBarCategory('/'+nodeTitle);
-  }
   return (
     <StaticQuery
       query={graphql`
@@ -44,7 +40,7 @@ const Layout = (props) => {
              </Location>
 
           
-          <SideBar setSideBarSectionCategory={(nodeTitle)=>setSideBarSectionCategory(nodeTitle)}/>
+          <SideBar/>
 
           <div className="content-wrap">
           <Header siteTitle={data.site.siteMetadata.title} />
@@ -57,7 +53,7 @@ const Layout = (props) => {
             <div className="sidebar-right-container">
                 <Location>
                   {({ location }) => {
-                    return <SideBarRight file={location.pathname} pageURL={setURL}/>
+                    return <SideBarRight file={location.pathname} />
                   }}
                 </Location>
               </div>
