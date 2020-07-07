@@ -71,7 +71,7 @@ const SideBarRight = props => {
         currentChildren = node.children.map(childNode => {
           let child = (
             <li key={childNode.name} className="sidebar-inline-block">
-              <a href={"#" + childNode.name} className={selectedLink === childNode.name ? "pink-link-active" : "pink-link"} onClick={() => { getSelectedLink(childNode.name) }}>
+              <a href={"#" + childNode.name} className={selectedLink === childNode.name ? "pink-link-active" : "pink-link accordion-child-link-light"} onClick={() => { getSelectedLink(childNode.name) }}>
                 {childNode.name}
               </a>
             </li>

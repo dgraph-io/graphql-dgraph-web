@@ -9,10 +9,43 @@
 // }
 
 .sidebar-right-container {
+  position: fixed;
+  right: 0;
+  top: 125px;
+  bottom: 0;
+  width: 265px;
+  max-width: 250px;
+  padding: 28px 63px;
+
+  @media screen and (max-width: 768px) {
+    width: 200px;
+  }
+
   .accordion {
     position: relative;
     .cursor-pointer {
       display: inline;
     }
+    .collapse ul,
+    .show ul,
+    .collapsing ul {
+      margin: 0 !important;
+    }
   }
+}
+
+.sidebar-right-container {
+  .sidenav-right {
+    margin: 0;
+  }
+}
+
+//light colored text for child links in accordions
+.accordion-child-link-light {
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #555555;
 }

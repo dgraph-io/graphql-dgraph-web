@@ -1003,19 +1003,6 @@ h2.page-title-summary {
   padding: 20px;
   margin: 0;
 }
-.sidebar-right-container {
-  position: fixed;
-  right: 0;
-  top: 198px;
-  bottom: 0;
-  width: 200px;
-  max-width: 250px;
-  padding: 28px 24px;
-}
-
-.sidebar-right-container .sidenav-right {
-  margin: 0;
-}
 
 .sidebar-content-dropdown-container {
   padding: 16px 0px 32px 0px;
