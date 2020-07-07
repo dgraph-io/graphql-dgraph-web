@@ -878,6 +878,15 @@ h2.page-title-summary {
   border-radius: 4px;
 }
 
+.dropdown-version {
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #212121;
+}
+
 .dropdown .btn-primary,
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
@@ -973,7 +982,7 @@ h2.page-title-summary {
   padding-left: 15px;
 }
 .sidenav .sidebar-wrap {
-  padding: 0 20px 20px 20px;
+  padding: 0 20px 20px 24px;
   position: absolute;
   top: 218px;
   left: 0;
@@ -1019,13 +1028,17 @@ h2.page-title-summary {
   bottom: 0;
   width: 200px;
   max-width: 250px;
+  padding: 28px 24px;
 }
+
 .sidebar-right-container .sidenav-right {
   width: 100%;
-  padding-top: 250px;
 }
-.sidebar-right-container .sidenav-right .cursor-pointer {
-  display: inline-block;
+.sidebar-right-container .sidenav-right-schema {
+  padding-top: 200px;
+}
+.sidebar-right-container .sidenav-right-schema .cursor-pointer {
+  display: inline;
   margin-left: 5px;
 }
 
@@ -1037,17 +1050,7 @@ h2.page-title-summary {
   padding-right: 56px;
   z-index: 1;
   position: relative;
-
-  /* max-width: calc(100vw - 470px); */
 }
-
-/* .accordion-toggle {
-  position: relative;
-}
-.accordion-toggle .collapsible-arrow-up {
-  position: absolute;
-  right: 15px;
-} */
 
 @media screen and (min-width: 768px) {
   .content-wrap {
@@ -1070,6 +1073,17 @@ h2.page-title-summary {
   }
   .content-wrap .landing-pg {
     padding: 15px !important;
+    margin: 0;
+  }
+
+  .sidebar-right-container {
+    display: none;
+  }
+  .gradient-text-toggle-button span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
   }
 }
 
@@ -1145,4 +1159,25 @@ h2.page-title-summary {
   color: transparent;
   -webkit-background-clip: text;
   text-decoration: none;
+}
+.gradient-text-toggle-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.layout-icon {
+  height: 18px;
+  width: 20px;
+  font-weight: bold;
+  -webkit-background-clip: text;
+}
+
+.hide {
+  display: none;
 }

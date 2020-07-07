@@ -5,7 +5,7 @@ import VersionDropdown from "./VersionDropdown"
 import SideBarContentDropdown from './sideBarContentDropdown';
 
 import DgraphLogo from "../images/graphql-logo.png"
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md"
+import {GoChevronDown,GoChevronUp} from 'react-icons/go';
 
 const config = require("../../config")
 
@@ -21,10 +21,13 @@ const SideBar = props => {
   let currentParent
   let completeRes = []
 
+  /** this function helps in identifying what is the current url of the page */
+  
+
   completeRes = config.sidebarOptions.map(node => {
     currentParent = node.title
     let mainNode = (
-      <li key={node.title} className="sidebar-inline">
+      <li key={node.title} className="sidebar-inline" onClick={()=>{props.setSideBarSectionCategory(node.title)}}>
         <Link
           to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
@@ -36,7 +39,7 @@ const SideBar = props => {
     if (node.children !== undefined) {
       currentChildren = node.children.map(childNode => {
         let child = (
-          <li key={childNode.title}>
+          <li key={childNode.title} onClick={()=>{props.setSideBarSectionCategory(node.title+'/'+childNode.title)}}>
             <Link
               to={"/" + childNode.path.replace(".mdx", "")}
               getProps={isActive}
@@ -58,7 +61,7 @@ const SideBar = props => {
              showAccordion?toggleAccordion(false):toggleAccordion(true);
             }}>
               <span className="cursor-pointer">
-              <MdKeyboardArrowDown className="collapsible-arrow-down" />
+              <GoChevronDown className="collapsible-arrow-down" />
               </span>
             </Accordion.Toggle>
           )}
