@@ -5,7 +5,7 @@ import VersionDropdown from "./VersionDropdown"
 import SideBarContentDropdown from "./sideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
-import {GlobalStateContext} from '../context/GlobalContextProvider';
+import {GlobalStateContext, GlobalReducerContext} from '../context/GlobalContextProvider';
 
 const config = require("../../config")
 
@@ -13,6 +13,7 @@ const SideBar = props => {
   const [showAccordion, toggleAccordion] = useState(false)
   const {  sidebarcategoryindex } = props
   const state= React.useContext(GlobalStateContext);
+  const dispatch = React.useContext(GlobalReducerContext);
 
 
   function isActive(obj) {
@@ -23,7 +24,7 @@ const SideBar = props => {
   let currentParent
   let completeRes = []
 
-  console.log('[state]',state.sideBarCategoryIndex , state.sideBarCategoryClassName)
+  console.log('[state]',state.sideBarCategoryIndex , state.sideBarCategoryClassName , state.renderRightSideBar)
   /** this function helps in identifying what is the current url of the page */
 
   completeRes = config.sidebarOptions[state.sideBarCategoryIndex].map(node => {
@@ -33,6 +34,7 @@ const SideBar = props => {
         <Link
           to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
+          onClick={()=>{dispatch({type:'HIDE_RIGHT_SIDEBAR' , showSideBar:node.showSideBar})}}
         >
           {node.title}
         </Link>

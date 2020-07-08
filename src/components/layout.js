@@ -1,4 +1,4 @@
-import React, { useState} from "react"
+import React, { useState,useContext} from "react"
 import Helmet from "react-helmet"
 
 import PropTypes from "prop-types"
@@ -10,11 +10,13 @@ import Header from "./header"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
 import SEO from "../components/seo"
+import {GlobalStateContext , GlobalReducerContext} from '../context/GlobalContextProvider';
 
 const Layout = props => {
   const [sideBarContentDropDownTitle, selectSideBarContent] = useState("");
   const [sideBarCategoryIndex , setCategory] = useState(0);
 
+  const state = useContext(GlobalStateContext);
   
   const setContentCategory = (dropDownTitle ,categoryIndex)=>{
     selectSideBarContent(dropDownTitle);
@@ -63,8 +65,8 @@ const Layout = props => {
           <div className="content-wrap">
             <Header siteTitle={data.site.siteMetadata.title} />
 
-            <div className="landing-pg  pl-5">{props.children}</div>
-            <div className="sidebar-right-container">
+            <div className={state.renderRightSideBar?"landing-pg  pl-5":"landing-pg-extend pl-5"}>{props.children}</div>
+            {state.renderRightSideBar&&<div className="sidebar-right-container">
               <Location>
                 {({ location }) => {
                   return (
@@ -75,7 +77,7 @@ const Layout = props => {
                   )
                 }}
               </Location>
-            </div>
+            </div>}
           </div>
         </>
       )}

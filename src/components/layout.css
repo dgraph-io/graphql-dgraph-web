@@ -700,6 +700,12 @@ pre tt:after {
   margin-right: 150px;
   padding-top: 33px;
 }
+.landing-pg-extend {
+  min-height: calc(100vh - 170px);
+  padding: 0px 1.0875rem 1.45rem;
+  margin-right: 56px;
+  padding-top: 33px;
+}
 .CodeMirror-cursor {
   background: #fff !important;
 }

@@ -60,13 +60,14 @@ export default function SideBarContentDropdown(props) {
                                 <Link
                                   to={`/${config.sidebarOptions[
                                     index
-                                  ][0].path.replace("index.mdx", "")}`}
+                                  ][0].path.replace("index.mdx", "").replace(".mdx","")}`}
                                   onClick={() => {
                                     dispatch({
                                       type: "SELECT_SIDEBAR_CONTENT_CATEGORY",
                                       categoryName: leftContent.title,
                                       categoryIndex: index
                                     })
+                                    dispatch({type:'HIDE_RIGHT_SIDEBAR' , showSideBar:leftContent.showSideBar})
                                   }}
                                 >
                                   <span>{leftContent.title}</span>
@@ -96,7 +97,7 @@ export default function SideBarContentDropdown(props) {
                                 <Link
                                   to={`/${config.sidebarOptions[
                                     index+3
-                                  ][0].path.replace("index.mdx", "")}`}
+                                  ][0].path.replace("index.mdx", "").replace(".mdx","")}`}
 
                                 onClick={() => {
                                   dispatch({
@@ -104,6 +105,7 @@ export default function SideBarContentDropdown(props) {
                                     categoryName: rightContent.title,
                                     categoryIndex: index+3
                                   })
+                                  dispatch({type:'HIDE_RIGHT_SIDEBAR' , showSideBar:rightContent.showSideBar})
                                 }}
                                 >
                                   {rightContent.title}

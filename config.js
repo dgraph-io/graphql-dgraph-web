@@ -1,19 +1,26 @@
 const DocumentationReference = [
   {
     path: "documentationReference/index.mdx",
-    title: "Quick Start"
+    title: "Quick Start",
+    showSideBar: true
+
   },
   {
     path: "api.mdx",
-    title: "The API"
+    title: "The API",
+    showSideBar: true
+
   },
   {
     path: "example.mdx",
-    title: "Example"
+    title: "Example",
+    showSideBar: true
+
   },
   {
     path: "schema.mdx",
     title: "Schema",
+    showSideBar: true,
     subOptions: [
       { name: "Scalars" },
       { name: "Enums" },
@@ -28,6 +35,7 @@ const DocumentationReference = [
   {
     path: "authorization/index.mdx",
     title: "Authorization",
+    showSideBar: true,
     children: [
       {
         path: "authorization/directive.mdx",
@@ -42,6 +50,7 @@ const DocumentationReference = [
   {
     path: "custom/index.mdx",
     title: "Custom Resolvers",
+    showSideBar: true,
     children: [
       {
         path: "custom/directive.mdx",
@@ -64,6 +73,7 @@ const DocumentationReference = [
   {
     path: "todo-app-tutorial/index.mdx",
     title: "Todo App Tutorial",
+    showSideBar: true,
     children: [
       {
         path: "todo-app-tutorial/todo-schema-design.mdx",
@@ -78,6 +88,8 @@ const DocumentationReference = [
       {
         path: "todo-app-tutorial/todo-UI.mdx",
         title: "Basic UI",
+        showSideBar: true,
+
         subOptions: [
           { name: "Create React app" },
           { name: "Install dependencies" },
@@ -116,35 +128,45 @@ const DocumentationReference = [
 
 const Graphql = [
   {
-    title: "Graph QL",
-    path: "dgraphGraphQL/index.mdx"
-  }
+    title: "Welcome to GraphQL",
+    path: "dgraphGraphQL/welcomePage.mdx",
+    showSideBar: true
+  },
+  {
+    title: "Graph QL Quick Start",
+    path: "dgraphGraphQL/index.mdx",
+    showSideBar: false
+  },
 ]
 const tutorial = [
   {
     title: "Tutorials",
-    path: "tutorials/index.mdx"
+    path: "tutorials/index.mdx",
+    showSideBar: true
   }
 ]
 
 const toolsAndDeployment = [
     {
     title: "Tools and Deployments",
-    path: "toolsAndDeployment/index.mdx"
+    path: "toolsAndDeployment/index.mdx",
+    showSideBar: true
   }
 ]
 
 const slashGraphQL = [
   {
     title: "Slash GraphQL",
-    path: "slashGraphQL/index.mdx"
+    path: "slashGraphQL/index.mdx",
+    showSideBar: true
   }
 ]
 
 const exampleApps = [
   {
     title: "Example Apps",
-    path: "exampleApps/index.mdx"
+    path: "exampleApps/index.mdx",
+    showSideBar: true
   }
 ]
 

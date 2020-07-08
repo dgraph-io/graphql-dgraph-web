@@ -5,7 +5,8 @@ export const GlobalReducerContext = React.createContext()
 
 const initialState = {
   sideBarCategoryIndex: 0,
-  sideBarCategoryClassName: "Slash GraphQL"
+  sideBarCategoryClassName: "Slash GraphQL",
+  renderRightSideBar:true
 }
 
 function reducer(state = initialState, action) {
@@ -15,6 +16,13 @@ function reducer(state = initialState, action) {
         ...state,
         sideBarCategoryClassName: action.categoryName,
         sideBarCategoryIndex: action.categoryIndex
+      }
+    }
+
+    case "HIDE_RIGHT_SIDEBAR": {
+      return {
+        ...state,
+        renderRightSideBar:action.showSideBar
       }
     }
 
