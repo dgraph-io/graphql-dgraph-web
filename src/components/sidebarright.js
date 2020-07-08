@@ -9,13 +9,15 @@ const SideBarRight = props => {
   const [selectedLink, getSelectedLink] = useState('');
   const [accordionShow , toggleAccordion] = useState(false);
 
+
+
   let currentChildren = []
   let currentParent
   let completeRes = []
   let optsChildren = []
   let list
 
-  let opts = config.sidebarOptions.filter(function (sidebar) {
+  let opts = config.sidebarOptions[1].filter(function (sidebar) {
     if (
       "/" + sidebar.path.replace("index.mdx", "").replace(".mdx", "") ===
       props.file ||

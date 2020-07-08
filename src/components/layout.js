@@ -1,5 +1,5 @@
-import React from "react"
-import Helmet from 'react-helmet'
+import React, { useState} from "react"
+import Helmet from "react-helmet"
 
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
@@ -7,11 +7,20 @@ import "./layout.css"
 import "./seti.css"
 import SideBar from "./sidebar"
 import Header from "./header"
-import SideBarRight from './sidebarright'
+import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
 import SEO from "../components/seo"
 
-const Layout = (props) => {
+const Layout = props => {
+  const [sideBarContentDropDownTitle, selectSideBarContent] = useState("");
+  const [sideBarCategoryIndex , setCategory] = useState(0);
+
+  
+  const setContentCategory = (dropDownTitle ,categoryIndex)=>{
+    selectSideBarContent(dropDownTitle);
+    setCategory(categoryIndex);
+    console.log('[title , index]',sideBarContentDropDownTitle , sideBarCategoryIndex)
+  }
 
   return (
     <StaticQuery
@@ -26,36 +35,48 @@ const Layout = (props) => {
       `}
       render={data => (
         <>
-          <SEO title={props.pageContext !== undefined? props.pageContext.frontmatter.title:  "Dgraph GraphQL"} />
-   
-          <Location>
-                  {({ location }) => {
-                    return (
-                  <Helmet>
-                    <link rel="canonical" href={location.href}/>
-                    </Helmet>)
-             }}
-             </Location>
+          <SEO
+            title={
+              props.pageContext !== undefined
+                ? props.pageContext.frontmatter.title
+                : "Dgraph GraphQL"
+            }
+          />
 
-          
-          <SideBar/>
+          <Location>
+            {({ location }) => {
+              return (
+                <Helmet>
+                  <link rel="canonical" href={location.href} />
+                </Helmet>
+              )
+            }}
+          </Location>
+
+          <SideBar
+            selectSideBarContent={(nodeTitle , contentClass) => {
+              setContentCategory(nodeTitle , contentClass)
+            }}
+            sidebarcategoryindex={sideBarCategoryIndex}
+          />
 
           <div className="content-wrap">
-          <Header siteTitle={data.site.siteMetadata.title} />
+            <Header siteTitle={data.site.siteMetadata.title} />
 
-            <div className="landing-pg  pl-5">
-             
-              {props.children}
-            </div>
+            <div className="landing-pg  pl-5">{props.children}</div>
             <div className="sidebar-right-container">
-                <Location>
-                  {({ location }) => {
-                    return <SideBarRight file={location.pathname} />
-                  }}
-                </Location>
-              </div>
+              <Location>
+                {({ location }) => {
+                  return (
+                    <SideBarRight
+                      file={location.pathname}
+                      sidebarcategoryindex={sideBarCategoryIndex}
+                    />
+                  )
+                }}
+              </Location>
+            </div>
           </div>
-        
         </>
       )}
     />
@@ -63,7 +84,7 @@ const Layout = (props) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 }
 
 export default Layout

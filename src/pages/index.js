@@ -5,6 +5,7 @@ import "graphiql/graphiql.css"
 import SEO from "../components/seo"
 import { Link } from "gatsby"
 
+
 const IndexPage = () => (
   <Layout>
     
@@ -15,7 +16,7 @@ const IndexPage = () => (
     </div>
     <div>
       <div>
-        <Link to="/quick-start">
+        <Link to="/documentationReference">
           <h2 className="page-title-summary pink-link">Quick Start</h2>
         </Link>
         <div className="spacing-title-summary">

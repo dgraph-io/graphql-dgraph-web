@@ -1,17 +1,19 @@
-import React , {useState} from "react"
+import React, { useState } from "react"
 import { Link } from "gatsby"
 import { Accordion } from "react-bootstrap"
 import VersionDropdown from "./VersionDropdown"
-import SideBarContentDropdown from './sideBarContentDropdown';
-
+import SideBarContentDropdown from "./sideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
-import {GoChevronDown,GoChevronUp} from 'react-icons/go';
+import { GoChevronDown, GoChevronUp } from "react-icons/go"
+import {GlobalStateContext} from '../context/GlobalContextProvider';
 
 const config = require("../../config")
 
 const SideBar = props => {
+  const [showAccordion, toggleAccordion] = useState(false)
+  const {  sidebarcategoryindex } = props
+  const state= React.useContext(GlobalStateContext);
 
-  const [showAccordion , toggleAccordion] = useState(false);
 
   function isActive(obj) {
     return obj.isCurrent ? { className: "active" } : null
@@ -21,13 +23,13 @@ const SideBar = props => {
   let currentParent
   let completeRes = []
 
+  console.log('[state]',state.sideBarCategoryIndex , state.sideBarCategoryClassName)
   /** this function helps in identifying what is the current url of the page */
-  
 
-  completeRes = config.sidebarOptions.map(node => {
+  completeRes = config.sidebarOptions[state.sideBarCategoryIndex].map(node => {
     currentParent = node.title
     let mainNode = (
-      <li key={node.title} className="sidebar-inline" >
+      <li key={node.title} className="sidebar-inline">
         <Link
           to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
@@ -54,22 +56,28 @@ const SideBar = props => {
 
     const res = (
       <React.Fragment key={currentParent}>
-        <Accordion defaultActiveKey={currentParent} bsPrefix={showAccordion?"accordion-show":"accordion-hide"} >
+        <Accordion
+          defaultActiveKey={currentParent}
+          bsPrefix={showAccordion ? "accordion-show" : "accordion-hide"}
+        >
           {mainNode}
           {currentChildren.length !== 0 && (
-            <Accordion.Toggle as="span" eventKey={currentParent} className="accordion-toggle" onClick={()=>{
-             showAccordion?toggleAccordion(false):toggleAccordion(true);
-            }}>
+            <Accordion.Toggle
+              as="span"
+              eventKey={currentParent}
+              className="accordion-toggle"
+              onClick={() => {
+                showAccordion ? toggleAccordion(false) : toggleAccordion(true)
+              }}
+            >
               <span className="cursor-pointer">
-              <GoChevronDown className="collapsible-arrow-down" />
+                <GoChevronDown className="collapsible-arrow-down" />
               </span>
             </Accordion.Toggle>
           )}
           {currentChildren.length !== 0 && (
             <Accordion.Collapse eventKey={currentParent}>
-              <ul className="list-no-style">
-                {currentChildren}
-              </ul>
+              <ul className="list-no-style">{currentChildren}</ul>
             </Accordion.Collapse>
           )}
         </Accordion>
@@ -88,8 +96,13 @@ const SideBar = props => {
             <img src={DgraphLogo} alt="Dgraph logo" />
           </Link>
         </div>
-        <VersionDropdown />
-        {/* <SideBarContentDropdown /> */}
+        <VersionDropdown sideBarCategoryIndex={sidebarcategoryindex} />
+        <SideBarContentDropdown
+          selectSideBarContentBody={(dropdownTitle, categoryIndex) => {
+            props.selectSideBarContent(dropdownTitle, categoryIndex)
+          }}
+          sideBarCategoryIndex={sidebarcategoryindex}
+        />
         <div className="sidebar-wrap">
           <ul>{completeRes}</ul>
         </div>

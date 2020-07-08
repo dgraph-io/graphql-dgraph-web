@@ -16,7 +16,7 @@ const changeVersion = eventKey => {
   }
 }
 
-const VersionDropdown = ({ siteTitle }) => {
+const VersionDropdown = (props) => {
   return (
     <div className="">
       <Dropdown

@@ -49,3 +49,37 @@
   line-height: 19px;
   color: #555555;
 }
+
+.sidebar-content-dropdown-container {
+  padding: 16px 0px 32px 0px;
+
+  .sidebar-container-dropdown-menu {
+    width: 700px;
+    max-width: 700px;
+    background: #fff !important;
+    height: 301px;
+    max-height: 301px;
+    z-index: 2;
+    border-radius: 4px;
+    padding: 0px !important;
+    box-shadow: 1px 1px 5px #e3e8ee;
+    .container {
+      padding: 0;
+      .list-item-menu-header {
+        padding: 24px 24px;
+        font-family: Helvetica Neue;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: 1.25px;
+        text-transform: uppercase;
+        color: #555555;
+      }
+      .sidebar-menu-bootstrap-container {
+        padding: 0px 24px;
+        // background-color: yellow;
+      }
+    }
+  }
+}

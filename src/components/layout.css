@@ -966,7 +966,7 @@ h2.page-title-summary {
 .sidenav .sidebar-wrap {
   padding: 0 20px 20px 24px;
   position: absolute;
-  top: 146px;
+  top: 218px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -1004,9 +1004,6 @@ h2.page-title-summary {
   margin: 0;
 }
 
-.sidebar-content-dropdown-container {
-  padding: 16px 0px 32px 0px;
-}
 .content-wrap {
   padding-left: 280px;
   padding-right: 56px;
@@ -1059,16 +1056,6 @@ h2.page-title-summary {
   width: 100%;
   max-width: 100%;
 }
-.sidebar-content-dropdown-container .sidebar-container-dropdown-menu {
-  width: 700px;
-  max-width: 700px;
-  background: #fff !important;
-  height: 374px;
-  max-height: 374px;
-  z-index: 2;
-  border: #e5e5e5 1.5px solid;
-  border-radius: 4px;
-}
 
 .sidebar-content-dropdown-container
   .sidebar-container-dropdown-menu
@@ -1079,15 +1066,10 @@ h2.page-title-summary {
 .sidebar-content-dropdown-container
   .sidebar-container-dropdown-menu
   .list-item-row {
-  height: calc(400px / 4);
+  height: calc(301px / 4);
   display: flex;
   align-items: center;
   width: fit-content;
-}
-
-.sidebar-content-dropdown-container
-  .sidebar-container-dropdown-menu
-  .list-item-content {
 }
 
 .list-item-title a {

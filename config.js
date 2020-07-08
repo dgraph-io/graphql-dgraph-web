@@ -1,15 +1,15 @@
-const sidebarOptions = [
+const DocumentationReference = [
   {
-    path: "quick-start.mdx",
-    title: "Quick Start",
+    path: "documentationReference/index.mdx",
+    title: "Quick Start"
   },
   {
     path: "api.mdx",
-    title: "The API",
+    title: "The API"
   },
   {
     path: "example.mdx",
-    title: "Example",
+    title: "Example"
   },
   {
     path: "schema.mdx",
@@ -21,9 +21,9 @@ const sidebarOptions = [
       { name: "Interfaces" },
       {
         name: "Directives",
-        children: [{ name: "Inverse" }, { name: "Search" }],
-      },
-    ],
+        children: [{ name: "Inverse" }, { name: "Search" }]
+      }
+    ]
   },
   {
     path: "authorization/index.mdx",
@@ -31,13 +31,13 @@ const sidebarOptions = [
     children: [
       {
         path: "authorization/directive.mdx",
-        title: "The `@auth` directive",
+        title: "The `@auth` directive"
       },
       {
         path: "authorization/mutations.mdx",
-        title: "Mutations",
-      },
-    ],
+        title: "Mutations"
+      }
+    ]
   },
   {
     path: "custom/index.mdx",
@@ -45,21 +45,21 @@ const sidebarOptions = [
     children: [
       {
         path: "custom/directive.mdx",
-        title: "The `@custom` directive",
+        title: "The `@custom` directive"
       },
       {
         path: "custom/query.mdx",
-        title: "Custom Queries",
+        title: "Custom Queries"
       },
       {
         path: "custom/mutation.mdx",
-        title: "Custom Mutations",
+        title: "Custom Mutations"
       },
       {
         path: "custom/field.mdx",
-        title: "Custom Fields",
-      },
-    ],
+        title: "Custom Fields"
+      }
+    ]
   },
   {
     path: "todo-app-tutorial/index.mdx",
@@ -72,8 +72,8 @@ const sidebarOptions = [
           { name: "Running" },
           { name: "Mutating" },
           { name: "Querying" },
-          { name: "Querying with Filters" },
-        ],
+          { name: "Querying with Filters" }
+        ]
       },
       {
         path: "todo-app-tutorial/todo-UI.mdx",
@@ -83,42 +83,87 @@ const sidebarOptions = [
           { name: "Install dependencies" },
           { name: "Setup Apollo Client" },
           { name: "Queries and Mutations" },
-          { name: "Auth0 integration" },
-        ],
+          { name: "Auth0 integration" }
+        ]
       },
       {
         path: "todo-app-tutorial/todo-auth-rules.mdx",
-        title: "Auth Rules",
+        title: "Auth Rules"
       },
       {
         path: "todo-app-tutorial/todo-auth0-jwt.mdx",
-        title: "Using Auth0's JWT",
+        title: "Using Auth0's JWT"
       },
       {
         path: "todo-app-tutorial/deploy.mdx",
-        title: "Deploy on Slash GraphQL",
-      },
-    ],
+        title: "Deploy on Slash GraphQL"
+      }
+    ]
   },
   {
     path: "slash-quick-start.mdx",
-    title: "Slash Quick Start (draft)",
+    title: "Slash Quick Start (draft)"
   },
   {
     path: "admin.mdx",
-    title: "Admin",
+    title: "Admin"
   },
   {
     path: "dgraph.mdx",
-    title: "GraphQL on Existing Dgraph",
-  },
+    title: "GraphQL on Existing Dgraph"
+  }
+]
+
+const Graphql = [
+  {
+    title: "Graph QL",
+    path: "dgraphGraphQL/index.mdx"
+  }
+]
+const tutorial = [
+  {
+    title: "Tutorials",
+    path: "tutorials/index.mdx"
+  }
+]
+
+const toolsAndDeployment = [
+    {
+    title: "Tools and Deployments",
+    path: "toolsAndDeployment/index.mdx"
+  }
+]
+
+const slashGraphQL = [
+  {
+    title: "Slash GraphQL",
+    path: "slashGraphQL/index.mdx"
+  }
+]
+
+const exampleApps = [
+  {
+    title: "Example Apps",
+    path: "exampleApps/index.mdx"
+  }
 ]
 
 const versions = ["master", "v20.03.1"]
 const currentVersion = "master"
 const URL = "https://graphql.dgraph.io/"
 
-module.exports.sidebarOptions = sidebarOptions
+module.exports.sidebarOptions = [
+  slashGraphQL,
+  DocumentationReference,
+  exampleApps,
+  Graphql,
+  tutorial,
+  toolsAndDeployment
+]
+// module.exports.sidebarOptions1 = {
+//   "Documentation Reference": DocumentationReference,
+//   "Dgraph GraphQL": Graphql
+// }
 module.exports.versions = versions
 module.exports.currentVersion = currentVersion
 module.exports.URL = URL
