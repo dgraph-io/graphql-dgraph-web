@@ -5,5 +5,5 @@ export const Images = {
   union: require("../images/icons/Union.svg"),
   wrench: require("../images/icons/wrench 1.svg"),
   clone: require("../images/icons/clone.svg"),
-  dropdown: require('../images/icons/union (2).svg'),
+  dropdown: require('../images/icons/Union (2).svg'),
 }
