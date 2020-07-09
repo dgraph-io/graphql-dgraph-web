@@ -5,28 +5,6 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 import "../../assets/style/custom.scss"
 import { Button, Carousel } from "react-bootstrap"
 
-export const BackButton = (props) => {
-    const {currentIndex , setIndex} = props;
-
-  return (
-    <>
-      <Button
-        bsPrefix="prev-button"
-        onClick={() => {
-          currentIndex == 1
-            ? setIndex(currentIndex - 1)
-            : setIndex(currentIndex)
-        }}
-      >
-        <IconContext.Provider value={{ color: "#B7B7B7" }}>
-          <MdChevronLeft viewBox="0 0 12 20" />
-        </IconContext.Provider>
-        <MdChevronLeft viewBox="7 0 20 20" />
-        <span>Back</span>
-      </Button>
-    </>
-  )
-}
 
 export default function CodeEditor() {
   const [currentIndex, setIndex] = useState(0)
@@ -50,7 +28,19 @@ export default function CodeEditor() {
             </IconContext.Provider>
             <MdChevronRight viewBox="7 0 20 20" />
           </Button>
-          {currentIndex == 1 && <BackButton currentIndex setIndex/>}
+          {currentIndex == 1 && <Button
+            bsPrefix="prev-button"
+            onClick={() => {
+                setIndex(currentIndex-1);
+                console.log('...')
+            }}
+          >
+            <IconContext.Provider value={{ color: "#B7B7B7" }}>
+              <MdChevronLeft viewBox="0 0 12 20" />
+            </IconContext.Provider>
+            <MdChevronLeft viewBox="7 0 20 20" />
+            <span>Back</span>
+          </Button>}
         </div>
         <div className="subheading-text">
           It's a one-liner to bring up Dgraph with GraphQL. Note: The Dgraph
