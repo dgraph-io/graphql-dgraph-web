@@ -1,5 +1,5 @@
 import React from "react"
-import Helmet from 'react-helmet'
+import { Helmet } from "react-helmet"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 import Header from "./header"
@@ -10,7 +10,7 @@ import Footer from "./Footer"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   return (
     <StaticQuery
       query={graphql`
@@ -24,14 +24,15 @@ const Layout = ({children}) => {
       `}
       render={data => (
         <>
-        <Location>
-                  {({ location }) => {
-                    return (
-                  <Helmet>
-                    <link rel="canonical" href={location.href}/>
-                    </Helmet>)
-             }}
-             </Location>
+          <Location>
+            {({ location }) => {
+              return (
+                <Helmet>
+                  <link rel="canonical" href={location.href} />
+                </Helmet>
+              )
+            }}
+          </Location>
           <Header siteTitle={data.site.siteMetadata.title} />
           <SideBar />
           <div className="content-wrap">
@@ -42,7 +43,6 @@ const Layout = ({children}) => {
                     return <SideBarRight file={location.pathname} />
                   }}
                 </Location>
-                
               </div>
               {children}
             </div>
