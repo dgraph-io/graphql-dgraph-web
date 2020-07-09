@@ -4,6 +4,7 @@ import React from "react"
 import DgraphLogo from "../images/graphql-logo.png"
 import { Dropdown } from "react-bootstrap"
 import {GoChevronDown,GoChevronUp} from 'react-icons/go';
+import '../assets/style/custom.scss';
 
 
 const config = require("../../config")

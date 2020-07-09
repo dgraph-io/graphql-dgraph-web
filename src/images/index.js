@@ -3,7 +3,7 @@ export const Images = {
   book_open: require("../images/icons/book-open.svg"),
   folder_open: require("../images/icons/folder-open.svg"),
   union: require("../images/icons/Union.svg"),
-  wrench: require("../images/icons/wrench.svg"),
+  wrench: require("../images/icons/wrench 1.svg"),
   clone: require("../images/icons/clone.svg"),
-//   vector: require('../images/icons/Vector.svg'),
+  dropdown: require('../images/icons/union (2).svg'),
 }

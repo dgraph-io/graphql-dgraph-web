@@ -8,6 +8,8 @@ import {
   GlobalStateContext,
   GlobalReducerContext
 } from "../context/GlobalContextProvider"
+import {Images} from '../images';
+
 
 const config = require("../../config")
 
@@ -16,6 +18,16 @@ export default function SideBarContentDropdown(props) {
   const locationParam = useLocation()
   const state = useContext(GlobalStateContext)
   const dispatch = useContext(GlobalReducerContext)
+
+  const Stage = (props)=>{
+    return (
+      <div className="stage-container">
+        <div className="stage-badge lighter-button">
+          <span className="gradient-text">{props.stage}</span>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="sidebar-content-dropdown-container">
@@ -29,12 +41,7 @@ export default function SideBarContentDropdown(props) {
                   : `${props.sideBarContentDropDownTitle}`} */}
                 {state.sideBarCategoryClassName}
               </span>
-              {/* <BsLayoutSidebar
-                className="layout-icon"
-                strokeWidth="1px"
-                fill="pink"
-                stroke="linearGradient(135deg, #ff1800 20px, #ff009b)"
-              /> */}
+             <img src={Images.dropdown} alt="dropdown" />
             </div>
           </Dropdown.Toggle>
           <Dropdown.Menu bsPrefix="sidebar-container-dropdown-menu">
@@ -43,17 +50,20 @@ export default function SideBarContentDropdown(props) {
                 <Col>GraphQL Docs Sections</Col>
               </Row>
               <Container bsPrefix="sidebar-menu-bootstrap-container">
-                <Row>
+                <Row className="section-content-row">
                   <Col>
                     {sideBarContentClasses[0].map((leftContent, index) => {
                       return (
                         <Row bsPrefix="list-item-row" key={index}>
-                          <Row>
-                            <Col xs={2}>
-                              <img src={leftContent.icon} alt="icon" />
+                          {/* <Row> */}
+                            <Col md={2}>
+                            <div className="section-icon">
+                            <img src={leftContent.icon} alt="icon" />
+                            </div>
+                              
                             </Col>
 
-                            <Col>
+                            <Col md={10}>
                               <div
                                 className="list-item-title"
                               >
@@ -70,14 +80,14 @@ export default function SideBarContentDropdown(props) {
                                     dispatch({type:'HIDE_RIGHT_SIDEBAR' , showSideBar:leftContent.showSideBar})
                                   }}
                                 >
-                                  <span>{leftContent.title}</span>
+                                  <span className="list-item-title-text">{leftContent.title}</span>{leftContent.stage?<Stage stage='BETA' />:null}
                                 </Link>
                               </div>
                               <div className="list-item-subtitle">
                                 {leftContent.subTitle}
                               </div>
                             </Col>
-                          </Row>
+                          {/* </Row> */}
                         </Row>
                       )
                     })}
@@ -86,11 +96,14 @@ export default function SideBarContentDropdown(props) {
                     {sideBarContentClasses[1].map((rightContent, index) => {
                       return (
                         <Row bsPrefix="list-item-row" key={index}>
-                          <Row>
-                            <Col xs={2}>
-                              <img src={rightContent.icon} alt="icon" />
+                          {/* <Row> */}
+                            <Col md={2}>
+                            <div className="section-icon">
+                            <img src={rightContent.icon} alt="icon" />
+                            </div>
+                              
                             </Col>
-                            <Col>
+                            <Col md={10}>
                               <div
                                 className="list-item-title"
                               >
@@ -115,7 +128,7 @@ export default function SideBarContentDropdown(props) {
                                 {rightContent.subTitle}
                               </div>
                             </Col>
-                          </Row>
+                          {/* </Row> */}
                         </Row>
                       )
                     })}

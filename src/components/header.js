@@ -1,44 +1,72 @@
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 import Twitter from "../images/twitter.svg"
 import Github from "../images/github.svg"
+import { Button } from "react-bootstrap"
+import { MdChevronLeft } from "react-icons/md"
+import { IconContext } from "react-icons"
 
 const config = require("../../config")
+
+const BackIcon = () => {
+  return (
+    <>
+      <IconContext.Provider value={{ color: "#B7B7B7" }}>
+        <MdChevronLeft viewBox="0 0 12 20" />
+      </IconContext.Provider>
+      <MdChevronLeft viewBox="7 0 20 20" />
+    </>
+  )
+}
+
+const BackButtonMainWebsite = () => {
+  return (
+    <div className="back-button-main-website">
+      <Button
+        bsPrefix="navigate-main-website-button ml-auto"
+        onClick={() => {
+          navigate("/")
+        }}
+      >
+        <BackIcon />
+        <span className="back-text">Back to Main Website</span>
+      </Button>
+    </div>
+  )
+}
 
 const Header = ({ siteTitle }) => {
   return (
     <div className="topbar d-flex">
-        <div className="page-header">
-          
-          <a
-            href="https://twitter.com/dgraphlabs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-auto"
-          >
-            <img src={Twitter} alt="Twitter" className="mb-0"/>
-          </a>
-          <a
-            target="_blank"
-            href="https://github.com/dgraph-io/graphql-dgraph-web"
-            rel="noopener noreferrer"
-         
-          >
-           <img src={Github} alt="Github" className="mb-0" />
-          </a>
-        </div>
+      <div className="page-header justify-content-end">
+        <BackButtonMainWebsite />
+
+        <a
+          href="https://twitter.com/dgraphlabs"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={Twitter} alt="Twitter" className="mb-0" />
+        </a>
+        <a
+          target="_blank"
+          href="https://github.com/dgraph-io/graphql-dgraph-web"
+          rel="noopener noreferrer"
+        >
+          <img src={Github} alt="Github" className="mb-0" />
+        </a>
+      </div>
     </div>
-    
   )
 }
 
 Header.propTypes = {
-  siteTitle: PropTypes.string,
+  siteTitle: PropTypes.string
 }
 
 Header.defaultProps = {
-  siteTitle: "",
+  siteTitle: ""
 }
 
 export default Header

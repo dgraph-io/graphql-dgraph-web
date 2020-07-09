@@ -28,8 +28,8 @@ export default function GraphiQLWrapper({ defaultQuery }) {
   }
 
   const getDefaultQuery = () => {
-      if (defaultQuery !== undefined)
-        setQuery(defaultQuery)
+    if (defaultQuery !== undefined)
+      setQuery(defaultQuery)
   }
 
   const toggleExplorerState = () => {
@@ -62,8 +62,14 @@ export default function GraphiQLWrapper({ defaultQuery }) {
           <GraphiQL.Toolbar>
             <GraphiQL.Button
               onClick={toggleExplorerState}
-              label="Explorer"
-              title="Toggle Explorer"
+              label="Prettify"
+              title="prettify explorer"
+            />
+
+            <GraphiQL.Button
+              onClick={toggleExplorerState}
+              label="copy"
+              title="copy contents"
             />
           </GraphiQL.Toolbar>
         </GraphiQL>

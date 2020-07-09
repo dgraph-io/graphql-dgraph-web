@@ -5,14 +5,16 @@ import VersionDropdown from "./VersionDropdown"
 import SideBarContentDropdown from "./sideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
-import {GlobalStateContext, GlobalReducerContext} from '../context/GlobalContextProvider';
+import { GlobalStateContext, GlobalReducerContext } from '../context/GlobalContextProvider';
 
 const config = require("../../config")
 
 const SideBar = props => {
-  const [showAccordion, toggleAccordion] = useState(false)
-  const {  sidebarcategoryindex } = props
-  const state= React.useContext(GlobalStateContext);
+  const [showAccordion, toggleAccordion] = useState(true)
+  const [toggleListItemMarker, toggleListItem] = useState('');
+
+  const { sidebarcategoryindex } = props
+  const state = React.useContext(GlobalStateContext);
   const dispatch = React.useContext(GlobalReducerContext);
 
 
@@ -24,8 +26,6 @@ const SideBar = props => {
   let currentParent
   let completeRes = []
 
-  console.log('[state]',state.sideBarCategoryIndex , state.sideBarCategoryClassName , state.renderRightSideBar)
-  /** this function helps in identifying what is the current url of the page */
 
   completeRes = config.sidebarOptions[state.sideBarCategoryIndex].map(node => {
     currentParent = node.title
@@ -34,7 +34,7 @@ const SideBar = props => {
         <Link
           to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
-          onClick={()=>{dispatch({type:'HIDE_RIGHT_SIDEBAR' , showSideBar:node.showSideBar})}}
+          onClick={() => { dispatch({ type: 'HIDE_RIGHT_SIDEBAR', showSideBar: node.showSideBar }) }}
         >
           {node.title}
         </Link>
@@ -60,7 +60,7 @@ const SideBar = props => {
       <React.Fragment key={currentParent}>
         <Accordion
           defaultActiveKey={currentParent}
-          bsPrefix={showAccordion ? "accordion-show" : "accordion-hide"}
+          bsPrefix={toggleListItemMarker===mainNode ? "accordion-show" : "accordion-hide"}
         >
           {mainNode}
           {currentChildren.length !== 0 && (
@@ -69,11 +69,13 @@ const SideBar = props => {
               eventKey={currentParent}
               className="accordion-toggle"
               onClick={() => {
-                showAccordion ? toggleAccordion(false) : toggleAccordion(true)
+                showAccordion ? toggleAccordion(false) : toggleAccordion(true);
+                toggleAccordion(node.title);
               }}
             >
               <span className="cursor-pointer">
-                <GoChevronDown className="collapsible-arrow-down" />
+                <GoChevronDown className={showAccordion?`collapsible-arrow-down`:"hide"} />
+                <GoChevronUp className={!showAccordion?`collapsible-arrow-up`:"hide"} />
               </span>
             </Accordion.Toggle>
           )}

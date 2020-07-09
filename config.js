@@ -1,5 +1,11 @@
 const DocumentationReference = [
   {
+    path: "documentationReference/introduction.mdx",
+    title: "Introduction",
+    showSideBar: false
+
+  },
+  {
     path: "documentationReference/index.mdx",
     title: "Quick Start",
     showSideBar: true
@@ -128,12 +134,12 @@ const DocumentationReference = [
 
 const Graphql = [
   {
-    title: "Welcome to GraphQL",
+    title: "Introduction",
     path: "dgraphGraphQL/welcomePage.mdx",
-    showSideBar: true
+    showSideBar: true,
   },
   {
-    title: "Graph QL Quick Start",
+    title: "GraphQL Quick Start",
     path: "dgraphGraphQL/index.mdx",
     showSideBar: false
   },

@@ -6,7 +6,7 @@ export const GlobalReducerContext = React.createContext()
 const initialState = {
   sideBarCategoryIndex: 0,
   sideBarCategoryClassName: "Slash GraphQL",
-  renderRightSideBar:true
+  renderRightSideBar:false
 }
 
 function reducer(state = initialState, action) {

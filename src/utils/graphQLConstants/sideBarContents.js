@@ -5,7 +5,8 @@ export const sideBarContentClasses = [
     {
       title: "Slash GraphQL",
       subTitle: "Dgraph GraphQL in a manger cloud service.",
-      icon: Images.vector
+      icon: Images.vector,
+      stage:'BETA'
     },
     {
       title: "Documentation Reference",
