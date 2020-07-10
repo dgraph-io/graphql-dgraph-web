@@ -754,7 +754,8 @@ pre tt:after {
 }
 
 .page-title,
-.landing-pg h1 {
+.landing-pg h1,
+.landing-pg-extend h1 {
   font-size: 32px;
   font-weight: 500;
   color: #212121;
@@ -768,7 +769,6 @@ pre tt:after {
   color: #212121;
   margin-top: 56px;
   font-family: HelveticaNeue-Medium;
-  display: none;
 }
 .landing-pg h3 {
   font-size: 22px;
@@ -782,7 +782,9 @@ pre tt:after {
   margin-bottom: 30px;
 }
 .spacing-title-summary,
-.landing-pg p {
+.landing-pg p,
+.landing-pg-extend p {
+  /** CHANGE the code*/
   font-size: 18px;
   margin-bottom: 15px;
   color: #555555;

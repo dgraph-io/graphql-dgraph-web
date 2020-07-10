@@ -6,31 +6,36 @@ export const sideBarContentClasses = [
       title: "Slash GraphQL",
       subTitle: "Dgraph GraphQL in a manger cloud service.",
       icon: Images.vector,
-      stage:'BETA'
+      stage:'BETA',
+      showSideBar: true,
     },
     {
       title: "Documentation Reference",
       subTitle: "All the nitty-gritty details about GraphQL with Dgraph.",
-      icon: Images.clone
+      icon: Images.clone,
+      showSideBar: true,
     },
     {
       title: "Example Apps",
       subTitle:
         "We build lots of GraphQL apps, here are some examples we’ve built over time.",
-      icon: Images.folder_open
+      icon: Images.folder_open,
+      showSideBar: true,
     },
   ],
   [
     {
       title: "Dgraph GraphQL",
       subTitle: "Learn about GraphQL and Dgraph.",
-      icon: Images.union
+      icon: Images.union,
+      showSideBar: true,
     },
     {
       title: "Tutorials",
       subTitle:
         "Step by step tutorials on how to build an app in any framework.",
-      icon: Images.book_open
+      icon: Images.book_open,
+      showSideBar: true,
     },
   
     
@@ -38,7 +43,8 @@ export const sideBarContentClasses = [
       title: "Tools and Deployments",
       subTitle:
         "Other tools you might want to use with Dgraph and how to deploy apps.",
-      icon: Images.wrench
+      icon: Images.wrench,
+      showSideBar: true,
     }
   ]
 ]
