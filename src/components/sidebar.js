@@ -6,8 +6,6 @@ import VersionDropdown from "./VersionDropdown"
 import SideBarContentDropdown from "./sideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
-import { GlobalStateContext, GlobalReducerContext } from '../context/GlobalContextProvider';
-
 
 const config = require("../../config")
 
@@ -15,9 +13,7 @@ const SideBar = props => {
   const [showAccordion, toggleAccordion] = useState(true)
   const [toggleListItemMarker, toggleListItem] = useState('');
 
-  const { categoryIndex } = props
-  const state = React.useContext(GlobalStateContext);
-  const dispatch = React.useContext(GlobalReducerContext);
+  const { categoryIndex , dispatch } = props
 
 
   function isActive(obj) {
@@ -126,4 +122,10 @@ const mapStateToProps = (state) =>{
   }
 }
 
-export default connect(mapStateToProps)( SideBar);
+const mapDispatchToProp = (dispatch) =>{
+  return{
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps , mapDispatchToProp)( SideBar);

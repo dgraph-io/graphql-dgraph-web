@@ -23,7 +23,6 @@ const Layout = props => {
   const [sideBarCategoryIndex, setCategory] = useState(0)
   const { categoryIndex, sidebarClass, renderRightSideBar } = props
 
-  const state = useContext(GlobalStateContext)
 
   const setContentCategory = (dropDownTitle, categoryIndex) => {
     selectSideBarContent(dropDownTitle)
@@ -79,22 +78,22 @@ const Layout = props => {
 
             <div
               className={
-                state.renderRightSideBar
+                renderRightSideBar
                   ? "landing-pg  pl-5"
                   : "landing-pg-extend pl-5"
               }
             >
               {props.children}
             </div>
-            {state.renderRightSideBar && (
+            {renderRightSideBar && (
               <div className="sidebar-right-container">
-                {config.sidebarOptions[state.sideBarCategoryIndex] && (
+                {
                   <Location>
                     {({ location }) => {
                       return <SideBarRight file={location.pathname} />
                     }}
                   </Location>
-                )}
+                }
               </div>
             )}
           </div>
