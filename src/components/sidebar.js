@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
+import { connect } from "react-redux"
 import { Accordion } from "react-bootstrap"
 import VersionDropdown from "./VersionDropdown"
 import SideBarContentDropdown from "./sideBarContentDropdown"
@@ -7,13 +8,14 @@ import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
 import { GlobalStateContext, GlobalReducerContext } from '../context/GlobalContextProvider';
 
+
 const config = require("../../config")
 
 const SideBar = props => {
   const [showAccordion, toggleAccordion] = useState(true)
   const [toggleListItemMarker, toggleListItem] = useState('');
 
-  const { sidebarcategoryindex } = props
+  const { categoryIndex } = props
   const state = React.useContext(GlobalStateContext);
   const dispatch = React.useContext(GlobalReducerContext);
 
@@ -27,7 +29,7 @@ const SideBar = props => {
   let completeRes = []
 
 
-  completeRes = config.sidebarOptions[state.sideBarCategoryIndex].map(node => {
+  completeRes = config.sidebarOptions[categoryIndex].map(node => {
     currentParent = node.title
     let mainNode = (
       <li key={node.title} className="sidebar-inline font-weight-medium">
@@ -102,12 +104,11 @@ const SideBar = props => {
             <img src={DgraphLogo} alt="Dgraph logo" />
           </Link>
         </div>
-        <VersionDropdown sideBarCategoryIndex={sidebarcategoryindex} />
+        <VersionDropdown />
         <SideBarContentDropdown
           selectSideBarContentBody={(dropdownTitle, categoryIndex) => {
             props.selectSideBarContent(dropdownTitle, categoryIndex)
           }}
-          sideBarCategoryIndex={sidebarcategoryindex}
         />
         <div className="sidebar-wrap">
           <ul>{completeRes}</ul>
@@ -119,4 +120,10 @@ const SideBar = props => {
   return list
 }
 
-export default SideBar
+const mapStateToProps = (state) =>{
+  return{
+    categoryIndex: state.sideBarCategoryIndex
+  }
+}
+
+export default connect(mapStateToProps)( SideBar);

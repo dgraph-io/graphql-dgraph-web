@@ -1,23 +1,17 @@
-import React, { useState, useContext } from "react"
+import React from "react"
 import { useLocation } from "@reach/router"
+import {connect} from 'react-redux';
 import { Link } from "gatsby"
 import { Dropdown, Row, Col, Container } from "react-bootstrap"
 import { sideBarContentClasses } from "../utils/graphQLConstants/sideBarContents"
-import { location } from "@reach/router"
-import {
-  GlobalStateContext,
-  GlobalReducerContext
-} from "../context/GlobalContextProvider"
 import {Images} from '../images';
 
 
 const config = require("../../config")
 
-export default function SideBarContentDropdown(props) {
-  const { sideBarCategoryIndex } = props
-  const locationParam = useLocation()
-  const state = useContext(GlobalStateContext)
-  const dispatch = useContext(GlobalReducerContext)
+ function SideBarContentDropdown(props) {
+
+  const {dispatch , categoryName} = props;
 
   const Stage = (props)=>{
     return (
@@ -36,7 +30,7 @@ export default function SideBarContentDropdown(props) {
           <Dropdown.Toggle id="dropdown-basic" bsPrefix="lighter-button">
             <div className="gradient-text-toggle-button">
               <span className="gradient-text">
-                {state.sideBarCategoryClassName}
+                {categoryName}
               </span>
              <img src={Images.dropdown} alt="dropdown" />
             </div>
@@ -139,3 +133,17 @@ export default function SideBarContentDropdown(props) {
     </div>
   )
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    dispatch
+  }
+}
+
+const mapStateToProps = (state)=>{
+  return{
+    categoryName: state.sideBarCategoryClassName
+  }
+}
+
+export default connect(mapStateToProps , mapDispatchToProps)(SideBarContentDropdown);

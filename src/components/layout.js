@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react"
 import Helmet from "react-helmet"
-
+import { connect } from "react-redux"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 import "./layout.css"
@@ -21,19 +21,21 @@ const config = require("../../config")
 const Layout = props => {
   const [sideBarContentDropDownTitle, selectSideBarContent] = useState("")
   const [sideBarCategoryIndex, setCategory] = useState(0)
+  const { categoryIndex, sidebarClass, renderRightSideBar } = props
 
   const state = useContext(GlobalStateContext)
 
   const setContentCategory = (dropDownTitle, categoryIndex) => {
     selectSideBarContent(dropDownTitle)
     setCategory(categoryIndex)
-    console.log(
-      "[title , index]",
-      sideBarContentDropDownTitle,
-      sideBarCategoryIndex
-    )
+   
   }
-
+  console.log(
+    "[ index,title ,render sidebar]",
+    categoryIndex,
+    sidebarClass,
+    renderRightSideBar
+  )
   return (
     <StaticQuery
       query={graphql`
@@ -106,4 +108,12 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default Layout
+const mapStateToProps = state => {
+  return {
+    categoryIndex: state.sideBarCategoryIndex,
+    sidebarClass: state.sideBarCategoryClassName,
+    renderRightSideBar: state.renderRightSideBar
+  }
+}
+
+export default connect(mapStateToProps)(Layout)
