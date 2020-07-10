@@ -47,6 +47,8 @@ const SideBar = props => {
             <Link
               to={"/" + childNode.path.replace(".mdx", "")}
               getProps={isActive}
+              onClick={() => { dispatch({ type: 'HIDE_RIGHT_SIDEBAR', showSideBar: childNode.showSideBar }) }}
+
             >
               {childNode.title}
             </Link>

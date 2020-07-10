@@ -1,4 +1,4 @@
-import React, { useState,useContext} from "react"
+import React, { useState, useContext } from "react"
 import Helmet from "react-helmet"
 
 import PropTypes from "prop-types"
@@ -10,18 +10,28 @@ import Header from "./header"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
 import SEO from "../components/seo"
-import {GlobalStateContext , GlobalReducerContext} from '../context/GlobalContextProvider';
+import {
+  GlobalStateContext,
+  GlobalReducerContext
+} from "../context/GlobalContextProvider"
+import InPageCurrentPageSideBar from "./inPageCurrentPageSideBar"
+
+const config = require("../../config")
 
 const Layout = props => {
-  const [sideBarContentDropDownTitle, selectSideBarContent] = useState("");
-  const [sideBarCategoryIndex , setCategory] = useState(0);
+  const [sideBarContentDropDownTitle, selectSideBarContent] = useState("")
+  const [sideBarCategoryIndex, setCategory] = useState(0)
 
-  const state = useContext(GlobalStateContext);
-  
-  const setContentCategory = (dropDownTitle ,categoryIndex)=>{
-    selectSideBarContent(dropDownTitle);
-    setCategory(categoryIndex);
-    console.log('[title , index]',sideBarContentDropDownTitle , sideBarCategoryIndex)
+  const state = useContext(GlobalStateContext)
+
+  const setContentCategory = (dropDownTitle, categoryIndex) => {
+    selectSideBarContent(dropDownTitle)
+    setCategory(categoryIndex)
+    console.log(
+      "[title , index]",
+      sideBarContentDropDownTitle,
+      sideBarCategoryIndex
+    )
   }
 
   return (
@@ -56,8 +66,8 @@ const Layout = props => {
           </Location>
 
           <SideBar
-            selectSideBarContent={(nodeTitle , contentClass) => {
-              setContentCategory(nodeTitle , contentClass)
+            selectSideBarContent={(nodeTitle, contentClass) => {
+              setContentCategory(nodeTitle, contentClass)
             }}
             sidebarcategoryindex={sideBarCategoryIndex}
           />
@@ -65,19 +75,26 @@ const Layout = props => {
           <div className="content-wrap">
             <Header siteTitle={data.site.siteMetadata.title} />
 
-            <div className={state.renderRightSideBar?"landing-pg  pl-5":"landing-pg-extend pl-5"}>{props.children}</div>
-            {state.renderRightSideBar&&<div className="sidebar-right-container">
-              <Location>
-                {({ location }) => {
-                  return (
-                    <SideBarRight
-                      file={location.pathname}
-                      sidebarcategoryindex={sideBarCategoryIndex}
-                    />
-                  )
-                }}
-              </Location>
-            </div>}
+            <div
+              className={
+                state.renderRightSideBar
+                  ? "landing-pg  pl-5"
+                  : "landing-pg-extend pl-5"
+              }
+            >
+              {props.children}
+            </div>
+            {state.renderRightSideBar && (
+              <div className="sidebar-right-container">
+                {config.sidebarOptions[state.sideBarCategoryIndex] && (
+                  <Location>
+                    {({ location }) => {
+                      return <SideBarRight file={location.pathname} />
+                    }}
+                  </Location>
+                )}
+              </div>
+            )}
           </div>
         </>
       )}

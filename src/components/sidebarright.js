@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import { Accordion } from "react-bootstrap";
 import { GoChevronDown, GoChevronUp } from 'react-icons/go';
+import { GlobalStateContext } from "../context/GlobalContextProvider";
 
 const config = require("../../config")
 
@@ -8,7 +9,7 @@ const SideBarRight = props => {
 
   const [selectedLink, getSelectedLink] = useState('');
   const [accordionShow , toggleAccordion] = useState(false);
-
+  const state = useContext(GlobalStateContext);
 
 
   let currentChildren = []
@@ -17,7 +18,7 @@ const SideBarRight = props => {
   let optsChildren = []
   let list
 
-  let opts = config.sidebarOptions[1].filter(function (sidebar) {
+  let opts = config.sidebarOptions[state.sideBarCategoryIndex].filter(function (sidebar) {
     if (
       "/" + sidebar.path.replace("index.mdx", "").replace(".mdx", "") ===
       props.file ||

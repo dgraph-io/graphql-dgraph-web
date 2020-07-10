@@ -32,7 +32,6 @@ export default function CodeEditor() {
             bsPrefix="prev-button"
             onClick={() => {
                 setIndex(currentIndex-1);
-                console.log('...')
             }}
           >
             <IconContext.Provider value={{ color: "#B7B7B7" }}>

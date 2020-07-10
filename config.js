@@ -2,26 +2,20 @@ const DocumentationReference = [
   {
     path: "documentationReference/introduction.mdx",
     title: "Introduction",
-    showSideBar: false
-
   },
   {
     path: "documentationReference/index.mdx",
     title: "Quick Start",
-    showSideBar: true
 
   },
   {
     path: "api.mdx",
     title: "The API",
-    showSideBar: true
 
   },
   {
     path: "example.mdx",
     title: "Example",
-    showSideBar: true
-
   },
   {
     path: "schema.mdx",
@@ -41,7 +35,6 @@ const DocumentationReference = [
   {
     path: "authorization/index.mdx",
     title: "Authorization",
-    showSideBar: true,
     children: [
       {
         path: "authorization/directive.mdx",
@@ -56,7 +49,6 @@ const DocumentationReference = [
   {
     path: "custom/index.mdx",
     title: "Custom Resolvers",
-    showSideBar: true,
     children: [
       {
         path: "custom/directive.mdx",
@@ -76,14 +68,43 @@ const DocumentationReference = [
       }
     ]
   },
+ 
+  {
+    path: "admin.mdx",
+    title: "Admin"
+  },
+  {
+    path: "dgraph.mdx",
+    title: "GraphQL on Existing Dgraph"
+  }
+]
+
+const Graphql = [
+  {
+    title: "Introduction",
+    path: "dgraphGraphQL/welcomePage.mdx",
+    showSideBar:false,
+  },
+  {
+    title: "GraphQL Quick Start",
+    path: "dgraphGraphQL/index.mdx",
+    showSideBar: false
+  },
+]
+const tutorial = [
+  {
+    title: "Introduction",
+    path: "tutorials/index.mdx",
+    showSideBar: true
+  },
   {
     path: "todo-app-tutorial/index.mdx",
     title: "Todo App Tutorial",
-    showSideBar: true,
     children: [
       {
         path: "todo-app-tutorial/todo-schema-design.mdx",
         title: "Schema Design",
+        showSideBar: true,
         subOptions: [
           { name: "Running" },
           { name: "Mutating" },
@@ -95,7 +116,6 @@ const DocumentationReference = [
         path: "todo-app-tutorial/todo-UI.mdx",
         title: "Basic UI",
         showSideBar: true,
-
         subOptions: [
           { name: "Create React app" },
           { name: "Install dependencies" },
@@ -118,38 +138,6 @@ const DocumentationReference = [
       }
     ]
   },
-  {
-    path: "slash-quick-start.mdx",
-    title: "Slash Quick Start (draft)"
-  },
-  {
-    path: "admin.mdx",
-    title: "Admin"
-  },
-  {
-    path: "dgraph.mdx",
-    title: "GraphQL on Existing Dgraph"
-  }
-]
-
-const Graphql = [
-  {
-    title: "Introduction",
-    path: "dgraphGraphQL/welcomePage.mdx",
-    showSideBar: true,
-  },
-  {
-    title: "GraphQL Quick Start",
-    path: "dgraphGraphQL/index.mdx",
-    showSideBar: false
-  },
-]
-const tutorial = [
-  {
-    title: "Tutorials",
-    path: "tutorials/index.mdx",
-    showSideBar: true
-  }
 ]
 
 const toolsAndDeployment = [
@@ -162,10 +150,13 @@ const toolsAndDeployment = [
 
 const slashGraphQL = [
   {
-    title: "Slash GraphQL",
     path: "slashGraphQL/index.mdx",
-    showSideBar: true
-  }
+    title: "Introduction"
+  },
+  {
+    path: "slash-quick-start.mdx",
+    title: "Slash Quick Start (draft)"
+  },
 ]
 
 const exampleApps = [
@@ -188,10 +179,6 @@ module.exports.sidebarOptions = [
   tutorial,
   toolsAndDeployment
 ]
-// module.exports.sidebarOptions1 = {
-//   "Documentation Reference": DocumentationReference,
-//   "Dgraph GraphQL": Graphql
-// }
 module.exports.versions = versions
 module.exports.currentVersion = currentVersion
 module.exports.URL = URL

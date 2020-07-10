@@ -781,9 +781,7 @@ pre tt:after {
 .landing-pg pre {
   margin-bottom: 30px;
 }
-.spacing-title-summary,
-.landing-pg p,
-.landing-pg-extend p {
+.spacing-title-summary {
   /** CHANGE the code*/
   font-size: 18px;
   margin-bottom: 15px;

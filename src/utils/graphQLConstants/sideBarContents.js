@@ -7,13 +7,13 @@ export const sideBarContentClasses = [
       subTitle: "Dgraph GraphQL in a manger cloud service.",
       icon: Images.vector,
       stage:'BETA',
-      showSideBar: true,
+      showSideBar: false,
     },
     {
       title: "Documentation Reference",
       subTitle: "All the nitty-gritty details about GraphQL with Dgraph.",
       icon: Images.clone,
-      showSideBar: true,
+      showSideBar: false,
     },
     {
       title: "Example Apps",
@@ -28,7 +28,7 @@ export const sideBarContentClasses = [
       title: "Dgraph GraphQL",
       subTitle: "Learn about GraphQL and Dgraph.",
       icon: Images.union,
-      showSideBar: true,
+      showSideBar: false,
     },
     {
       title: "Tutorials",

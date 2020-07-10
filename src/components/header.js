@@ -23,14 +23,11 @@ const BackIcon = () => {
 const BackButtonMainWebsite = () => {
   return (
     <div className="back-button-main-website">
-      <Button
+      <Button as="a" href="https://dgraph.io/"
         bsPrefix="navigate-main-website-button ml-auto"
-        onClick={() => {
-          navigate("/")
-        }}
       >
         <BackIcon />
-        <span className="back-text">Back to Main Website</span>
+        Back to Main Website
       </Button>
     </div>
   )
