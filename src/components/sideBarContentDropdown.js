@@ -36,9 +36,6 @@ export default function SideBarContentDropdown(props) {
           <Dropdown.Toggle id="dropdown-basic" bsPrefix="lighter-button">
             <div className="gradient-text-toggle-button">
               <span className="gradient-text">
-                {/* {getURL() === ""
-                  ? "Dgraph GraphQL"
-                  : `${props.sideBarContentDropDownTitle}`} */}
                 {state.sideBarCategoryClassName}
               </span>
              <img src={Images.dropdown} alt="dropdown" />
@@ -56,14 +53,14 @@ export default function SideBarContentDropdown(props) {
                       return (
                         <Row bsPrefix="list-item-row" key={index}>
                           {/* <Row> */}
-                            <Col md={2}>
+                            <Col md={2} lg={2} sm={3}>
                             <div className="section-icon">
                             <img src={leftContent.icon} alt="icon" />
                             </div>
                               
                             </Col>
 
-                            <Col md={10}>
+                            <Col md={10} lg={10} sm={9}>
                               <div
                                 className="list-item-title"
                               >

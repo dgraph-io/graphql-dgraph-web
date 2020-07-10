@@ -97,7 +97,6 @@
         padding: 0px 24px;
         // background-color: yellow;
         .section-content-row {
-          align-items: flex-start;
           @media screen and (max-width: 769px) {
             flex-direction: column !important;
           }
@@ -109,6 +108,7 @@
       .list-item-row {
         text-align: left;
         margin: 2px 0;
+        width: 100%;
         .list-item-title {
           padding-top: 8px;
           .list-item-title-text {
