@@ -1,5 +1,6 @@
 import React from "react"
 
+
 export const GlobalStateContext = React.createContext()
 export const GlobalReducerContext = React.createContext()
 
@@ -9,7 +10,7 @@ const initialState = {
   renderRightSideBar:false
 }
 
-function reducer(state = initialState, action) {
+export function reducer(state = initialState, action) {
   switch (action.type) {
     case "SELECT_SIDEBAR_CONTENT_CATEGORY": {
       return {

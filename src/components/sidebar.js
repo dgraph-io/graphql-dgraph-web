@@ -30,7 +30,7 @@ const SideBar = props => {
   completeRes = config.sidebarOptions[state.sideBarCategoryIndex].map(node => {
     currentParent = node.title
     let mainNode = (
-      <li key={node.title} className="sidebar-inline">
+      <li key={node.title} className="sidebar-inline font-weight-medium">
         <Link
           to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
@@ -43,7 +43,7 @@ const SideBar = props => {
     if (node.children !== undefined) {
       currentChildren = node.children.map(childNode => {
         let child = (
-          <li key={childNode.title}>
+          <li key={childNode.title} className="font-weight-medium">
             <Link
               to={"/" + childNode.path.replace(".mdx", "")}
               getProps={isActive}

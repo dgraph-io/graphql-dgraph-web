@@ -6,6 +6,7 @@ import prismTheme from "prism-react-renderer/themes/nightOwl"
 import Highlight, { defaultProps } from "prism-react-renderer"
 import { copyToClipboard } from "./src/utils/copy-to-clipboard"
 import GlobalContextProvider from "./src/context/GlobalContextProvider"
+import WrapWithProvider from "./src/context/configure_store"
 
 const LiveCode = props => {
   const components = useMDXScope()
@@ -77,8 +78,10 @@ const components = {
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <GlobalContextProvider>
-      <MDXProvider components={components}>{element}</MDXProvider>
-    </GlobalContextProvider>
+    <WrapWithProvider>
+      <GlobalContextProvider>
+        <MDXProvider components={components}>{element}</MDXProvider>
+      </GlobalContextProvider>
+    </WrapWithProvider>
   )
 }

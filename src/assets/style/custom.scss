@@ -1,7 +1,10 @@
 @import "./vender/scss/bootstrap.scss";
 
 .font-weight-medium {
-  font-weight: 500;
+  font-weight: 400;
+}
+.font-weight-regular {
+  font-weight: 300;
 }
 // .landing-pg > h1 {
 //   padding-bottom: 24px;
@@ -9,9 +12,8 @@
 // }
 
 .extra-small-text {
-  font-family: Helvetica Neue;
+  font-family: inherit;
   font-style: normal;
-  font-weight: normal;
   font-size: 18px;
   line-height: 28px;
   color: #555555;
@@ -52,7 +54,7 @@
 
 //light colored text for child links in accordions
 .accordion-child-link-light {
-  font-family: Helvetica Neue;
+  font-family: inherit;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -82,7 +84,7 @@
       padding: 24px 0;
       .list-item-menu-header {
         padding: 0px 24px 24px 24px;
-        font-family: Helvetica Neue;
+        font-family: inherit;
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
@@ -110,7 +112,7 @@
         .list-item-title {
           padding-top: 8px;
           .list-item-title-text {
-            font-family: Helvetica Neue;
+            font-family: inherit;
             font-style: normal;
             font-weight: 500;
             font-size: 16px;
@@ -130,7 +132,7 @@
   border-top: 1px solid #e3e8ee;
   .heading-text {
     text-align: center;
-    font-family: Helvetica Neue;
+    font-family: inherit;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -141,7 +143,7 @@
   }
   .subheading-text {
     text-align: left;
-    font-family: Helvetica Neue;
+    font-family: inherit;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -161,7 +163,7 @@
   display: flex;
   align-items: center;
   span {
-    font-family: Helvetica Neue;
+    font-family: inherit;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -271,7 +273,7 @@
   .stage-badge {
     display: inline-block;
     width: fit-content;
-    font-family: Helvetica Neue;
+    font-family: inherit;
     font-style: normal;
     font-weight: 500;
     font-size: 11px;
@@ -300,14 +302,14 @@
     border: none;
     display: flex;
     align-items: flex-start;
-    font-family: Helvetica Neue;
+    font-family: inherit;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     color: #212121;
     .back-text {
-      font-family: Helvetica Neue;
+      font-family: inherit;
       font-style: normal;
       font-weight: 500;
       font-size: 14px;
@@ -363,7 +365,7 @@
   }
 
   .docExplorerShow {
-    font-family: Helvetica Neue;
+    font-family: inherit;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -423,9 +425,8 @@
 }
 
 .subheading {
-  font-family: Helvetica Neue;
+  font-family: inherit;
   font-style: normal;
-  font-weight: normal;
   font-size: 22px;
   line-height: 26px;
   color: #555555;
