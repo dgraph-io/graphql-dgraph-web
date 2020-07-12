@@ -11,8 +11,10 @@ import Footer from "./Footer"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
 import SEO from "../components/seo"
+import { hotjar } from "react-hotjar"
 
 const Layout = props => {
+  hotjar.initialize(1883865, 6);
   return (
     <StaticQuery
       query={graphql`
