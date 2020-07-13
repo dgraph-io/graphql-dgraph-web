@@ -7,6 +7,7 @@ import SideBarContentDropdown from "./sideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
 
+
 const config = require("../../config")
 
 const SideBar = props => {
@@ -23,6 +24,11 @@ const SideBar = props => {
   let currentChildren = []
   let currentParent
   let completeRes = []
+
+  // const getCurrentPage = () =>{
+  //   console.log('location' , location.pathname);
+  //   return categoryIndex;
+  // }
 
 
   completeRes = config.sidebarOptions[categoryIndex].map(node => {
