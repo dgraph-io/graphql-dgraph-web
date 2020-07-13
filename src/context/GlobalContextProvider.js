@@ -7,7 +7,8 @@ export const GlobalReducerContext = React.createContext()
 const initialState = {
   sideBarCategoryIndex: 0,
   sideBarCategoryClassName: "Slash GraphQL",
-  renderRightSideBar:false
+  renderRightSideBar:false,
+  currentVersion: 'master'
 }
 
 export function reducer(state = initialState, action) {
@@ -24,6 +25,12 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         renderRightSideBar:action.showSideBar
+      }
+    }
+
+    case 'SELECT_VERSION':{
+      return {
+        ...state , currentVersion:action.version
       }
     }
 

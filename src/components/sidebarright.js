@@ -91,7 +91,7 @@ const SideBarRight = props => {
 
       const res = (
         <React.Fragment key={currentParent}>
-          <Accordion defaultActiveKey={currentParent}>
+          <Accordion>
             {mainNode}
             {currentChildren.length !== 0 && (
               <Accordion.Toggle as="span" eventKey={currentParent} onClick={()=>{getAccordionStatus()}}>
