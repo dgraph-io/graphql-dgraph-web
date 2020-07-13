@@ -43,6 +43,7 @@ const Header = ({ siteTitle }) => {
           href="https://twitter.com/dgraphlabs"
           target="_blank"
           rel="noopener noreferrer"
+          style={{paddingLeft:'24px'}}
         >
           <img src={Twitter} alt="Twitter" className="mb-0" />
         </a>
@@ -50,6 +51,7 @@ const Header = ({ siteTitle }) => {
           target="_blank"
           href="https://github.com/dgraph-io/graphql-dgraph-web"
           rel="noopener noreferrer"
+          style={{paddingRight:'0'}}
         >
           <img src={Github} alt="Github" className="mb-0" />
         </a>

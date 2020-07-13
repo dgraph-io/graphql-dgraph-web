@@ -11,7 +11,7 @@ export const sideBarContentClasses = [
     },
     {
       title: "Documentation Reference",
-      subTitle: "All the nitty-gritty details about GraphQL with Dgraph.",
+      subTitle: "All the nitty-gritty details about Dgraph GraphQL.",
       icon: Images.clone,
       showSideBar: false,
     },

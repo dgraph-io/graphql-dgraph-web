@@ -161,7 +161,7 @@
   outline: none !important;
   border: none;
   display: flex;
-  align-items: center;
+  cursor: pointer;
   span {
     font-family: inherit;
     font-style: normal;
@@ -379,6 +379,8 @@
     -webkit-background-clip: text !important;
     text-decoration: none !important;
     position: relative !important;
+    padding-left: 33px !important;
+    padding-right: 20px !important;
 
     &::before {
       border-left: 2px solid #e50695 !important;
@@ -387,7 +389,7 @@
       width: 7px !important;
       position: absolute !important;
       top: 53% !important;
-      left: 7px !important;
+      left: 18px !important;
       transform: translate(0%, -50%) rotate(-45deg) !important;
     }
   }
@@ -432,6 +434,15 @@
   color: #555555;
 }
 .gradient-text-toggle-button {
+  @media screen and (max-width: 769px) {
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 1;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+    }
+  }
   img {
     margin-bottom: 0;
   }

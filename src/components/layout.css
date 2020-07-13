@@ -1085,12 +1085,12 @@ h2.page-title-summary {
   .sidebar-right-container {
     display: none;
   }
-  .gradient-text-toggle-button span {
+  /* .gradient-text-toggle-button span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
-  }
+  } */
 }
 
 .sidebar-content-dropdown-container .lighter-button,
