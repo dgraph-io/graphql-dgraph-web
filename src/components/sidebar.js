@@ -59,6 +59,7 @@ const SideBar = props => {
     const res = (
       <React.Fragment key={currentParent}>
         <Accordion
+        defaultActiveKey={currentParent}
           bsPrefix={toggleListItemMarker===mainNode ? "accordion-show" : "accordion-hide"}
         >
           {mainNode}

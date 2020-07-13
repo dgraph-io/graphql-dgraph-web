@@ -5,8 +5,8 @@ export const GlobalStateContext = React.createContext()
 export const GlobalReducerContext = React.createContext()
 
 const initialState = {
-  sideBarCategoryIndex: 0,
-  sideBarCategoryClassName: "Slash GraphQL",
+  sideBarCategoryIndex: 3,
+  sideBarCategoryClassName: "Dgraph GraphQL",
   renderRightSideBar:false,
   currentVersion: 'master'
 }

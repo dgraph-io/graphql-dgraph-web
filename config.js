@@ -1,24 +1,19 @@
 const DocumentationReference = [
   {
-    path: "documentationReference/introduction.mdx",
+    path: "docs/index.mdx",
     title: "Introduction",
   },
   {
-    path: "documentationReference/index.mdx",
-    title: "Quick Start",
-
-  },
-  {
-    path: "api.mdx",
+    path: "docs/api.mdx",
     title: "The API",
 
   },
   {
-    path: "example.mdx",
+    path: "docs/example.mdx",
     title: "Example",
   },
   {
-    path: "schema.mdx",
+    path: "docs/schema.mdx",
     title: "Schema",
     showSideBar: true,
     subOptions: [
@@ -33,48 +28,48 @@ const DocumentationReference = [
     ]
   },
   {
-    path: "authorization/index.mdx",
+    path: "docs/authorization/index.mdx",
     title: "Authorization",
     children: [
       {
-        path: "authorization/directive.mdx",
+        path: "docs/authorization/directive.mdx",
         title: "The `@auth` directive"
       },
       {
-        path: "authorization/mutations.mdx",
+        path: "docs/authorization/mutations.mdx",
         title: "Mutations"
       }
     ]
   },
   {
-    path: "custom/index.mdx",
+    path: "docs/custom/index.mdx",
     title: "Custom Resolvers",
     children: [
       {
-        path: "custom/directive.mdx",
+        path: "docs/custom/directive.mdx",
         title: "The `@custom` directive"
       },
       {
-        path: "custom/query.mdx",
+        path: "docs/custom/query.mdx",
         title: "Custom Queries"
       },
       {
-        path: "custom/mutation.mdx",
+        path: "docs/custom/mutation.mdx",
         title: "Custom Mutations"
       },
       {
-        path: "custom/field.mdx",
+        path: "docs/custom/field.mdx",
         title: "Custom Fields"
       }
     ]
   },
  
   {
-    path: "admin.mdx",
+    path: "docs/admin.mdx",
     title: "Admin"
   },
   {
-    path: "dgraph.mdx",
+    path: "docs/dgraph.mdx",
     title: "GraphQL on Existing Dgraph"
   }
 ]
@@ -82,12 +77,12 @@ const DocumentationReference = [
 const Graphql = [
   {
     title: "Introduction",
-    path: "dgraphGraphQL/welcomePage.mdx",
+    path: "dgraph-graphql/index.mdx",
     showSideBar:false,
   },
   {
     title: "GraphQL Quick Start",
-    path: "dgraphGraphQL/index.mdx",
+    path: "dgraph-graphql/code-editor.mdx",
     showSideBar: false
   },
 ]
@@ -143,18 +138,18 @@ const tutorial = [
 const toolsAndDeployment = [
     {
     title: "Tools and Deployments",
-    path: "toolsAndDeployment/index.mdx",
+    path: "recipes/index.mdx",
     showSideBar: true
   }
 ]
 
 const slashGraphQL = [
   {
-    path: "slashGraphQL/index.mdx",
+    path: "slash-graphql/index.mdx",
     title: "Introduction"
   },
   {
-    path: "slash-quick-start.mdx",
+    path: "slash-graphql/slash-quick-start.mdx",
     title: "Slash Quick Start (draft)"
   },
 ]
@@ -162,7 +157,7 @@ const slashGraphQL = [
 const exampleApps = [
   {
     title: "Example Apps",
-    path: "exampleApps/index.mdx",
+    path: "example-apps/index.mdx",
     showSideBar: true
   }
 ]

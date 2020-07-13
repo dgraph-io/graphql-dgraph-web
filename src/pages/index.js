@@ -10,7 +10,7 @@ class IndexPage extends React.Component{
 
   componentDidMount()
   {
-    navigateTo('/documentationReference/');
+    navigateTo('/dgraph-graphql');
   }
   render()
   {
