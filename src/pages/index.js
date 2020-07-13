@@ -4,13 +4,21 @@ import "../assets/style/custom.scss"
 import "graphiql/graphiql.css"
 import SEO from "../components/seo"
 import { Link, navigateTo } from "gatsby"
+import { connect } from "react-redux"
 
 
 class IndexPage extends React.Component{
 
+  constructor(props)
+  {
+    super(props);
+  }
+
   componentDidMount()
   {
-    navigateTo('/dgraph-graphql');
+    const {dispatch} = this.props;
+    dispatch({type:'CLEAR_LOCAL_STORAGE'});
+    navigateTo('/dgraph-graphql/');
   }
   render()
   {
@@ -115,4 +123,11 @@ class IndexPage extends React.Component{
   // </Layout>
 // )
 
-export default IndexPage
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    dispatch
+  }
+}
+
+export default connect(null , mapDispatchToProps)( IndexPage);

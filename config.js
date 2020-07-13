@@ -1,6 +1,7 @@
 const DocumentationReference = [
+  
   {
-    path: "docs/index.mdx",
+    path: "docs/introduction.mdx",
     title: "Introduction",
   },
   {

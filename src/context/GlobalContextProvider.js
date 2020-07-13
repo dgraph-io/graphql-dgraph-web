@@ -34,9 +34,9 @@ export function reducer(state = initialState, action) {
       }
     }
 
-    default:
+    case 'CLEAR_LOCAL_STORAGE' :
       return {
-        ...state
+        ...initialState
       }
   }
 }
