@@ -1,10 +1,9 @@
 import {paths} from '../utils/graphQLConstants/paths';
 import {categoryClassName} from '../utils/graphQLConstants/sideBarCategoryClasses';
 
-export const  getCategoryIndex = (dispatch) => {
+export const  getCategoryIndex = (dispatch , locationParam) => {
     let path
-    path = window.location.pathname.split("/")
-
+    path = locationParam.location.pathname.split('/');
     switch (path[1]) {
 
       case paths.slashGraph: {

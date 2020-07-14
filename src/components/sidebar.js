@@ -7,7 +7,7 @@ import SideBarContentDropdown from "./sideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
 import {getCategoryIndex} from '../helperFunctions/findCurrentPath';
-
+import {Location} from '@reach/router';
 
 const config = require("../../config")
 
@@ -25,7 +25,7 @@ const SideBar = props => {
   let currentParent
   let completeRes = []
 
-  completeRes = config.sidebarOptions[getCategoryIndex(dispatch)].map(node => {
+  completeRes =(locationProp)=> config.sidebarOptions[getCategoryIndex(dispatch , locationProp)].map(node => {
     currentParent = node.title
     let mainNode = (
       <li key={node.title} className="sidebar-inline font-weight-medium">
@@ -111,6 +111,7 @@ const SideBar = props => {
 
   const list = (
     <React.Fragment>
+      <Location>{(locationProp)=>
       <div className="sidenav">
         <div className="page-logo">
           <Link to="/" className="img-logo header-link">
@@ -124,9 +125,10 @@ const SideBar = props => {
           }}
         />
         <div className="sidebar-wrap">
-          <ul>{completeRes}</ul>
+          <ul>{completeRes(locationProp)}</ul>
         </div>
-      </div>
+      </div>}
+      </Location>
     </React.Fragment>
   )
 
