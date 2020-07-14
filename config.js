@@ -1,20 +1,20 @@
 const DocumentationReference = [
   
   {
-    path: "docs/introduction.mdx",
+    path: "doc/index.mdx",
     title: "Introduction",
   },
   {
-    path: "docs/api.mdx",
+    path: "doc/api.mdx",
     title: "The API",
 
   },
   {
-    path: "docs/example.mdx",
+    path: "doc/example.mdx",
     title: "Example",
   },
   {
-    path: "docs/schema.mdx",
+    path: "doc/schema.mdx",
     title: "Schema",
     showSideBar: true,
     subOptions: [
@@ -29,48 +29,48 @@ const DocumentationReference = [
     ]
   },
   {
-    path: "docs/authorization/index.mdx",
+    path: "doc/authorization/index.mdx",
     title: "Authorization",
     children: [
       {
-        path: "docs/authorization/directive.mdx",
+        path: "doc/authorization/directive.mdx",
         title: "The `@auth` directive"
       },
       {
-        path: "docs/authorization/mutations.mdx",
+        path: "doc/authorization/mutations.mdx",
         title: "Mutations"
       }
     ]
   },
   {
-    path: "docs/custom/index.mdx",
+    path: "doc/custom/index.mdx",
     title: "Custom Resolvers",
     children: [
       {
-        path: "docs/custom/directive.mdx",
+        path: "doc/custom/directive.mdx",
         title: "The `@custom` directive"
       },
       {
-        path: "docs/custom/query.mdx",
+        path: "doc/custom/query.mdx",
         title: "Custom Queries"
       },
       {
-        path: "docs/custom/mutation.mdx",
+        path: "doc/custom/mutation.mdx",
         title: "Custom Mutations"
       },
       {
-        path: "docs/custom/field.mdx",
+        path: "doc/custom/field.mdx",
         title: "Custom Fields"
       }
     ]
   },
  
   {
-    path: "docs/admin.mdx",
+    path: "doc/admin.mdx",
     title: "Admin"
   },
   {
-    path: "docs/dgraph.mdx",
+    path: "doc/dgraph.mdx",
     title: "GraphQL on Existing Dgraph"
   }
 ]

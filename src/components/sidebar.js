@@ -6,16 +6,16 @@ import VersionDropdown from "./VersionDropdown"
 import SideBarContentDropdown from "./sideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
+import {getCategoryIndex} from '../helperFunctions/findCurrentPath';
 
 
 const config = require("../../config")
 
 const SideBar = props => {
   const [showAccordion, toggleAccordion] = useState(true)
-  const [toggleListItemMarker, toggleListItem] = useState('');
+  const [toggleListItemMarker, toggleListItem] = useState("")
 
-  const { categoryIndex , dispatch } = props
-
+  const {  dispatch } = props
 
   function isActive(obj) {
     return obj.isCurrent ? { className: "active" } : null
@@ -25,20 +25,19 @@ const SideBar = props => {
   let currentParent
   let completeRes = []
 
-  // const getCurrentPage = () =>{
-  //   console.log('location' , location.pathname);
-  //   return categoryIndex;
-  // }
-
-
-  completeRes = config.sidebarOptions[categoryIndex].map(node => {
+  completeRes = config.sidebarOptions[getCategoryIndex(dispatch)].map(node => {
     currentParent = node.title
     let mainNode = (
       <li key={node.title} className="sidebar-inline font-weight-medium">
         <Link
           to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
-          onClick={() => { dispatch({ type: 'HIDE_RIGHT_SIDEBAR', showSideBar: node.showSideBar }) }}
+          onClick={() => {
+            dispatch({
+              type: "HIDE_RIGHT_SIDEBAR",
+              showSideBar: node.showSideBar
+            })
+          }}
         >
           {node.title}
         </Link>
@@ -51,8 +50,12 @@ const SideBar = props => {
             <Link
               to={"/" + childNode.path.replace(".mdx", "")}
               getProps={isActive}
-              onClick={() => { dispatch({ type: 'HIDE_RIGHT_SIDEBAR', showSideBar: childNode.showSideBar }) }}
-
+              onClick={() => {
+                dispatch({
+                  type: "HIDE_RIGHT_SIDEBAR",
+                  showSideBar: childNode.showSideBar
+                })
+              }}
             >
               {childNode.title}
             </Link>
@@ -65,8 +68,12 @@ const SideBar = props => {
     const res = (
       <React.Fragment key={currentParent}>
         <Accordion
-        defaultActiveKey={currentParent}
-          bsPrefix={toggleListItemMarker===mainNode ? "accordion-show" : "accordion-hide"}
+          defaultActiveKey={currentParent}
+          bsPrefix={
+            toggleListItemMarker === mainNode
+              ? "accordion-show"
+              : "accordion-hide"
+          }
         >
           {mainNode}
           {currentChildren.length !== 0 && (
@@ -75,13 +82,17 @@ const SideBar = props => {
               eventKey={currentParent}
               className="accordion-toggle"
               onClick={() => {
-                showAccordion ? toggleAccordion(false) : toggleAccordion(true);
-                toggleAccordion(node.title);
+                showAccordion ? toggleAccordion(false) : toggleAccordion(true)
+                toggleAccordion(node.title)
               }}
             >
               <span className="cursor-pointer">
-                <GoChevronDown className={showAccordion?`collapsible-arrow-down`:"hide"} />
-                <GoChevronUp className={!showAccordion?`collapsible-arrow-up`:"hide"} />
+                <GoChevronDown
+                  className={showAccordion ? `collapsible-arrow-down` : "hide"}
+                />
+                <GoChevronUp
+                  className={!showAccordion ? `collapsible-arrow-up` : "hide"}
+                />
               </span>
             </Accordion.Toggle>
           )}
@@ -122,16 +133,10 @@ const SideBar = props => {
   return list
 }
 
-const mapStateToProps = (state) =>{
-  return{
-    categoryIndex: state.sideBarCategoryIndex
-  }
-}
-
-const mapDispatchToProp = (dispatch) =>{
-  return{
+const mapDispatchToProp = dispatch => {
+  return {
     dispatch
   }
 }
 
-export default connect(mapStateToProps , mapDispatchToProp)( SideBar);
+export default connect(null, mapDispatchToProp)(SideBar)
