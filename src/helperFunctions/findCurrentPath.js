@@ -42,7 +42,7 @@ export const  getCategoryIndex = (dispatch , locationParam) => {
       case paths.tutorials: {
         dispatch({
           type: "SELECT_SIDEBAR_CONTENT_CATEGORY",
-          categoryName:categoryClassName.examples,
+          categoryName:categoryClassName.tutorials,
           categoryIndex: 4
         })
         return 4

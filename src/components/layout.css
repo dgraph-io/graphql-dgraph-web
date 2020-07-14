@@ -864,24 +864,22 @@ h2.page-title-summary {
   display: block;
 }
 .accordion-hide .cursor-pointer .collapsible-arrow-down {
-  position: absolute;
-  top: 5px;
-  right: 0;
+  display: none;
 }
 .accordion-show .cursor-pointer .collapsible-arrow-up {
-  position: absolute;
-  top: 5px;
-  right: 0;
+  display: none;
 }
 .accordion-hide .cursor-pointer .collapsible-arrow-up {
   position: absolute;
   top: 5px;
   right: 0;
+  display: inline;
 }
 .accordion-show .cursor-pointer .collapsible-arrow-down {
   position: absolute;
   top: 5px;
   right: 0;
+  display: inline;
 }
 
 .titlebar-heading {
