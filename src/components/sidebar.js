@@ -15,7 +15,7 @@ const SideBar = props => {
   const [showAccordion, toggleAccordion] = useState(false)
   const [toggleListItemMarker, toggleListItem] = useState("")
 
-  const { dispatch } = props
+  const { dispatch, currentExpandedAccordion } = props
 
   function isActive(obj) {
     return obj.isCurrent ? { className: "active" } : null
@@ -27,7 +27,7 @@ const SideBar = props => {
 
   completeRes = locationProp =>
     config.sidebarOptions[getCategoryIndex(dispatch, locationProp)].map(
-      node => {
+      (node,index) => {
         currentParent = node.title
         let mainNode = (
           <li key={node.title} className="sidebar-inline font-weight-medium">
@@ -46,7 +46,7 @@ const SideBar = props => {
           </li>
         )
         if (node.children !== undefined) {
-          currentChildren = node.children.map(childNode => {
+          currentChildren = node.children.map((childNode) => {
             let child = (
               <li key={childNode.title} className="font-weight-medium">
                 <Link
@@ -66,9 +66,10 @@ const SideBar = props => {
             return child
           })
         }
-        const resetToggleMarker = () =>{
-          toggleAccordion(false);
-          toggleListItem('');
+
+        const resetToggleMarker = () => {
+          toggleAccordion(false)
+          toggleListItem("")
         }
 
         const res = (
@@ -88,20 +89,20 @@ const SideBar = props => {
                   eventKey={currentParent}
                   className="accordion-toggle"
                   onClick={() => {
-                    showAccordion
-                      ? resetToggleMarker()
-                      : toggleAccordion(true)
+                    showAccordion ? resetToggleMarker() : toggleAccordion(true)
                     toggleListItem(node.title)
                   }}
                 >
                   <span className="cursor-pointer">
-                    <GoChevronDown className={`collapsible-arrow-down`} />
-                    <GoChevronUp className={`collapsible-arrow-up`} />
+                    <GoChevronDown className="collapsible-arrow-down" />
+                    <GoChevronUp className="collapsible-arrow-up" />
                   </span>
                 </Accordion.Toggle>
               )}
               {currentChildren.length !== 0 && (
-                <Accordion.Collapse eventKey={currentParent}>
+                <Accordion.Collapse
+                  eventKey={currentParent}
+                >
                   <ul className="list-no-style">{currentChildren}</ul>
                 </Accordion.Collapse>
               )}
@@ -148,4 +149,10 @@ const mapDispatchToProp = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProp)(SideBar)
+const mapStateToProps = state => {
+  return {
+    currentExpandedAccordion: state.currentExpandedAccordion
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProp)(SideBar)

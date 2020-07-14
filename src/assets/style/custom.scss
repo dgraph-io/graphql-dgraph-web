@@ -447,3 +447,11 @@
     margin-bottom: 0;
   }
 }
+.collapse:not(.show):not(.show-collapse) {
+  display: none;
+}
+
+// .collapse,
+// .collapsing {
+//   display: none;
+// }

@@ -1,14 +1,14 @@
 import React from "react"
 
-
 export const GlobalStateContext = React.createContext()
 export const GlobalReducerContext = React.createContext()
 
 const initialState = {
   sideBarCategoryIndex: 3,
   sideBarCategoryClassName: "Dgraph GraphQL",
-  renderRightSideBar:false,
-  currentVersion: 'master'
+  renderRightSideBar: false,
+  currentVersion: "master",
+  currentExpandedAccordion: ''
 }
 
 export function reducer(state = initialState, action) {
@@ -24,23 +24,32 @@ export function reducer(state = initialState, action) {
     case "HIDE_RIGHT_SIDEBAR": {
       return {
         ...state,
-        renderRightSideBar:action.showSideBar
+        renderRightSideBar: action.showSideBar
       }
     }
 
-    case 'SELECT_VERSION':{
+    case "SELECT_VERSION": {
       return {
-        ...state , currentVersion:action.version
+        ...state,
+        currentVersion: action.version
       }
     }
 
-    case 'CLEAR_LOCAL_STORAGE' :
+    case "CURRENT_EXPANDED_ACCORDION": {
+      console.log('current expanded Accorsion' ,action.expandedAccordion)
+          return {
+        ...state,
+        currentExpandedAccordion: action.expandedAccordion
+      }
+    }
+
+    case "CLEAR_LOCAL_STORAGE":
       return {
         ...initialState
       }
 
-      default :
-      return state;
+    default:
+      return state
   }
 }
 
@@ -48,7 +57,9 @@ const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState)
   return (
     <GlobalStateContext.Provider value={state}>
-      <GlobalReducerContext.Provider value={dispatch}>{children}</GlobalReducerContext.Provider>
+      <GlobalReducerContext.Provider value={dispatch}>
+        {children}
+      </GlobalReducerContext.Provider>
     </GlobalStateContext.Provider>
   )
 }
