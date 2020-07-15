@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import GraphiQLWrapper from "../../components/GraphiQL"
+// import GraphiQLWrapper from "../../components/GraphiQL"
 import { IconContext } from "react-icons"
 import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 import "../../assets/style/custom.scss"
@@ -44,14 +44,14 @@ export default function CodeEditor() {
           )}
         </div>
         <div className="subheading-text">
-          {editorConstants[currentIndex]}
+          {editorConstants[currentIndex].text}
         </div>
       </div>
       <Carousel activeIndex={currentIndex}>
         {editorConstants.map(() => {
           return (
               <Carousel.Item>
-                <GraphiQLWrapper />
+                {editorConstants[currentIndex].CustomComponent()}
               </Carousel.Item>
           )
         })}
