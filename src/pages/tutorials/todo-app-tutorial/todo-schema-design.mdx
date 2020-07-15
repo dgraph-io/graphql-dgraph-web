@@ -8,7 +8,7 @@ Let's start with listing down the entities that are involved in a basic todo app
 - Task
 - User
 
-![Todo Graph](../../images/tutorial/todo/todo-graph.png)
+![Todo Graph](../../../images/tutorial/todo/todo-graph.png)
 
 Equivalent GraphQL schema for the graph above would be as follow:
 
@@ -29,7 +29,7 @@ Then the  `User` type has a username (unique identifier), name and the tasks.
 
 So each user can have many tasks.
 
-![Todo Graph complete](../../images/tutorial/todo/todo-graph-2.png)
+![Todo Graph complete](../../../images/tutorial/todo/todo-graph-2.png)
 *Note - ' \* ' signifies one-to-many relationship
 
 Now let's add  `@id` directive to `username ` which makes it the unique key & also add  `@hasInverse` directive to enable the above relationship between tasks and user. 
