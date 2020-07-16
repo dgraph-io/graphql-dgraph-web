@@ -2,7 +2,7 @@ import React from "react"
 import {connect} from 'react-redux';
 import { Link } from "gatsby"
 import { Dropdown, Row, Col, Container } from "react-bootstrap"
-import { sideBarContentClasses } from "../utils/graphQLConstants/SideBarCategory"
+import { sideBarContentClasses } from "../utils/graphQLConstants/side-bar-category"
 import {Images} from '../images';
 
 

@@ -9,7 +9,7 @@ import SideBar from "./Sidebar"
 import Header from "./header"
 import SideBarRight from "./Sidebarright"
 import { Location } from "@reach/router"
-import SEO from "../components/seo"
+import SEO from "./seo"
 
 const config = require("../../config")
 

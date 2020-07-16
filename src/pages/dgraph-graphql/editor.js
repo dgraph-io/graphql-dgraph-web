@@ -3,7 +3,7 @@ import { IconContext } from "react-icons"
 import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 import "../../assets/style/custom.scss"
 import { Button, Carousel } from "react-bootstrap"
-import { editorConstants } from "../../utils/graphQLConstants/QuickStartConstants"
+import { editorConstants } from "../../utils/graphQLConstants/quick-start-constants"
 
 export default function CodeEditor() {
   const [currentIndex, setIndex] = useState(0)

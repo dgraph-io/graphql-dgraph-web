@@ -6,7 +6,7 @@ import VersionDropdown from "./VersionDropdown"
 import SideBarContentDropdown from "./SideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
-import { getCategoryIndex } from "../helperFunctions/findCurrentPath"
+import { getCategoryIndex } from "../helper-functions/find-current-path"
 import { Location } from "@reach/router"
 
 const config = require("../../config")
