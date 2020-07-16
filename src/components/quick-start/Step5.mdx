@@ -1,0 +1,26 @@
+import GraphiQLWrapper from "../GraphiQL"
+import {quickStartQry1} from "../../utils/queries"
+
+Mutations are one thing, but query is where GraphQL really shines.  With GraphQL, you get just the data you want, in a format that's suitable for your app.
+
+With Dgraph, you get powerful graph search built into your GraphQL API.  The schema for search is generated from the schema document that we started with and automatically added to the GraphQL API for you.  
+
+Remember the definition of a review.
+
+```graphql
+type Review {
+    ...
+    comment: String @search(by: [fulltext])
+    ...
+}
+```
+
+The directive `@search(by: [fulltext])` tells Dgraph we want to be able to search for comments with full-text search.  That's Google-style search like 'best buy' and 'loved the color'.  Dgraph took that, and the other information in the schema, and built queries and search into the API.
+
+Let's find all the products that were easy to install.
+
+<GraphiQLWrapper defaultQuery={quickStartQry1} />
+<br />
+What reviews did you get back?  It'll depend on the data you added, but you'll at least get the initial review we added.
+
+export default ({ children }) => <>{children}</>

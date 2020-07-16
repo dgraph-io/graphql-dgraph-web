@@ -1,7 +1,29 @@
 import GraphiQLWrapper from "../GraphiQL"
 
-It's a one-liner to bring up Dgraph with GraphQL. _Note: The Dgraph standalone image is great for quick start and exploring, but it's not meant for production use. Once you want to build an App or persist your data for restarts, you'll need to review the [admin docs](#)_.
+## Start Dgraph GraphQL
 
-<GraphiQLWrapper />
+It's a one-liner to bring up Dgraph with GraphQL.  *Note: The Dgraph standalone image is great for quick start and exploring, but it's not meant for production use.  Once you want to build an App or persist your data for restarts, you'll need to review the   [admin docs](/admin).*
+
+```bash
+docker run -it -p 8080:8080 dgraph/standalone:master
+```
+
+With that, GraphQL has started at localhost:8080/graphql, but it doesn't have a schema to serve yet. 
+
+## Add a GraphQL Schema
+
+Dgraph will run your GraphQL API at `/graphql` and an admin interface at `/admin`.  The `/admin` interface lets you add and update the GraphQL schema served at `/graphql`.  The quickest way to reset the schema is just to post it to `/admin` with curl.  
+
+Take the schema from previous step, copy-and-paste it into a file called `schema.graphql` and run the following curl command.
+
+```bash
+curl -X POST localhost:8080/admin/schema --data-binary '@schema.graphql'
+```
+
+It'll post back the types it's currently serving a schema for, which should be the same as the input schema.
+
+That's it, now you've got a GraphQL API up and running.
+
+No, really, that's all; nothing else to do; it's there, serving GraphQL --- let's go use it.
 
 export default ({ children }) => <>{children}</>

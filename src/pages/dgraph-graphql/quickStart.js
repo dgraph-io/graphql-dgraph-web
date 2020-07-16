@@ -3,9 +3,9 @@ import { IconContext } from "react-icons"
 import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 import "../../assets/style/custom.scss"
 import { Button, Carousel } from "react-bootstrap"
-import { editorConstants } from "../../utils/graphQLConstants/quick-start-constants"
+import { quickStartConstants } from "../../utils/graphQLConstants/quick-start-constants"
 
-export default function CodeEditor() {
+export default function QuickStart() {
   const [currentIndex, setIndex] = useState(0)
 
   return (
@@ -16,7 +16,7 @@ export default function CodeEditor() {
           <Button
             bsPrefix="next-button"
             onClick={() => {
-              currentIndex == 2
+              currentIndex == quickStartConstants.length - 1
                 ? setIndex(currentIndex)
                 : setIndex(currentIndex + 1)
             }}
@@ -44,12 +44,8 @@ export default function CodeEditor() {
         </div>
       </div>
       <Carousel activeIndex={currentIndex}>
-        {editorConstants.map((customComponent) => {
-          return (
-              <Carousel.Item>
-                {customComponent}
-              </Carousel.Item>
-          )
+        {quickStartConstants.map(customComponent => {
+          return <Carousel.Item>{customComponent}</Carousel.Item>
         })}
       </Carousel>
     </div>

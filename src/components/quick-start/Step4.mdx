@@ -1,0 +1,17 @@
+import GraphiQLWrapper from "../GraphiQL"
+import {quickStartMut2} from "../../utils/queries"
+
+And, of course, our author bought "GraphQL on Dgraph", loved it, and added a glowing review with the following mutation.  
+
+Because the schema defined Customer with the field `username: String! @id`, the `username` field acts like an ID, so we can identify customers just with their names.  Products, on the other hand, had `productID: ID!`, so they'll get an auto-generated ID.  Your ID for the product might be different.  Make sure you check the result of adding the products and use the right ID -  it's no different to linking primary/foreign keys correctly in a relational DB.
+
+<GraphiQLWrapper defaultQuery={quickStartMut2} />
+<br />
+
+This time, the mutation result queries for the author making the review and the product being reviewed, so it's gone deeper into the graph to get the result than just the mutation data.
+
+Already we have a running GraphQL API and can add data using any GraphQL tool. You could write a GraphQL/React app with a nice UI. It's GraphQL, so you can do anything GraphQL with your new server.
+
+Go ahead, add some more customers, products and reviews and then move on to querying data back out.
+
+export default ({ children }) => <>{children}</>

@@ -1,7 +1,12 @@
 import GraphiQLWrapper from "../GraphiQL"
+import {quickStartMut1} from "../../utils/queries"
 
-It's a one-liner to bring up Dgraph with GraphQL. _Note: The Dgraph standalone image is great for quick start and exploring, but it's not meant for production use. Once you want to build an App or persist your data for restarts, you'll need to review the [admin docs](#)_.
+If you've followed the steps, there's a GraphQL server up and running. You can access that GraphQL endpoint with any of the great GraphQL developer tools. Good choices include GraphQL Playground, Insomnia, GraphiQL and Altair.
 
-<GraphiQLWrapper />
+Fire one of those up and point it at http://localhost:8080/graphql. If you know lots about GraphQL, you might want to explore the schema, queries and mutations that were generated from the input.
+
+We'll begin by adding some products and an author. GraphQL can accept multiple mutations at a time, so it's one request. Neither the products nor the author will have any reviews yet, so all we need is the names.
+
+<GraphiQLWrapper defaultQuery={quickStartMut1} />
 
 export default ({ children }) => <>{children}</>

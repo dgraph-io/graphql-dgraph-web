@@ -4,10 +4,10 @@ import "graphiql/graphiql.css"
 import { buildClientSchema, getIntrospectionQuery } from "graphql"
 import React, { useEffect, useRef, useState } from "react"
 
-
-export default function GraphiQLWrapper({ defaultQuery }) {
+export default function GraphiQLWrapper({ defaultQuery, defaultVariables }) {
   const editor = useRef(null)
   const [query, setQuery] = useState("")
+  const [variables, setVariables] = useState("")
   const [schema, setSchema] = useState(null)
   const [explorerIsOpen, setExplorerIsOpen] = useState(false)
 
@@ -25,11 +25,15 @@ export default function GraphiQLWrapper({ defaultQuery }) {
     })
     setSchema(buildClientSchema(res.data))
     getDefaultQuery()
+    getDefaultVariables()
   }
 
   const getDefaultQuery = () => {
-    if (defaultQuery !== undefined)
-      setQuery(defaultQuery)
+    if (defaultQuery !== undefined) setQuery(defaultQuery)
+  }
+
+  const getDefaultVariables = () => {
+    if (defaultVariables !== undefined) setVariables(defaultVariables)
   }
 
   const toggleExplorerState = () => {
@@ -55,6 +59,7 @@ export default function GraphiQLWrapper({ defaultQuery }) {
           fetcher={graphQLFetcher}
           schema={schema}
           query={query}
+          variables={variables}
           editorTheme="seti"
           onEditQuery={q => setQuery(q)}
           ref={editor}

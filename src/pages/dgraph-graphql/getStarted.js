@@ -11,7 +11,7 @@ export default function GetStarted() {
     <Button
       as="button"
       onClick={() => {
-        navigate("/dgraph-graphql/code-editor")
+        navigate("/dgraph-graphql/quick-start")
         dispatch({ type: "HIDE_RIGHT_SIDEBAR", showSideBar: false })
       }}
       bsPrefix="button button--primary mr-0 mr-md-4"

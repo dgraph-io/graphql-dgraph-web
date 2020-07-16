@@ -83,7 +83,7 @@ const Graphql = [
   },
   {
     title: "GraphQL Quick Start",
-    path: "dgraph-graphql/code-editor.mdx",
+    path: "dgraph-graphql/quick-start.mdx",
     showSideBar: false
   },
 ]
