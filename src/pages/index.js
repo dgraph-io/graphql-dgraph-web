@@ -18,7 +18,7 @@ class IndexPage extends React.Component{
   {
     const {dispatch} = this.props;
     dispatch({type:'CLEAR_LOCAL_STORAGE'});
-    navigateTo('/doc/');
+    navigateTo('/dgraph-graphql/');
   }
   render()
   {
