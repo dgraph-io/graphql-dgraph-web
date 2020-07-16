@@ -36,7 +36,6 @@ export function reducer(state = initialState, action) {
     }
 
     case "CURRENT_EXPANDED_ACCORDION": {
-      console.log('current expanded Accorsion' ,action.expandedAccordion)
           return {
         ...state,
         currentExpandedAccordion: action.expandedAccordion

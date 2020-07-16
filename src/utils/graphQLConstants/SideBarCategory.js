@@ -1,5 +1,22 @@
 import { Images } from "../../images/index.js"
 
+export const categoryClassName={
+    slashGraph:'Slash GraphQL',
+    dgraphQl:'Dgraph GraphQL',
+    docs:'Documentation Reference',
+    tutorials:'Tutorials',
+    tools:'Tools and Deployment',
+    examples:'Example Apps'
+}
+export const paths = {
+    slashGraph:'slash-graphql',
+    dgraphQl:'dgraph-graphql',
+    docs:'doc',
+    tutorials:'tutorials',
+    tools:'recipes',
+    examples:'example-apps'
+}
+
 export const sideBarContentClasses = [
   [
     {

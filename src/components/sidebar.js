@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import { connect } from "react-redux"
 import { Accordion } from "react-bootstrap"
 import VersionDropdown from "./VersionDropdown"
-import SideBarContentDropdown from "./sideBarContentDropdown"
+import SideBarContentDropdown from "./SideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
 import { getCategoryIndex } from "../helperFunctions/findCurrentPath"
@@ -15,7 +15,7 @@ const SideBar = props => {
   const [showAccordion, toggleAccordion] = useState(false)
   const [toggleListItemMarker, toggleListItem] = useState("")
 
-  const { dispatch, currentExpandedAccordion } = props
+  const { dispatch } = props
 
   function isActive(obj) {
     return obj.isCurrent ? { className: "active" } : null

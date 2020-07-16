@@ -1,10 +1,9 @@
 import React, { useState } from "react"
-// import GraphiQLWrapper from "../../components/GraphiQL"
 import { IconContext } from "react-icons"
 import { MdChevronLeft, MdChevronRight } from "react-icons/md"
 import "../../assets/style/custom.scss"
 import { Button, Carousel } from "react-bootstrap"
-import { editorConstants } from "../../utils/graphQLConstants/editorContants"
+import { editorConstants } from "../../utils/graphQLConstants/QuickStartConstants"
 
 export default function CodeEditor() {
   const [currentIndex, setIndex] = useState(0)
@@ -43,15 +42,12 @@ export default function CodeEditor() {
             </Button>
           )}
         </div>
-        <div className="subheading-text">
-          {editorConstants[currentIndex].text}
-        </div>
       </div>
       <Carousel activeIndex={currentIndex}>
-        {editorConstants.map(() => {
+        {editorConstants.map((customComponent) => {
           return (
               <Carousel.Item>
-                {editorConstants[currentIndex].CustomComponent()}
+                {customComponent}
               </Carousel.Item>
           )
         })}
