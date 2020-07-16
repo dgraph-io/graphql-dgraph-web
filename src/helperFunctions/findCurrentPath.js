@@ -1,5 +1,4 @@
-import {paths} from '../utils/graphQLConstants/paths';
-import {categoryClassName} from '../utils/graphQLConstants/sideBarCategoryClasses';
+import {categoryClassName , paths} from '../utils/graphQLConstants/SideBarCategory';
 
 export const  getCategoryIndex = (dispatch , locationParam) => {
     let path

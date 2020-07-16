@@ -5,16 +5,11 @@ import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 import "./layout.css"
 import "./seti.css"
-import SideBar from "./sidebar"
+import SideBar from "./Sidebar"
 import Header from "./header"
-import SideBarRight from "./sidebarright"
+import SideBarRight from "./Sidebarright"
 import { Location } from "@reach/router"
 import SEO from "../components/seo"
-import {
-  GlobalStateContext,
-  GlobalReducerContext
-} from "../context/GlobalContextProvider"
-import InPageCurrentPageSideBar from "./inPageCurrentPageSideBar"
 
 const config = require("../../config")
 
@@ -29,12 +24,7 @@ const Layout = props => {
     setCategory(categoryIndex)
    
   }
-  console.log(
-    "[ index,title ,render sidebar]",
-    categoryIndex,
-    sidebarClass,
-    renderRightSideBar
-  )
+
   return (
     <StaticQuery
       query={graphql`

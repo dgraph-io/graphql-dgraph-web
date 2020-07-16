@@ -1,9 +1,8 @@
 import React from "react"
-import { useLocation } from "@reach/router"
 import {connect} from 'react-redux';
 import { Link } from "gatsby"
 import { Dropdown, Row, Col, Container } from "react-bootstrap"
-import { sideBarContentClasses } from "../utils/graphQLConstants/sideBarContents"
+import { sideBarContentClasses } from "../utils/graphQLConstants/SideBarCategory"
 import {Images} from '../images';
 
 
