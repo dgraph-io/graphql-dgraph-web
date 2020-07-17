@@ -23,7 +23,7 @@ const SideBar = props => {
     let mainNode = (
       <li key={node.title} className="sidebar-inline font-weight-medium">
         <Link
-          to={`/${config.currentVersion}/` + node.path.replace("index.mdx", "").replace(".mdx", "")}
+          to={'/' + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
         >
           {node.title}
@@ -35,7 +35,7 @@ const SideBar = props => {
         let child = (
           <li key={childNode.title}>
             <Link
-              to={`/${config.currentVersion}/` + childNode.path.replace(".mdx", "")}
+              to={'/' + childNode.path.replace(".mdx", "")}
               getProps={isActive}
             >
               {childNode.title}
@@ -72,7 +72,7 @@ const SideBar = props => {
     <React.Fragment>
       <div className="sidenav">
       <div className="page-logo">
-        <Link to={`${config.currentVersion}/`} className="img-logo header-link">
+        <Link to='/' className="img-logo header-link">
           <img src={DgraphLogo} alt="Dgraph logo" />
         </Link>
       </div>
