@@ -1,58 +1,71 @@
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
-import DgraphLogo from "../images/graphql-logo.png"
-import { Dropdown } from "react-bootstrap"
+import Twitter from "../images/twitter.svg"
+import Github from "../images/github.svg"
+import { Button } from "react-bootstrap"
+import { MdChevronLeft } from "react-icons/md"
+import { IconContext } from "react-icons"
 
-const changeVersion = eventKey => {
-  if (eventKey !== "master") {
-    window.location.assign(process.env.GATSBY_URL + eventKey)
-  } else {
-    window.location.assign(process.env.GATSBY_URL)
-  }
+const config = require("../../config")
+
+const BackIcon = () => {
+  return (
+    <>
+      <IconContext.Provider value={{ color: "#B7B7B7" }}>
+        <MdChevronLeft viewBox="0 0 12 20" />
+      </IconContext.Provider>
+      <MdChevronLeft viewBox="7 0 20 20" />
+    </>
+  )
+}
+
+const BackButtonMainWebsite = () => {
+  return (
+    <div className="back-button-main-website">
+      <Button as="a" href="https://dgraph.io/"
+        bsPrefix="navigate-main-website-button ml-auto"
+      >
+        <BackIcon />
+        Back to Main Website
+      </Button>
+    </div>
+  )
 }
 
 const Header = ({ siteTitle }) => {
   return (
-    <div className="header-spacing">
-      <div className="page-header">
-        <div className="page-logo">
-          <Link to="/" className="img-logo header-link">
-            <img src={DgraphLogo} alt="Dgraph logo" />
-          </Link>
-        </div>
-        <div>
-          <Dropdown
-            onSelect={(eventKey, event) => changeVersion(eventKey)}
-            size="xs"
-          >
-            <Dropdown.Toggle variant="primary" id="dropdown-basic">
-              Version
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {process.env.GATSBY_VERSIONS.split(",").map(version => (
-                <Dropdown.Item
-                  key={version}
-                  active={version === process.env.GATSBY_CURRENT_VERSION}
-                  eventKey={version}
-                >
-                  {version}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
+    <div className="topbar d-flex">
+      <div className="page-header justify-content-end">
+        <BackButtonMainWebsite />
+
+        <a
+          href="https://twitter.com/dgraphlabs"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{paddingLeft:'24px'}}
+        >
+          <img src={Twitter} alt="Twitter" className="mb-0" />
+        </a>
+        <a
+          target="_blank"
+          href="https://github.com/dgraph-io/graphql-dgraph-web"
+          rel="noopener noreferrer"
+          style={{paddingRight:'0'}}
+        >
+          <img src={Github} alt="Github" className="mb-0" />
+        </a>
       </div>
     </div>
   )
 }
 
 Header.propTypes = {
-  siteTitle: PropTypes.string,
+  siteTitle: PropTypes.string
 }
 
 Header.defaultProps = {
-  siteTitle: "",
+  siteTitle: ""
 }
 
 export default Header

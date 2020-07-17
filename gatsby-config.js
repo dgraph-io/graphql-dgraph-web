@@ -9,8 +9,10 @@ module.exports = {
   },
   pathPrefix: `/` + process.env.GATSBY_CURRENT_VERSION,
   plugins: [
+    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-gtag`,
+      
       options: {
         // your google analytics tracking id
         trackingId: `UA-75364122-7`,
@@ -18,6 +20,13 @@ module.exports = {
         head: false,
         // enable ip anonymization
         anonymize: true,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-hotjar`,
+      options: {
+        id: 1883865,
+        sv: 6
       },
     },
     {

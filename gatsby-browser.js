@@ -5,6 +5,7 @@ import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live"
 import prismTheme from "prism-react-renderer/themes/nightOwl"
 import Highlight, { defaultProps } from "prism-react-renderer"
 
+
 const LiveCode = props => {
     const components = useMDXScope()
     return (
