@@ -13,7 +13,7 @@ export default function QuickStart() {
       <div className="editor-heading">
         <div className="heading-text">
           Step {currentIndex + 1}
-          <Button
+          {currentIndex<(quickStartConstants.length - 1)&&<Button
             bsPrefix="next-button"
             onClick={() => {
               currentIndex == quickStartConstants.length - 1
@@ -26,7 +26,7 @@ export default function QuickStart() {
               <MdChevronRight viewBox="0 0 12 20" />
             </IconContext.Provider>
             <MdChevronRight viewBox="7 0 20 20" />
-          </Button>
+          </Button>}
           {currentIndex >= 1 && (
             <Button
               bsPrefix="prev-button"
