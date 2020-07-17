@@ -563,6 +563,69 @@ query {
 }
 ```
 
+# Query Directives
+
+There are three query directives available as of version 20.07. These are `@include`, `@skip`, and `@cascade`.
+
+The directives `@include(if: Boolean)` and `@skip(if: Boolean)` are GraphQL standards and infer the opposites of each other. They both must be provided with one paramater, `if` which accepts a Boolean. These two directives tell Dgraph to include or skip the specified fields depending on the Boolean passed to it. It is common practice that this Boolean will be a variable passed to the query.
+
+```graphql
+query ($showAuthors: Boolean! $hideAnswers: Boolean!){
+  queryQuestion {
+    text
+    author @include(if: $showAuthors)
+    answers @skip(if: $hideAnswers) {
+      text
+      author @include(if: $showAuthors)
+    }
+  }
+}
+```
+
+The directive `@cascade` is a Dgraph specific directive which is useful to specify that all fields must be non null for the Object(s) to be returned. At this time `@cascade` does not accept any parameters. The `@cascade` directive can be used at any level in the query that you want to apply it at. You don’t have to specify it in the schema. The effect of using the `@cascade` directive is that it trickles down the query from where it is applied.
+
+```graphql
+query {
+  queryAuthor @cascade {
+    username
+    questions {
+      text
+      answers {
+        text
+      }
+    }
+  }
+}
+```
+
+In this example, only Authors that have questions that are answered will be returned as the `@cascade` trickled down to the questions and answers fields.
+
+
+```graphql
+query {
+  queryAuthor {
+    username
+    questions @cascade {
+      text
+      answers {
+        text
+      }
+    }
+    answers {
+      text
+      inAnswerTo {
+        text
+      }
+      comments {
+        text
+      }
+    }
+  }
+}
+```
+
+In this example, all Authors will be returned but only their questions that have answers will be returned as the @cascade trickles down to answers inside of the questions field. However, any answers that the author has wrote will be returned whether they have comments or not because the `@cascade` directive does not affect sibling fields, but only child fields.
+
 # Updating the App
 
 You've got v1 of your App working.  So you'll start iterating on your design an improving it.  Now you want authors to be able to tag questions and search for questions that have particular tags.
