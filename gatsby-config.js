@@ -21,6 +21,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-hotjar`,
+      options: {
+        id: 1883865,
+        sv: 6
+      },
+    },
+    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         root: __dirname,
