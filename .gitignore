@@ -56,7 +56,7 @@ typings/
 
 # Mac files
 .DS_Store
-
+public
 # VS Code
 .vscode
 
