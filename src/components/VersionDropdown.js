@@ -15,7 +15,6 @@ const changeVersion = eventKey => {
 
 const VersionDropdown = props => {
 
-  const currentVersion = 'v20.03.1'
 
   return (
     <div className="">
@@ -24,7 +23,7 @@ const VersionDropdown = props => {
         size="xs"
       >
         <Dropdown.Toggle id="dropdown-basic" className="dropdown-version">
-          {currentVersion}
+          {config.currentVersion}
           <GoChevronDown className="arrow-down" />
           <GoChevronUp className="arrow-up" />
         </Dropdown.Toggle>
