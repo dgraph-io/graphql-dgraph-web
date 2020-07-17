@@ -35,7 +35,7 @@ const config = require("../../config")
             </div>
           </Dropdown.Toggle>
           <Dropdown.Menu bsPrefix="sidebar-container-dropdown-menu">
-            <Container>
+            <Container className="initial-menu-container">
               <Row className="list-item-menu-header">
                 <Col>GraphQL Docs Sections</Col>
               </Row>
@@ -46,14 +46,14 @@ const config = require("../../config")
                       return (
                         <Row bsPrefix="list-item-row" key={index}>
                           {/* <Row> */}
-                            <Col md={2} lg={2} sm={3}>
+                            <Col md={2} lg={2} sm={2} xs={2}>
                             <div className="section-icon">
                             <img src={leftContent.icon} alt="icon" />
                             </div>
                               
                             </Col>
 
-                            <Col md={10} lg={11} sm={9}>
+                            <Col md={10} lg={11} sm={10} xs={10}>
                               <div
                                 className="list-item-title"
                               >
@@ -87,13 +87,13 @@ const config = require("../../config")
                       return (
                         <Row bsPrefix="list-item-row" key={index}>
                           {/* <Row> */}
-                            <Col md={2} lg={2} sm={3}>
+                            <Col md={2} lg={2} sm={2} xs={2}>
                             <div className="section-icon">
                             <img src={rightContent.icon} alt="icon" />
                             </div>
                               
                             </Col>
-                            <Col md={10} lg={11} sm={9}>
+                            <Col md={10} lg={11} sm={10} xs={10}>
                               <div
                                 className="list-item-title"
                               >
