@@ -23,7 +23,7 @@ const VersionDropdown = props => {
         size="xs"
       >
         <Dropdown.Toggle id="dropdown-basic" className="dropdown-version">
-          {config.currentVersion}
+          {process.env.GATSBY_CURRENT_VERSION}
           <GoChevronDown className="arrow-down" />
           <GoChevronUp className="arrow-up" />
         </Dropdown.Toggle>
