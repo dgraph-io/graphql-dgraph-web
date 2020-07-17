@@ -1,0 +1,10 @@
+import GraphiQLWrapper from "../GraphiQL"
+import {quickStartQry3} from "../../utils/queries"
+
+How about we find the customers with names starting with "Mich" and the five products that each of those liked the most.
+
+<GraphiQLWrapper defaultQuery={quickStartQry3} />
+<br />
+We started with nothing more than the definition of three GraphQL types, yet already we have a running GraphQL API that keeps usernames unique, can run queries and mutations, and we are on our way for an e-commerce app.  
+
+export default ({ children }) => <>{children}</>

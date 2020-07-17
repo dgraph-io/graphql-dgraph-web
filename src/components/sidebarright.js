@@ -1,9 +1,18 @@
-import React from "react"
-import { Accordion } from "react-bootstrap"
+import React, { useState ,useContext} from "react";
+import { Accordion } from "react-bootstrap";
+import { GoChevronDown, GoChevronUp } from 'react-icons/go';
+import { GlobalStateContext } from "../context/GlobalContextProvider";
+import { connect } from "react-redux";
 
 const config = require("../../config")
 
 const SideBarRight = props => {
+
+  const [selectedLink, getSelectedLink] = useState('');
+  const [accordionShow , toggleAccordion] = useState(false);
+  const {categoryIndex} = props;
+
+
 
   let currentChildren = []
   let currentParent
@@ -11,12 +20,12 @@ const SideBarRight = props => {
   let optsChildren = []
   let list
 
-  let opts = config.sidebarOptions.filter(function (sidebar) {
+  let opts = config.sidebarOptions[categoryIndex].filter(function (sidebar) {
     if (
       "/" + sidebar.path.replace("index.mdx", "").replace(".mdx", "") ===
-        props.file ||
+      props.file ||
       "/" + sidebar.path.replace("index.mdx", "").replace(".mdx", "") + "/" ===
-        props.file
+      props.file
     ) {
       if (sidebar.subOptions === undefined) {
         return
@@ -29,11 +38,11 @@ const SideBarRight = props => {
           if (
             (child.path.replace("index.mdx", "").replace(".mdx", "") ===
               props.file) || (
-            "/" +
+              "/" +
               child.path.replace("index.mdx", "").replace(".mdx", "") +
               "/" ===
               props.file) || (
-            "/" +
+              "/" +
               child.path.replace("index.mdx", "").replace(".mdx", "")
               ===
               props.file)
@@ -42,7 +51,7 @@ const SideBarRight = props => {
             } else {
               return true
             }
-          } 
+          }
         })
       } else {
         return
@@ -52,13 +61,13 @@ const SideBarRight = props => {
 
   if (optsChildren.length !== 0)
     opts = optsChildren
-  
+
   if (opts.length !== 0) {
     completeRes = opts[0].subOptions.map(node => {
       currentParent = node.name
       let mainNode = (
-        <li key={node.name} className="sidebar-inline">
-          <a href={"#" + node.name} className="pink-link">
+        <li key={node.name} className="sidebar-inline font-weight-medium">
+          <a href={"#" + node.name} className={selectedLink === node.name ? "pink-link-active" : "pink-link"} onClick={() => { getSelectedLink(node.name) }}>
             {node.name}
           </a>
         </li>
@@ -66,8 +75,8 @@ const SideBarRight = props => {
       if (node.children !== undefined) {
         currentChildren = node.children.map(childNode => {
           let child = (
-            <li key={childNode.name}>
-              <a href={"#" + childNode.name} className="pink-link">
+            <li key={childNode.name} className="sidebar-inline-block">
+              <a href={"#" + childNode.name} className={selectedLink === childNode.name ? "pink-link-active" : "pink-link accordion-child-link-light"} onClick={() => { getSelectedLink(childNode.name) }}>
                 {childNode.name}
               </a>
             </li>
@@ -76,13 +85,18 @@ const SideBarRight = props => {
         })
       }
 
+      const getAccordionStatus = () =>{
+        toggleAccordion(!accordionShow);
+      }
+
       const res = (
         <React.Fragment key={currentParent}>
-          <Accordion defaultActiveKey={currentParent}>
+          <Accordion>
             {mainNode}
             {currentChildren.length !== 0 && (
-              <Accordion.Toggle as="span" eventKey={currentParent}>
-                <span className="cursor-pointer"> - </span>
+              <Accordion.Toggle as="span" eventKey={currentParent} onClick={()=>{getAccordionStatus()}}>
+                <span className="cursor-pointer">  <GoChevronDown className={accordionShow?'arrow-down':'hide'} />
+                  <GoChevronUp className={!accordionShow?'arrow-up':'hide'} /> </span>
               </Accordion.Toggle>
             )}
             {currentChildren.length !== 0 && (
@@ -98,14 +112,21 @@ const SideBarRight = props => {
       return res
     })
   }
-  
+
+
   list = (
     <React.Fragment>
-      <ul className="sidenav">{completeRes}</ul>
+      <ul className="sidenav-right">{completeRes}</ul>
     </React.Fragment>
   )
 
   return list
 }
 
-export default SideBarRight
+const mapStateToProps = (state) =>{
+  return{
+    categoryIndex: state.sideBarCategoryIndex
+  }
+}
+
+export default connect(mapStateToProps)(SideBarRight);
