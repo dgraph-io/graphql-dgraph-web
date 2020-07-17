@@ -53,6 +53,9 @@ typings/
 
 # gatsby files
 .cache/
+public
+package-lock.json
+yarn.lock
 
 # Mac files
 .DS_Store
