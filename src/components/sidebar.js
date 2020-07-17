@@ -1,10 +1,15 @@
 import React from "react"
 import { Link } from "gatsby"
 import { Accordion } from "react-bootstrap"
+import VersionDropdown from "./VersionDropdown"
+import DgraphLogo from "../images/graphql-logo.png"
 
 const config = require("../../config")
 
 const SideBar = props => {
+
+  const {currentVersion} = props;
+
   function isActive(obj) {
     return obj.isCurrent ? { className: "active" } : null
   }
@@ -16,9 +21,9 @@ const SideBar = props => {
   completeRes = config.sidebarOptions.map(node => {
     currentParent = node.title
     let mainNode = (
-      <li key={node.title} className="sidebar-inline">
+      <li key={node.title} className="sidebar-inline font-weight-medium">
         <Link
-          to={"/" + node.path.replace("index.mdx", "").replace(".mdx", "")}
+          to={'/' + node.path.replace("index.mdx", "").replace(".mdx", "")}
           getProps={isActive}
         >
           {node.title}
@@ -30,7 +35,7 @@ const SideBar = props => {
         let child = (
           <li key={childNode.title}>
             <Link
-              to={"/" + childNode.path.replace(".mdx", "")}
+              to={'/' + childNode.path.replace(".mdx", "")}
               getProps={isActive}
             >
               {childNode.title}
@@ -65,11 +70,21 @@ const SideBar = props => {
 
   const list = (
     <React.Fragment>
-      <ul className="sidenav">{completeRes}</ul>
+      <div className="sidenav">
+      <div className="page-logo">
+        <Link to='/' className="img-logo header-link">
+          <img src={DgraphLogo} alt="Dgraph logo" />
+        </Link>
+      </div>
+      <VersionDropdown />
+      <div className={"sidebar-wrap-extended"}>
+        <ul>{completeRes}</ul>
+      </div>
+      </div>
     </React.Fragment>
   )
 
   return list
 }
 
-export default SideBar
+export default  SideBar
