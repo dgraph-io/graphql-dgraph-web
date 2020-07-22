@@ -3,11 +3,67 @@ import PropTypes from "prop-types"
 import React from "react"
 import Twitter from "../images/twitter.svg"
 import Github from "../images/github.svg"
-import { Button } from "react-bootstrap"
+import { Button, Form , Container , Row , Col} from "react-bootstrap"
+import { AiOutlineSearch } from "react-icons/ai"
 import { MdChevronLeft } from "react-icons/md"
 import { IconContext } from "react-icons"
+import algoliasearch from "algoliasearch/lite"
+import {
+  InstantSearch,
+  SearchBox,
+  Hits,
+  Highlight,
+  connectHighlight,
+  connectStateResults
+} from "react-instantsearch-dom"
+import { CustomInstantSearch } from "./InstantSearchBar"
 
+const searchClient = algoliasearch(
+  "0AG2ENC6EL",
+  "a0168bfb88c65c544680f95236a33bf1"
+)
 const config = require("../../config")
+
+//*****************Highlight the search result *******************/
+
+const Hithighlight = ({ hit }) => {
+  return hit ? (
+    <div className="search-list-item-container">
+      <Container>
+      <Row className="d-flex align-items-center justify-content-end">
+        <Col md={6} className="border-right d-flex justify-content-start">
+          <div className="search-result-subtitle">{hit.excerpt?hit.excerpt:hit.frontmatter.title}</div>
+        </Col>
+        <Col md={6} className="d-flex justify-content-center">
+          <Link to={`${hit.fields.slug}`}>
+            <div className="search-result-title">{hit.frontmatter.title}</div>
+          </Link>
+        </Col>
+      </Row>
+      </Container>
+    </div>
+  ) : null
+}
+
+//************ Conditional rendering for the search result******************
+
+const ConnectStateResults = connectStateResults(
+  ({ searchState, searchResults, children }) =>
+    searchState.attributeForMyQuery
+      ? searchResults && searchResults.nbHits !== 0
+        ? children
+        : null
+      : null
+)
+
+const SearchBar = () => (
+  <InstantSearch searchClient={searchClient} indexName="GraphQL">
+    <CustomInstantSearch />
+    <ConnectStateResults>
+      <Hits hitComponent={Hithighlight} />
+    </ConnectStateResults>
+  </InstantSearch>
+)
 
 const BackIcon = () => {
   return (
@@ -23,7 +79,9 @@ const BackIcon = () => {
 const BackButtonMainWebsite = () => {
   return (
     <div className="back-button-main-website">
-      <Button as="a" href="https://dgraph.io/"
+      <Button
+        as="a"
+        href="https://dgraph.io/"
         bsPrefix="navigate-main-website-button ml-auto"
       >
         <BackIcon />
@@ -35,7 +93,8 @@ const BackButtonMainWebsite = () => {
 
 const Header = ({ siteTitle }) => {
   return (
-    <div className="topbar d-flex">
+    <div className="topbar d-flex page-header">
+      <SearchBar />
       <div className="page-header justify-content-end">
         <BackButtonMainWebsite />
 
@@ -43,7 +102,7 @@ const Header = ({ siteTitle }) => {
           href="https://twitter.com/dgraphlabs"
           target="_blank"
           rel="noopener noreferrer"
-          style={{paddingLeft:'24px'}}
+          style={{ paddingLeft: "24px" }}
         >
           <img src={Twitter} alt="Twitter" className="mb-0" />
         </a>
@@ -51,7 +110,7 @@ const Header = ({ siteTitle }) => {
           target="_blank"
           href="https://github.com/dgraph-io/graphql-dgraph-web"
           rel="noopener noreferrer"
-          style={{paddingRight:'0'}}
+          style={{ paddingRight: "0" }}
         >
           <img src={Github} alt="Github" className="mb-0" />
         </a>
@@ -69,3 +128,5 @@ Header.defaultProps = {
 }
 
 export default Header
+
+// className="d-flex justify-content-between align-items-start"

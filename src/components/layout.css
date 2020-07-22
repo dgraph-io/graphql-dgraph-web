@@ -641,7 +641,6 @@ pre tt:after {
   border-bottom: solid 1px #ddd;
   height: 50px;
   width: 100%;
-  justify-content: flex-end;
 }
 .page-header a {
   display: inline-block;
