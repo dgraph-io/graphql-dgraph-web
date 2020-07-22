@@ -31,13 +31,13 @@ const Hithighlight = ({ hit }) => {
     <div className="search-list-item-container">
       <Container>
       <Row className="d-flex align-items-center justify-content-end">
-        <Col md={6} className="d-flex justify-content-center">
-          <Link to={`${hit.fields.slug}`}>
+        <Col md={3} className="d-flex justify-content-start">
+          <Link to={`${hit.fields.slug}`} className="search-link">
             <div className="search-result-title">{hit.frontmatter.title}</div>
           </Link>
         </Col>
 
-        <Col md={6} className="border-left d-flex justify-content-start">
+        <Col md={9} className="border-left d-flex justify-content-start">
           <div className="search-result-subtitle">{hit.excerpt?hit.excerpt:hit.frontmatter.title}</div>
         </Col>
       </Row>

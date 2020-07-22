@@ -488,8 +488,12 @@
         font-weight: normal;
         font-size: 16px;
         line-height: 19px;
-        color: #e3e8ee;
+        color: #555555;
         outline: none !important;
+
+        &::placeholder {
+          color: #e3e8ee;
+        }
       }
     }
   }
@@ -502,11 +506,11 @@
   width: 700px;
   max-width: 700px;
   min-height: 0px;
-  overflow: scroll;
+  overflow-y: auto;
   height: 400px;
   max-height: 400;
   padding: 0 24px;
-  box-shadow: 1px 1px 5px #e3e8ee;
+  box-shadow: 2px 5px 5px 0px #e3e8ee;
   background: white;
   z-index: 3;
   border-radius: 4px;
@@ -521,14 +525,19 @@
       line-height: 20px;
       color: #555555;
       border-bottom: 1px solid #e3e8ee;
+      margin: 0;
       div,
       span {
         display: inline-block;
         border-bottom: none !important;
-        padding: 7px 7px;
+
+        padding: 5px 5px;
       }
       .search-list-item-container {
         width: 100%;
+        .search-link {
+          padding: 0;
+        }
       }
     }
   }
@@ -547,7 +556,7 @@
   font-family: Helvetica Neue;
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 20px;
   color: #212121;
 }
@@ -559,5 +568,4 @@
   font-size: 14px;
   line-height: 18px;
   color: #555555;
-  padding-left: 10px;
 }
