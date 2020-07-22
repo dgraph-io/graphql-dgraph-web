@@ -525,7 +525,7 @@
       span {
         display: inline-block;
         border-bottom: none !important;
-        padding: 7px 0;
+        padding: 7px 7px;
       }
       .search-list-item-container {
         width: 100%;
@@ -547,8 +547,8 @@
   font-family: Helvetica Neue;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
-  line-height: 26px;
+  font-size: 18px;
+  line-height: 20px;
   color: #212121;
 }
 
@@ -556,7 +556,8 @@
   font-family: Helvetica Neue;
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 14px;
+  line-height: 18px;
   color: #555555;
+  padding-left: 10px;
 }
