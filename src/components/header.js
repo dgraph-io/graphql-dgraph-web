@@ -3,12 +3,69 @@ import PropTypes from "prop-types"
 import React from "react"
 import Twitter from "../images/twitter.svg"
 import Github from "../images/github.svg"
-import { Button } from "react-bootstrap"
+import { Button, Form , Container , Row , Col} from "react-bootstrap"
+import { AiOutlineSearch } from "react-icons/ai"
 import { MdChevronLeft } from "react-icons/md"
 import { IconContext } from "react-icons"
 import DgraphLogo from "../images/graphql-logo.png"
+import algoliasearch from "algoliasearch/lite"
+import {
+  InstantSearch,
+  SearchBox,
+  Hits,
+  Highlight,
+  connectHighlight,
+  connectStateResults
+} from "react-instantsearch-dom"
+import { CustomInstantSearch } from "./InstantSearchBar"
 
+const searchClient = algoliasearch(
+  "0AG2ENC6EL",
+  "a0168bfb88c65c544680f95236a33bf1"
+)
 const config = require("../../config")
+
+//*****************Highlight the search result *******************/
+
+const Hithighlight = ({ hit }) => {
+  return hit ? (
+    <div className="search-list-item-container">
+      <Container>
+      <Row className="d-flex align-items-center justify-content-end">
+        <Col md={3} className="d-flex justify-content-start">
+          <Link to={`${hit.fields.slug}`} className="search-link">
+            <div className="search-result-title">{hit.frontmatter.title}</div>
+          </Link>
+        </Col>
+
+        <Col md={9} className="border-left d-flex justify-content-start">
+          <div className="search-result-subtitle">{hit.excerpt?hit.excerpt:hit.frontmatter.title}</div>
+        </Col>
+      </Row>
+      </Container>
+    </div>
+  ) : null
+}
+
+//************ Conditional rendering for the search result******************
+
+const ConnectStateResults = connectStateResults(
+  ({ searchState, searchResults, children }) =>
+    searchState.attributeForMyQuery
+      ? searchResults && searchResults.nbHits !== 0
+        ? children
+        : null
+      : null
+)
+
+const SearchBar = () => (
+  <InstantSearch searchClient={searchClient} indexName="GraphQL">
+    <CustomInstantSearch />
+    <ConnectStateResults>
+      <Hits hitComponent={Hithighlight} />
+    </ConnectStateResults>
+  </InstantSearch>
+)
 
 const BackIcon = () => {
   return (
@@ -38,34 +95,27 @@ const BackButtonMainWebsite = () => {
 
 const Header = ({ siteTitle }) => {
   return (
-    <div className="topbar d-flex justify-content-between">
-      <div className="logo-container-tablet">
-        <div className="page-logo">
-          <Link to="/" className="img-logo header-link">
-            <img src={DgraphLogo} alt="Dgraph logo" />
-          </Link>
-        </div>
-      </div>
+    <div className="topbar d-flex page-header">
+      <SearchBar />
       <div className="page-header justify-content-end">
         <BackButtonMainWebsite />
-        <div className="github-twitter-icon-container">
-          <a
-            href="https://twitter.com/dgraphlabs"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ paddingLeft: "24px" }}
-          >
-            <img src={Twitter} alt="Twitter" className="mb-0" />
-          </a>
-          <a
-            target="_blank"
-            href="https://github.com/dgraph-io/graphql-dgraph-web"
-            rel="noopener noreferrer"
-            style={{ paddingRight: "0" }}
-          >
-            <img src={Github} alt="Github" className="mb-0" />
-          </a>
-        </div>
+
+        <a
+          href="https://twitter.com/dgraphlabs"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ paddingLeft: "24px" }}
+        >
+          <img src={Twitter} alt="Twitter" className="mb-0" />
+        </a>
+        <a
+          target="_blank"
+          href="https://github.com/dgraph-io/graphql-dgraph-web"
+          rel="noopener noreferrer"
+          style={{ paddingRight: "0" }}
+        >
+          <img src={Github} alt="Github" className="mb-0" />
+        </a>
       </div>
     </div>
   )
@@ -80,3 +130,5 @@ Header.defaultProps = {
 }
 
 export default Header
+
+// className="d-flex justify-content-between align-items-start"
