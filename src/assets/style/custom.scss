@@ -66,8 +66,8 @@
   padding: 16px 0px 32px 0px;
 
   .sidebar-container-dropdown-menu {
-    width: 700px;
-    max-width: 700px;
+    width: fit-content;
+    max-width: fit-content;
     background: #fff !important;
     height: fit-content;
     min-height: fit-content;
@@ -93,9 +93,9 @@
     }
 
     .container {
-      padding: 24px 0;
+      padding: 24px;
       .list-item-menu-header {
-        padding: 0px 24px 24px 24px;
+        padding: 0px 24px 24px 0px;
         font-family: inherit;
         font-style: normal;
         font-weight: 500;
@@ -108,25 +108,13 @@
           width: 100%;
         }
       }
-
-      .sidebar-menu-bootstrap-container {
-        padding: 0px 24px;
-        // background-color: yellow;
-        .section-content-row {
-          @media screen and (max-width: 769px) {
-            flex-direction: column !important;
-          }
-          .col {
-            padding: 0;
-          }
-        }
-      }
       .list-item-row {
         text-align: left;
         margin: 2px 0;
         width: 100%;
+        display: flex !important;
         .list-item-title {
-          padding-top: 8px;
+          padding-top: 9px;
           .list-item-title-text {
             font-family: inherit;
             font-style: normal;
@@ -143,6 +131,7 @@
     }
   }
 }
+
 .editor-heading {
   padding: 30px 0px 16px 0;
   border-top: 1px solid #e3e8ee;
@@ -470,7 +459,46 @@
   display: none;
 }
 
-// .collapse,
-// .collapsing {
-//   display: none;
-// }
+.sidebar-container-list-item {
+  height: 100%;
+  padding-left: 7px;
+}
+.sidebar-menu-section-container {
+  width: 700px;
+  max-width: 700px;
+
+  .sidebar-menu-bootstrap-container {
+    padding: 0px 24px 0 0;
+    .section-content-row {
+      @media screen and (max-width: 769px) {
+        flex-direction: column !important;
+      }
+      .col {
+        padding: 0 24px 0 0;
+      }
+    }
+    .list-item-row {
+      text-align: left;
+      margin: 2px 0;
+      width: 100%;
+      display: flex !important;
+      .list-item-title {
+        padding-top: 5px;
+        .list-item-title-text {
+          font-family: inherit;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 20px;
+          color: #212121;
+        }
+      }
+      .list-item-subtitle {
+        margin-top: 8px;
+      }
+    }
+  }
+}
+.globanav-container {
+  margin-bottom: 56px;
+}
