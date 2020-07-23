@@ -654,6 +654,7 @@ pre tt:after {
 }
 .page-logo {
   text-align: center;
+  display: flex;
 }
 
 .page-logo a {
@@ -1102,6 +1103,7 @@ h2.page-title-summary {
 }
 
 .sidebar-content-dropdown-container .lighter-button,
+.lighter-button,
 .sidebar-content-dropdown-container .lighter-button:not(:disabled):active {
   background: linear-gradient(
     90deg,

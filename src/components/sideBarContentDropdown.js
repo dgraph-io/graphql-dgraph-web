@@ -25,7 +25,7 @@ function SideBarContentDropdown(props) {
                 <Col>GraphQL Docs Sections</Col>
               </Row>
               <GlobalNavMenu side />
-              <Row className="bottom-icon-container d-lg-none d-sm-block d-xs-block text-sm-right text-right">
+              <Row className="bottom-icon-container d-lg-none d-sm-flex justify-content-end d-xs-block text-sm-right text-right">
                 <div className="icon-container d-inline-block">
                   <a
                     href="https://twitter.com/dgraphlabs"

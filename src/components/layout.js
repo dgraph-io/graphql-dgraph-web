@@ -82,8 +82,8 @@ const Layout = props => {
             <div
               className={
                 renderRightSideBar
-                  ? "landing-pg  pl-5"
-                  : "landing-pg-extend pl-5"
+                  ? "landing-pg  pl-lg-5 pl-md-5 "
+                  : "landing-pg-extend pl-lg-5 pl-md-5"
               }
             >
               {props.children}
