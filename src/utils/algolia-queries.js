@@ -1,20 +1,17 @@
 const escapeStringRegexp = require("escape-string-regexp")
 
 const pageQuery = `{
-	allMdx{
-    nodes{
-      id
+  allMdx {
+    nodes {
+      tableOfContents
+      excerpt
       fields{
         slug
       }
-      frontmatter{
-        title
-      }
-      excerpt
-      
     }
   }
-}`
+}
+`
 
 
 const queries = [
