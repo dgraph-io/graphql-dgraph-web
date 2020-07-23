@@ -638,10 +638,16 @@ pre tt:after {
 }
 .page-header {
   display: flex;
-  border-bottom: solid 1px #ddd;
   height: 50px;
   width: 100%;
   justify-content: flex-end;
+  border-bottom: solid 1px #ddd;
+}
+
+@media screen and (max-width: 992px) {
+  .page-header {
+    height: 72px;
+  }
 }
 .page-header a {
   display: inline-block;
@@ -1064,7 +1070,7 @@ h2.page-title-summary {
     width: 280px;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 992px) {
   .sidenav {
     width: 160px;
   }
@@ -1073,7 +1079,7 @@ h2.page-title-summary {
   }
   .content-wrap {
     padding-left: 160px;
-    padding-right: 20px;
+    padding-right: 0px;
   }
   .content-wrap .landing-pg {
     padding: 15px !important;

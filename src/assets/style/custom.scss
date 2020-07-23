@@ -1,5 +1,7 @@
 @import "./vender/scss/bootstrap.scss";
 
+$TABLET_MAX-SIZE: 992px;
+
 .font-weight-medium {
   font-weight: 400;
 }
@@ -10,6 +12,12 @@
 //   padding-bottom: 24px;
 //   border-bottom: 1px solid #e3e8ee;
 // }
+
+.content-wrap {
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    padding-right: 0px;
+  }
+}
 
 .extra-small-text {
   font-family: inherit;
@@ -75,7 +83,30 @@
     border-radius: 4px;
     padding: 0px !important;
     box-shadow: 1px 1px 5px #e3e8ee;
-    @media screen and (max-width: 769px) {
+    .bottom-icon-container {
+      @media screen and (max-width: $TABLET_MAX_SIZE) {
+        padding: 12px 0px;
+        width: 100%;
+        margin: 0;
+        position: relative;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          opacity: 0.1;
+          z-index: 1;
+          background: #555555;
+        }
+        .icon-container {
+          margin-right: 10px;
+        }
+      }
+    }
+    @media screen and (max-width: $TABLET_MAX-SIZE) {
       height: fit-content;
       width: calc(100vw - 40px);
       .initial-menu-container {
@@ -94,6 +125,9 @@
 
     .container {
       padding: 24px;
+      @media screen and (max-width: $TABLET_MAX-SIZE) {
+        padding: 0px;
+      }
       .list-item-menu-header {
         padding: 0px 24px 24px 0px;
         font-family: inherit;
@@ -104,6 +138,9 @@
         letter-spacing: 1.25px;
         text-transform: uppercase;
         color: #555555;
+        @media screen and (max-width: $TABLET_MAX-SIZE) {
+          padding: 24px;
+        }
         @media screen and (max-width: 320px) {
           width: 100%;
         }
@@ -301,8 +338,9 @@
   display: flex;
   align-items: center;
   padding-right: 24px;
-  @media screen and (max-width: 769px) {
-    display: none;
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    padding-right: 10px;
+    border-right: none;
   }
   .navigate-main-website-button {
     background-color: transparent;
@@ -467,10 +505,18 @@
   width: 700px;
   max-width: 700px;
 
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    width: 366px;
+    max-width: 366px;
+  }
+
   .sidebar-menu-bootstrap-container {
     padding: 0px 24px 0 0;
+    @media screen and (max-width: $TABLET_MAX-SIZE) {
+      padding: 0 0 24px 24px;
+    }
     .section-content-row {
-      @media screen and (max-width: 769px) {
+      @media screen and (max-width: $TABLET_MAX-SIZE) {
         flex-direction: column !important;
       }
       .col {
@@ -501,4 +547,20 @@
 }
 .globanav-container {
   margin-bottom: 56px;
+  .sidebar-menu-section-container {
+    .sidebar-menu-bootstrap-container {
+      @media screen and (max-width: $TABLET_MAX-SIZE) {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.github-twitter-icon-container {
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    display: none;
+  }
+}
+.logo-container-tablet {
+  padding: 20px;
 }
