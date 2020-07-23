@@ -17,12 +17,11 @@ const Layout = props => {
   const [sideBarContentDropDownTitle, selectSideBarContent] = useState("")
   const [sideBarCategoryIndex, setCategory] = useState(0)
   const { categoryIndex, sidebarClass, renderRightSideBar } = props
-
+  const [isSideBarVisible, showSideBar] = useState(false)
 
   const setContentCategory = (dropDownTitle, categoryIndex) => {
     selectSideBarContent(dropDownTitle)
     setCategory(categoryIndex)
-   
   }
 
   return (
@@ -55,16 +54,30 @@ const Layout = props => {
               )
             }}
           </Location>
-
-          <SideBar
-            selectSideBarContent={(nodeTitle, contentClass) => {
-              setContentCategory(nodeTitle, contentClass)
-            }}
-            sidebarcategoryindex={sideBarCategoryIndex}
-          />
-
+          <div className="sidebar-container-visible">
+            <SideBar
+              selectSideBarContent={(nodeTitle, contentClass) => {
+                setContentCategory(nodeTitle, contentClass)
+              }}
+              sidebarcategoryindex={sideBarCategoryIndex}
+            />
+          </div>
+          {isSideBarVisible && (
+            <div className="toggle-sidebar">
+              <SideBar
+                selectSideBarContent={(nodeTitle, contentClass) => {
+                  setContentCategory(nodeTitle, contentClass)
+                }}
+                sidebarcategoryindex={sideBarCategoryIndex}
+              />
+            </div>
+          )}
           <div className="content-wrap">
-            <Header siteTitle={data.site.siteMetadata.title} />
+            <Header
+              siteTitle={data.site.siteMetadata.title}
+              isSideBarVisible={isSideBarVisible}
+              showSideBar={isSideBarVisible => showSideBar(isSideBarVisible)}
+            />
 
             <div
               className={

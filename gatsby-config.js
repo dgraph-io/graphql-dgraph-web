@@ -4,8 +4,6 @@ require("dotenv").config({
 const path = require("path")
 const config = require("./config")
 
-console.log(process.env);
-
 module.exports = {
   siteMetadata: {
     title: `Dgraph GraphQL`,

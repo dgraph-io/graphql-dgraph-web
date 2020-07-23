@@ -500,6 +500,7 @@ $TABLET_MAX-SIZE: 992px;
 .sidebar-container-list-item {
   height: 100%;
   padding-left: 7px;
+  padding-right: 0;
 }
 .sidebar-menu-section-container {
   width: 700px;
@@ -525,11 +526,11 @@ $TABLET_MAX-SIZE: 992px;
     }
     .list-item-row {
       text-align: left;
-      margin: 2px 0;
+      margin: 5px 0 2px 0;
       width: 100%;
       display: flex !important;
       .list-item-title {
-        padding-top: 5px;
+        padding-top: 9px;
         .list-item-title-text {
           font-family: inherit;
           font-style: normal;
@@ -662,4 +663,48 @@ $TABLET_MAX-SIZE: 992px;
   font-size: 14px;
   line-height: 18px;
   color: #555555;
+}
+
+.header-icon-containers {
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    display: none;
+  }
+}
+.header-search-main-site-container {
+  .page-logo {
+    @media screen and (max-width: $TABLET_MAX-SIZE) {
+      padding: 18px;
+      border-right: 1px solid #e3e8ee;
+      img {
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
+
+.menu-icon-container-tablet {
+  .menu-button {
+    background: transparent;
+    border: none;
+  }
+  padding: 0 20px;
+}
+
+.sidebar-container-visible {
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    display: none;
+  }
+}
+.toggle-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0px;
+  box-shadow: 2px 5px 5px 0px #e3e8ee;
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    background-color: #ffffff;
+    z-index: 30;
+    width: 240px;
+  }
 }

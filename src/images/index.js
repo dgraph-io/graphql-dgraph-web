@@ -6,4 +6,5 @@ export const Images = {
   wrench: require("../images/icons/wrench.png"),
   clone: require("../images/icons/clone.png"),
   dropdown: require('../images/icons/Union (2).svg'),
+  menu_icon: require('../images/icons/menu_24px.png')
 }

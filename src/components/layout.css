@@ -641,7 +641,6 @@ pre tt:after {
   height: 50px;
   width: 100%;
   justify-content: flex-end;
-  border-bottom: solid 1px #ddd;
 }
 
 @media screen and (max-width: 992px) {
@@ -1054,6 +1053,11 @@ h2.page-title-summary {
   padding: 20px;
   margin: 0;
 }
+@media screen and (max-width: 992px) {
+  .sidenav {
+    border-right: none;
+  }
+}
 
 .content-wrap {
   padding-left: 280px;
@@ -1072,13 +1076,13 @@ h2.page-title-summary {
 }
 @media screen and (max-width: 992px) {
   .sidenav {
-    width: 160px;
+    width: 240px;
   }
   .sidenav .sidebar-wrap {
     padding: 15px;
   }
   .content-wrap {
-    padding-left: 160px;
+    padding-left: 0px;
     padding-right: 0px;
   }
   .content-wrap .landing-pg {
@@ -1157,7 +1161,7 @@ h2.page-title-summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ffont-style: normal;
+  font-style: normal;
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
