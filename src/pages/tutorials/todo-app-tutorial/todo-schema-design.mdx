@@ -206,12 +206,10 @@ Now, let's fetch all todos which are completed :
 ```graphql
 query {
   queryTask(filter: {
-    completed: {
-      eq: "true"
-    }
+    completed: true
   }) {
-    id
     title
+    completed
   }
 }
 ```
