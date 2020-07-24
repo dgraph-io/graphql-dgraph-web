@@ -83,7 +83,7 @@ $MOBILE_MAX_SIZE: 769px;
     z-index: 2;
     border-radius: 4px;
     padding: 0px !important;
-    box-shadow: 1px 1px 5px #e3e8ee;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
     .bottom-icon-container {
       @media screen and (max-width: $TABLET_MAX_SIZE) {
         padding: 12px 0px;
@@ -163,7 +163,7 @@ $MOBILE_MAX_SIZE: 769px;
           }
         }
         .list-item-subtitle {
-          margin-top: 8px;
+          margin-top: 6px;
         }
       }
     }
@@ -492,6 +492,7 @@ $MOBILE_MAX_SIZE: 769px;
   height: 100%;
   padding-left: 7px;
   padding-right: 0;
+  min-height: 78px;
 }
 .sidebar-menu-section-container {
   width: 700px;
@@ -532,7 +533,7 @@ $MOBILE_MAX_SIZE: 769px;
         }
       }
       .list-item-subtitle {
-        margin-top: 8px;
+        margin-top: 6px;
       }
     }
   }
@@ -545,7 +546,7 @@ $MOBILE_MAX_SIZE: 769px;
       .list-item-row {
         .sidebar-container-list-item {
           .list-item-title {
-            padding-top: 5px;
+            padding-top: 4px;
           }
         }
       }
@@ -566,10 +567,16 @@ $MOBILE_MAX_SIZE: 769px;
 .logo-container-tablet {
   padding: 20px;
 }
+.page-header .page-header {
+  width: auto;
+}
 .search-bar-container {
-  padding-left: 41.6px;
+  padding-left: 40px;
+  flex: 1;
+
   .document-search-bar {
     margin-bottom: 0 !important;
+    width: 100%;
     .document-form-group {
       margin-bottom: 0;
       height: 100%;
@@ -577,8 +584,6 @@ $MOBILE_MAX_SIZE: 769px;
       .document-form-control {
         height: 100%;
         border: none;
-        width: fit-content;
-        margin-left: 19.2px;
         font-family: Helvetica Neue;
         font-style: normal;
         font-weight: normal;
@@ -586,9 +591,11 @@ $MOBILE_MAX_SIZE: 769px;
         line-height: 19px;
         color: #555555;
         outline: none !important;
+        padding: 15px;
+        width: 100%;
 
         &::placeholder {
-          color: #e3e8ee;
+          color: #999999;
         }
       }
     }

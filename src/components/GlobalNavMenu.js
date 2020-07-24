@@ -42,7 +42,7 @@ function GlobalNavMenu(props) {
 
                   <Col
                     md={10}
-                    lg={11}
+                    lg={10}
                     sm={10}
                     xs={10}
                     className="sidebar-container-list-item"
@@ -97,7 +97,7 @@ function GlobalNavMenu(props) {
                   </Col>
                   <Col
                     md={10}
-                    lg={11}
+                    lg={10}
                     sm={10}
                     xs={10}
                     className="sidebar-container-list-item"
