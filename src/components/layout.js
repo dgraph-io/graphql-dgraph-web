@@ -10,18 +10,31 @@ import Header from "./header"
 import SideBarRight from "./sidebarright"
 import { Location } from "@reach/router"
 import SEO from "./seo"
+import { categoryClassName } from "../utils/graphQLConstants/side-bar-category"
 
 const config = require("../../config")
 
 const Layout = props => {
   const [sideBarContentDropDownTitle, selectSideBarContent] = useState("")
   const [sideBarCategoryIndex, setCategory] = useState(0)
-  const { categoryIndex, sidebarClass, renderRightSideBar } = props
+  const { categoryIndex, renderRightSideBar } = props
   const [isSideBarVisible, showSideBar] = useState(false)
 
   const setContentCategory = (dropDownTitle, categoryIndex) => {
     selectSideBarContent(dropDownTitle)
     setCategory(categoryIndex)
+  }
+
+  const getSideBarClass = props => {
+    const { sidebarClass } = props
+
+    switch (sidebarClass) {
+      case categoryClassName.dgraphQl:
+        return true
+
+      default:
+        return false
+    }
   }
 
   return (
@@ -81,7 +94,9 @@ const Layout = props => {
 
             <div
               className={
-                renderRightSideBar
+                getSideBarClass(props)
+                  ? "landing-pg-extend-sidebar pl-lg-5 pl-md-5"
+                  : renderRightSideBar
                   ? "landing-pg  pl-lg-5 pl-md-5 "
                   : "landing-pg-extend pl-lg-5 pl-md-5"
               }
@@ -89,11 +104,17 @@ const Layout = props => {
               {props.children}
             </div>
             {renderRightSideBar && (
-              <div className="sidebar-right-container">
+              <div
+                className={
+                  getSideBarClass(props)
+                    ? "sidebar-right-container-extended"
+                    : "sidebar-right-container"
+                }
+              >
                 {
                   <Location>
                     {({ location }) => {
-                      return <SideBarRight file={location.pathname} />
+                      return <SideBarRight file={location.pathname} sectionScroll={getSideBarClass(props)}/>
                     }}
                   </Location>
                 }

@@ -729,11 +729,31 @@ pre tt:after {
   margin-right: 150px;
   padding-top: 33px;
 }
-.landing-pg-extend {
+.landing-pg-extend,
+.landing-pg-extend-sidebar {
   min-height: calc(100vh - 170px);
   padding: 0px 1.0875rem 1.45rem;
   padding-top: 33px;
 }
+.landing-pg-extend-sidebar {
+  min-height: calc(100vh - 170px);
+  padding: 0;
+  padding-top: 33px;
+}
+@media screen and (max-width: 769px) {
+  .landing-pg-extend-sidebar {
+    padding: 33px 24px 24px 24px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .landing-pg-extend {
+    min-height: calc(100vh - 170px);
+    padding: 0px 1.0875rem 1.45rem;
+    padding-top: 33px;
+  }
+}
+
 .CodeMirror-cursor {
   background: #fff !important;
 }

@@ -37,7 +37,7 @@ export const sideBarContentClasses = [
       subTitle:
         "We build lots of GraphQL apps, here are some examples we’ve built over time.",
       icon: Images.folder_open,
-      showSideBar: true,
+      showSideBar: false,
     },
   ],
   [
@@ -45,7 +45,7 @@ export const sideBarContentClasses = [
       title: "Dgraph GraphQL",
       subTitle: "Learn about GraphQL and Dgraph.",
       icon: Images.union,
-      showSideBar: false,
+      showSideBar: true,
     },
     {
       title: "Tutorials",

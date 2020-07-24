@@ -2,6 +2,7 @@
 
 $TABLET_MAX-SIZE: 992px;
 $MOBILE_MAX_SIZE: 769px;
+$LARGE_SCREEN_MIN_SIZE: 1025px;
 
 .font-weight-medium {
   font-weight: 400;
@@ -54,10 +55,37 @@ $MOBILE_MAX_SIZE: 769px;
     }
   }
 }
+.sidebar-right-container-extended {
+  position: fixed;
+  right: 0;
+  top: 198px;
+  bottom: 0;
+  width: 280px;
+  max-width: 250px;
+  padding: 6px 28px 28px 0px;
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #212121;
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    padding: 28px 28px 28px 0px;
+  }
+  @media screen and (max-width: $MOBILE_MAX_SIZE) {
+    display: none;
+  }
+  .sidenav-right {
+    margin-left: 0;
+  }
+}
 
 .sidebar-right-container {
   .sidenav-right {
     margin: 0;
+  }
+  @media screen and (max-width: $MOBILE_MAX_SIZE) {
+    display: none;
   }
 }
 
@@ -169,6 +197,20 @@ $MOBILE_MAX_SIZE: 769px;
   }
 }
 
+.landing-pg-extend-sidebar {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    display: block;
+    padding-right: 265px;
+    @media screen and (max-width: $MOBILE_MAX_SIZE) {
+      padding-right: 24px;
+    }
+  }
+}
 .editor-heading {
   padding: 30px 0px 16px 0;
   border-top: 1px solid #e3e8ee;
@@ -497,18 +539,18 @@ $MOBILE_MAX_SIZE: 769px;
   width: 700px;
   max-width: 700px;
 
-  @media screen and (max-width: $TABLET_MAX-SIZE) {
+  @media screen and (max-width: $LARGE_SCREEN_MIN_SIZE) {
     width: 366px;
     max-width: 366px;
   }
 
   .sidebar-menu-bootstrap-container {
     padding: 0px 24px 0 0;
-    @media screen and (max-width: $TABLET_MAX-SIZE) {
+    @media screen and (max-width: $LARGE_SCREEN_MIN_SIZE) {
       padding: 0 0 24px 24px;
     }
     .section-content-row {
-      @media screen and (max-width: $TABLET_MAX-SIZE) {
+      @media screen and (max-width: $LARGE_SCREEN_MIN_SIZE) {
         flex-direction: column !important;
       }
       .col {
@@ -770,4 +812,23 @@ $MOBILE_MAX_SIZE: 769px;
       }
     }
   }
+}
+.grey-link-active,
+.grey-link-active:hover {
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #212121;
+}
+
+.grey-link,
+.grey-link:hover {
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #555555;
 }
