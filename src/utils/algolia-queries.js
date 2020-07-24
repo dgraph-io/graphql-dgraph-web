@@ -18,11 +18,12 @@ const pageQuery = `{
 }`
 
 
+
 const queries = [
   {
     query: pageQuery,
-    transformer: ({data}) => data.allMdx.nodes,
-    },
+    transformer: ({ data }) => data.allMdx.nodes
+  }
 ]
 
 module.exports = queries
