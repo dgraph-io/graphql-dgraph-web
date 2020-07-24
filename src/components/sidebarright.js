@@ -67,9 +67,12 @@ const SideBarRight = props => {
       currentParent = node.name
       let mainNode = (
         <li key={node.name} className="sidebar-inline font-weight-medium">
-          <a href={"#" + node.name} className={selectedLink === node.name ? "pink-link-active" : "pink-link"} onClick={() => { getSelectedLink(node.name) }}>
+          {!props.sectionScroll&&<a href={"#" + node.name} className={selectedLink === node.name ? "pink-link-active" : "pink-link"} onClick={() => { getSelectedLink(node.name) }}>
             {node.name}
-          </a>
+          </a>}
+          {props.sectionScroll&&<a href={"#" + node.scrollTo} className={selectedLink === node.name ? "grey-link-active" : "grey-link"} onClick={() => { getSelectedLink(node.name) }}>
+            {node.name}
+          </a>}
         </li>
       )
       if (node.children !== undefined) {

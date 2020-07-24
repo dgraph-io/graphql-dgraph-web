@@ -8,6 +8,7 @@ import DgraphLogo from "../images/graphql-logo.png"
 import { GoChevronDown, GoChevronUp } from "react-icons/go"
 import { getCategoryIndex } from "../helper-functions/find-current-path"
 import { Location } from "@reach/router"
+import BackButtonMainWebsite from "./MainWebsiteRedirect"
 
 const config = require("../../config")
 
@@ -27,7 +28,7 @@ const SideBar = props => {
 
   completeRes = locationProp =>
     config.sidebarOptions[getCategoryIndex(dispatch, locationProp)].map(
-      (node,index) => {
+      (node, index) => {
         currentParent = node.title
         let mainNode = (
           <li key={node.title} className="sidebar-inline font-weight-medium">
@@ -46,7 +47,7 @@ const SideBar = props => {
           </li>
         )
         if (node.children !== undefined) {
-          currentChildren = node.children.map((childNode) => {
+          currentChildren = node.children.map(childNode => {
             let child = (
               <li key={childNode.title} className="font-weight-medium">
                 <Link
@@ -75,7 +76,7 @@ const SideBar = props => {
         const res = (
           <React.Fragment key={currentParent}>
             <Accordion
-            defaultActiveKey={currentParent}
+              defaultActiveKey={currentParent}
               bsPrefix={
                 toggleListItemMarker === node.title && showAccordion
                   ? "accordion-hide"
@@ -101,9 +102,7 @@ const SideBar = props => {
                 </Accordion.Toggle>
               )}
               {currentChildren.length !== 0 && (
-                <Accordion.Collapse
-                  eventKey={currentParent}
-                >
+                <Accordion.Collapse eventKey={currentParent}>
                   <ul className="list-no-style">{currentChildren}</ul>
                 </Accordion.Collapse>
               )}
@@ -134,7 +133,13 @@ const SideBar = props => {
             />
             <div className="sidebar-wrap">
               <ul>{completeRes(locationProp)}</ul>
+
             </div>
+
+
+            <div className="backbutton-container-mobile">
+                <BackButtonMainWebsite />
+              </div>
           </div>
         )}
       </Location>

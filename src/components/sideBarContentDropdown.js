@@ -1,26 +1,13 @@
 import React from "react"
-import {connect} from 'react-redux';
-import { Link } from "gatsby"
-import { Dropdown, Row, Col, Container } from "react-bootstrap"
-import { sideBarContentClasses } from "../utils/graphQLConstants/side-bar-category"
-import {Images} from '../images';
+import { Dropdown, Container, Row, Col } from "react-bootstrap"
+import { Images } from "../images"
+import GlobalNavMenu from "./GlobalNavMenu"
+import { connect } from "react-redux"
+import Twitter from "../images/twitter.svg"
+import Github from "../images/github.svg"
 
-
-const config = require("../../config")
-
- function SideBarContentDropdown(props) {
-
-  const {dispatch , categoryName} = props;
-
-  const Stage = (props)=>{
-    return (
-      <div className="stage-container">
-        <div className="stage-badge lighter-button">
-          <span className="gradient-text">{props.stage}</span>
-        </div>
-      </div>
-    )
-  }
+function SideBarContentDropdown(props) {
+  const { categoryName } = props
 
   return (
     <div className="sidebar-content-dropdown-container">
@@ -28,10 +15,8 @@ const config = require("../../config")
         <Dropdown size="xs">
           <Dropdown.Toggle id="dropdown-basic" bsPrefix="lighter-button">
             <div className="gradient-text-toggle-button">
-              <span className="gradient-text">
-                {categoryName}
-              </span>
-             <img src={Images.dropdown} alt="dropdown" />
+              <span className="gradient-text">{categoryName}</span>
+              <img src={Images.dropdown} alt="dropdown" />
             </div>
           </Dropdown.Toggle>
           <Dropdown.Menu bsPrefix="sidebar-container-dropdown-menu">
@@ -39,92 +24,29 @@ const config = require("../../config")
               <Row className="list-item-menu-header">
                 <Col>GraphQL Docs Sections</Col>
               </Row>
-              <Container bsPrefix="sidebar-menu-bootstrap-container">
-                <Row className="section-content-row">
-                  <Col>
-                    {sideBarContentClasses[0].map((leftContent, index) => {
-                      return (
-                        <Row bsPrefix="list-item-row" key={index}>
-                          {/* <Row> */}
-                            <Col md={2} lg={2} sm={2} xs={2}>
-                            <div className="section-icon">
-                            <img src={leftContent.icon} alt="icon" />
-                            </div>
-                              
-                            </Col>
-
-                            <Col md={10} lg={11} sm={10} xs={10}>
-                              <div
-                                className="list-item-title"
-                              >
-                                <Link
-                                  to={`/${config.sidebarOptions[
-                                    index
-                                  ][0].path.replace("index.mdx", "").replace(".mdx","")}`}
-                                  onClick={() => {
-                                    dispatch({
-                                      type: "SELECT_SIDEBAR_CONTENT_CATEGORY",
-                                      categoryName: leftContent.title,
-                                      categoryIndex: index
-                                    })
-                                    dispatch({type:'HIDE_RIGHT_SIDEBAR' , showSideBar:leftContent.showSideBar})
-                                  }}
-                                >
-                                  <span className="list-item-title-text">{leftContent.title}</span>{leftContent.stage?<Stage stage='BETA' />:null}
-                                </Link>
-                              </div>
-                              <div className="list-item-subtitle">
-                                {leftContent.subTitle}
-                              </div>
-                            </Col>
-                          {/* </Row> */}
-                        </Row>
-                      )
-                    })}
-                  </Col>
-                  <Col>
-                    {sideBarContentClasses[1].map((rightContent, index) => {
-                      return (
-                        <Row bsPrefix="list-item-row" key={index}>
-                          {/* <Row> */}
-                            <Col md={2} lg={2} sm={2} xs={2}>
-                            <div className="section-icon">
-                            <img src={rightContent.icon} alt="icon" />
-                            </div>
-                              
-                            </Col>
-                            <Col md={10} lg={11} sm={10} xs={10}>
-                              <div
-                                className="list-item-title"
-                              >
-                                <Link
-                                  to={`/${config.sidebarOptions[
-                                    index+3
-                                  ][0].path.replace("index.mdx", "").replace(".mdx","")}`}
-
-                                onClick={() => {
-                                  dispatch({
-                                    type: "SELECT_SIDEBAR_CONTENT_CATEGORY",
-                                    categoryName: rightContent.title,
-                                    categoryIndex: index+3
-                                  })
-                                  dispatch({type:'HIDE_RIGHT_SIDEBAR' , showSideBar:rightContent.showSideBar})
-                                }}
-                                >
-                                  {rightContent.title}
-                                </Link>
-                              </div>
-                              <div className="list-item-subtitle">
-                                {rightContent.subTitle}
-                              </div>
-                            </Col>
-                          {/* </Row> */}
-                        </Row>
-                      )
-                    })}
-                  </Col>
-                </Row>
-              </Container>
+              <GlobalNavMenu side />
+              <Row className="bottom-icon-container d-lg-none d-sm-flex justify-content-end d-xs-block text-sm-right text-right">
+                <div className="icon-container d-inline-block">
+                  <a
+                    href="https://twitter.com/dgraphlabs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ paddingLeft: "24px" }}
+                  >
+                    <img src={Twitter} alt="Twitter" className="mb-0" />
+                  </a>
+                </div>
+                <div className="icon-container d-inline-block">
+                  <a
+                    target="_blank"
+                    href="https://github.com/dgraph-io/graphql-dgraph-web"
+                    rel="noopener noreferrer"
+                    style={{ paddingRight: "0" }}
+                  >
+                    <img src={Github} alt="Github" className="mb-0" />
+                  </a>
+                </div>
+              </Row>
             </Container>
           </Dropdown.Menu>
         </Dropdown>
@@ -133,16 +55,10 @@ const config = require("../../config")
   )
 }
 
-const mapDispatchToProps = (dispatch) =>{
-  return{
-    dispatch
-  }
-}
-
-const mapStateToProps = (state)=>{
-  return{
+const mapStateToProps = state => {
+  return {
     categoryName: state.sideBarCategoryClassName
   }
 }
 
-export default connect(mapStateToProps , mapDispatchToProps)(SideBarContentDropdown);
+export default connect(mapStateToProps)(SideBarContentDropdown)

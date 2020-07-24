@@ -638,10 +638,15 @@ pre tt:after {
 }
 .page-header {
   display: flex;
-  border-bottom: solid 1px #ddd;
   height: 50px;
   width: 100%;
   justify-content: flex-end;
+}
+
+@media screen and (max-width: 992px) {
+  .page-header {
+    height: 72px;
+  }
 }
 .page-header a {
   display: inline-block;
@@ -649,6 +654,7 @@ pre tt:after {
 }
 .page-logo {
   text-align: center;
+  display: flex;
 }
 
 .page-logo a {
@@ -723,11 +729,31 @@ pre tt:after {
   margin-right: 150px;
   padding-top: 33px;
 }
-.landing-pg-extend {
+.landing-pg-extend,
+.landing-pg-extend-sidebar {
   min-height: calc(100vh - 170px);
   padding: 0px 1.0875rem 1.45rem;
   padding-top: 33px;
 }
+.landing-pg-extend-sidebar {
+  min-height: calc(100vh - 170px);
+  padding: 0;
+  padding-top: 33px;
+}
+@media screen and (max-width: 769px) {
+  .landing-pg-extend-sidebar {
+    padding: 33px 24px 24px 24px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .landing-pg-extend {
+    min-height: calc(100vh - 170px);
+    padding: 0px 1.0875rem 1.45rem;
+    padding-top: 33px;
+  }
+}
+
 .CodeMirror-cursor {
   background: #fff !important;
 }
@@ -1005,6 +1031,7 @@ h2.page-title-summary {
   padding: 0;
   margin: 0;
 }
+
 .sidenav ul ul {
   padding-left: 15px;
 }
@@ -1017,6 +1044,13 @@ h2.page-title-summary {
   bottom: 0;
   overflow-y: auto;
 }
+
+@media screen and (max-width: 769px) {
+  .sidebar-wrap {
+    margin-bottom: 200px;
+  }
+}
+
 .sidenav li {
   margin-bottom: 20px;
   display: block;
@@ -1048,6 +1082,11 @@ h2.page-title-summary {
   padding: 20px;
   margin: 0;
 }
+@media screen and (max-width: 992px) {
+  .sidenav {
+    border-right: none;
+  }
+}
 
 .content-wrap {
   padding-left: 280px;
@@ -1064,16 +1103,16 @@ h2.page-title-summary {
     width: 280px;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 992px) {
   .sidenav {
-    width: 160px;
+    width: 240px;
   }
   .sidenav .sidebar-wrap {
     padding: 15px;
   }
   .content-wrap {
-    padding-left: 160px;
-    padding-right: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
   .content-wrap .landing-pg {
     padding: 15px !important;
@@ -1092,6 +1131,7 @@ h2.page-title-summary {
 }
 
 .sidebar-content-dropdown-container .lighter-button,
+.lighter-button,
 .sidebar-content-dropdown-container .lighter-button:not(:disabled):active {
   background: linear-gradient(
     90deg,
@@ -1151,7 +1191,7 @@ h2.page-title-summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ffont-style: normal;
+  font-style: normal;
   font-style: normal;
   font-weight: 400;
   font-size: 13px;

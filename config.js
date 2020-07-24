@@ -79,7 +79,11 @@ const Graphql = [
   {
     title: "Introduction",
     path: "dgraph-graphql/index.mdx",
-    showSideBar:false,
+    showSideBar:true,
+    subOptions: [
+      { name: "Welcome to GraphQL", scrollTo:'Welcome_to_GraphQL' },
+      { name: "GraphQL Quick Start" ,scrollTo:'GraphQL_Quick_Start'},
+    ]
   },
   {
     title: "GraphQL Quick Start",
