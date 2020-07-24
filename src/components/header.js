@@ -86,7 +86,7 @@ const Header = (props) => {
           </Link>
         </div>
       <div className="topbar d-flex page-header">
-        {/* <SearchBar /> */}
+        <SearchBar />
         <div className="page-header justify-content-end">
           <div className="back-to-mainwebsite-container">
           <BackButtonMainWebsite />
