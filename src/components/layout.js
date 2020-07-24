@@ -19,7 +19,6 @@ const Layout = props => {
   const [sideBarCategoryIndex, setCategory] = useState(0)
   const { renderRightSideBar, dispatch } = props
   const [isSideBarVisible, showSideBar] = useState(false)
-  const content_wrapper_ref = React.useRef()
   const [isPopUpVisible, closePopUp] = React.useState(true)
 
   const setContentCategory = (dropDownTitle, categoryIndex) => {
@@ -69,7 +68,12 @@ const Layout = props => {
               )
             }}
           </Location>
-          <div className="sidebar-container-visible">
+          <div
+            className="sidebar-container-visible"
+            onClick={() => {
+              dispatch({ type: "GET_CURRENT_REF", showSearchResult: false })
+            }}
+          >
             <SideBar
               selectSideBarContent={(nodeTitle, contentClass) => {
                 setContentCategory(nodeTitle, contentClass)
@@ -78,7 +82,12 @@ const Layout = props => {
             />
           </div>
           {isSideBarVisible && (
-            <div className="toggle-sidebar">
+            <div
+              className="toggle-sidebar"
+              onClick={() => {
+                dispatch({ type: "GET_CURRENT_REF", showSearchResult: false })
+              }}
+            >
               <SideBar
                 selectSideBarContent={(nodeTitle, contentClass) => {
                   setContentCategory(nodeTitle, contentClass)
@@ -92,11 +101,9 @@ const Layout = props => {
               siteTitle={data.site.siteMetadata.title}
               isSideBarVisible={isSideBarVisible}
               showSideBar={isSideBarVisible => showSideBar(isSideBarVisible)}
-              isPopUpVisible={isPopUpVisible}
             />
 
             <div
-              ref={content_wrapper_ref}
               onClick={() =>
                 dispatch({ type: "GET_CURRENT_REF", showSearchResult: false })
               }
@@ -112,6 +119,9 @@ const Layout = props => {
             </div>
             {renderRightSideBar && (
               <div
+                onClick={() => {
+                  dispatch({ type: "GET_CURRENT_REF", showSearchResult: false })
+                }}
                 className={
                   getSideBarClass(props)
                     ? "sidebar-right-container-extended"

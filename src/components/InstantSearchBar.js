@@ -4,6 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai"
 import { IconContext } from "react-icons"
 import { connect } from "react-redux"
 import { createConnector } from "react-instantsearch-dom"
+import { compose } from "redux"
 
 const connectWithQuery = createConnector({
   displayName: "WidgetWithQuery",
@@ -27,7 +28,7 @@ const connectWithQuery = createConnector({
   }
 })
 
-const InstantSearch = ({ currentRefinement, refine }) => (
+const InstantSearch = ({ dispatch, currentRefinement, refine }) => (
   <div className="d-flex align-items-center search-bar-container">
     <IconContext.Provider value={{ color: "#e3e8ee" }}>
       <div>
@@ -42,9 +43,10 @@ const InstantSearch = ({ currentRefinement, refine }) => (
           placeholder="Search documentation..."
           bsPrefix="document-form-control"
           value={currentRefinement}
-          onChange={e => {
-            refine(e.currentTarget.value)
-          }}
+          onChange={e => refine(e.currentTarget.value)}
+          onFocus={() =>
+            dispatch({ type: "GET_CURRENT_REF", showSearchResult: true })
+          }
           autoComplete="off"
         />
       </Form.Group>
@@ -58,6 +60,7 @@ const mapDispatchToProp = dispatch => {
   }
 }
 
-export const CustomInstantSearch = connectWithQuery(
-  connect(null, mapDispatchToProp)(InstantSearch)
-)
+export const CustomInstantSearch = compose(
+  connect(null, mapDispatchToProp),
+  connectWithQuery
+)(InstantSearch)

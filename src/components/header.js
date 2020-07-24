@@ -17,6 +17,7 @@ import {
 } from "react-instantsearch-dom"
 import { CustomInstantSearch } from "./InstantSearchBar"
 import BackButtonMainWebsite from "./MainWebsiteRedirect"
+import { connect } from "react-redux"
 
 const searchClient = algoliasearch(
   "0AG2ENC6EL",
@@ -59,13 +60,13 @@ const ConnectStateResults = connectStateResults(
       : null
 )
 
-const SearchBar = isPopUpVisible => {
-  console.log("is visible", isPopUpVisible)
+const SearchBar = props => {
+  console.log("is visible", props)
   return (
       <InstantSearch searchClient={searchClient} indexName="GraphQL">
         <CustomInstantSearch />
         <ConnectStateResults>
-          {isPopUpVisible.isPopUpVisible ? (
+          {props.isPopUpVisible? (
             <Hits hitComponent={Hithighlight} />
           ) : null}
         </ConnectStateResults>
@@ -74,8 +75,6 @@ const SearchBar = isPopUpVisible => {
 }
 
 const Header = props => {
-  const searchBarRef = React.createRef();
-
   return (
     <div className="header-search-main-site-container">
       <div className="d-flex justify-content-between border-bottom align-items-center">
@@ -105,7 +104,7 @@ const Header = props => {
           </Link>
         </div>
         <div className="topbar d-flex page-header">
-          <SearchBar isPopUpVisible={props.isPopUpVisible}/>
+          <SearchBar isPopUpVisible={props.showSearchResult}/>
           <div className="page-header justify-content-end">
             <div className="back-to-mainwebsite-container">
               <BackButtonMainWebsite />
@@ -143,6 +142,13 @@ Header.defaultProps = {
   siteTitle: ""
 }
 
-export default Header
+
+const mapStateToProps = state =>{
+  return {
+    showSearchResult: state.showSearchResult
+  }
+}
+
+export default connect(mapStateToProps)(Header)
 
 // className="d-flex justify-content-between align-items-start"
