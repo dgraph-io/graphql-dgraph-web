@@ -8,7 +8,8 @@ const initialState = {
   sideBarCategoryClassName: "Dgraph GraphQL",
   renderRightSideBar: false,
   currentVersion: "master",
-  currentExpandedAccordion: ''
+  currentExpandedAccordion: '',
+  showSearchResult:true
 }
 
 export function reducer(state = initialState, action) {
@@ -39,6 +40,14 @@ export function reducer(state = initialState, action) {
           return {
         ...state,
         currentExpandedAccordion: action.expandedAccordion
+      }
+    }
+
+    case 'GET_CURRENT_REF':{
+      return{
+        ...state,
+        showSearchResult: action.showSearchResult
+
       }
     }
 

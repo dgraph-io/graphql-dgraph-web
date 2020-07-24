@@ -17,8 +17,10 @@ const config = require("../../config")
 const Layout = props => {
   const [sideBarContentDropDownTitle, selectSideBarContent] = useState("")
   const [sideBarCategoryIndex, setCategory] = useState(0)
-  const { categoryIndex, renderRightSideBar } = props
+  const { renderRightSideBar, dispatch } = props
   const [isSideBarVisible, showSideBar] = useState(false)
+  const content_wrapper_ref = React.useRef()
+  const [isPopUpVisible, closePopUp] = React.useState(true)
 
   const setContentCategory = (dropDownTitle, categoryIndex) => {
     selectSideBarContent(dropDownTitle)
@@ -90,9 +92,14 @@ const Layout = props => {
               siteTitle={data.site.siteMetadata.title}
               isSideBarVisible={isSideBarVisible}
               showSideBar={isSideBarVisible => showSideBar(isSideBarVisible)}
+              isPopUpVisible={isPopUpVisible}
             />
 
             <div
+              ref={content_wrapper_ref}
+              onClick={() =>
+                dispatch({ type: "GET_CURRENT_REF", showSearchResult: false })
+              }
               className={
                 getSideBarClass(props)
                   ? "landing-pg-extend-sidebar pl-lg-5 pl-md-5"
@@ -114,7 +121,12 @@ const Layout = props => {
                 {
                   <Location>
                     {({ location }) => {
-                      return <SideBarRight file={location.pathname} sectionScroll={getSideBarClass(props)}/>
+                      return (
+                        <SideBarRight
+                          file={location.pathname}
+                          sectionScroll={getSideBarClass(props)}
+                        />
+                      )
                     }}
                   </Location>
                 }
@@ -139,4 +151,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Layout)
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout)
