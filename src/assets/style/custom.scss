@@ -112,13 +112,30 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
     border-radius: 4px;
     padding: 0px !important;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    @media screen and (max-width: $TABLET_MAX-SIZE) {
+      height: fit-content;
+      .initial-menu-container {
+        margin: 0;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+    }
+
+    @media screen and (max-width: $MOBILE_MAX_SIZE) {
+      min-height: 60vh;
+      height: 75vh;
+    }
     .bottom-icon-container {
       @media screen and (max-width: $TABLET_MAX_SIZE) {
         padding: 12px 0px;
         width: 100%;
         margin: 0;
         position: relative;
-
+        vertical-align: bottom;
         &:before {
           content: "";
           position: absolute;
@@ -135,18 +152,8 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
         }
       }
     }
-    @media screen and (max-width: $TABLET_MAX-SIZE) {
-      height: fit-content;
-      .initial-menu-container {
-        margin: 0;
-      }
-    }
 
     @media screen and (max-width: 321px) {
-      height: fit-content;
-      max-height: 80vh;
-      width: fit-content;
-      // max-width: 100vw;
       transform: translate3d(0px, 40px, 0px) !important;
       overflow: scroll;
     }

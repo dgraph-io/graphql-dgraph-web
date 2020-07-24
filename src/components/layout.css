@@ -1031,6 +1031,7 @@ h2.page-title-summary {
   padding: 0;
   margin: 0;
 }
+
 .sidenav ul ul {
   padding-left: 15px;
 }
@@ -1043,6 +1044,13 @@ h2.page-title-summary {
   bottom: 0;
   overflow-y: auto;
 }
+
+@media screen and (max-width: 769px) {
+  .sidebar-wrap {
+    margin-bottom: 200px;
+  }
+}
+
 .sidenav li {
   margin-bottom: 20px;
   display: block;

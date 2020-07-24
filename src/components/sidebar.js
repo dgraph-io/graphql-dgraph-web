@@ -134,10 +134,12 @@ const SideBar = props => {
             <div className="sidebar-wrap">
               <ul>{completeRes(locationProp)}</ul>
 
-              <div className="backbutton-container-mobile">
+            </div>
+
+
+            <div className="backbutton-container-mobile">
                 <BackButtonMainWebsite />
               </div>
-            </div>
           </div>
         )}
       </Location>
