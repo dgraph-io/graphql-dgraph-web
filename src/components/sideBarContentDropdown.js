@@ -20,33 +20,40 @@ function SideBarContentDropdown(props) {
             </div>
           </Dropdown.Toggle>
           <Dropdown.Menu bsPrefix="sidebar-container-dropdown-menu">
-            <Container className="initial-menu-container">
-              <Row className="list-item-menu-header">
-                <Col>GraphQL Docs Sections</Col>
-              </Row>
-              <GlobalNavMenu side />
-              <Row className="bottom-icon-container d-lg-none d-sm-flex justify-content-end d-xs-block text-sm-right text-right">
-                <div className="icon-container d-inline-block">
-                  <a
-                    href="https://twitter.com/dgraphlabs"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ paddingLeft: "24px" }}
-                  >
-                    <img src={Twitter} alt="Twitter" className="mb-0" />
-                  </a>
-                </div>
-                <div className="icon-container d-inline-block">
-                  <a
-                    target="_blank"
-                    href="https://github.com/dgraph-io/graphql-dgraph-web"
-                    rel="noopener noreferrer"
-                    style={{ paddingRight: "0" }}
-                  >
-                    <img src={Github} alt="Github" className="mb-0" />
-                  </a>
-                </div>
-              </Row>
+            <Container className="pad-lg-bottom-0 menu-container">
+              <Container
+                className="initial-menu-container d-sm-flex flex-column justify-content-start"
+                md={3}
+              >
+                <Row className="list-item-menu-header">
+                  <Col>GraphQL Docs Sections</Col>
+                </Row>
+                <GlobalNavMenu side />
+              </Container>
+              <Container md={1} className="d-lg-none d-md-block p-0">
+                <Row className="bottom-icon-container">
+                  <div className="icon-container d-inline-block">
+                    <a
+                      href="https://twitter.com/dgraphlabs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ paddingLeft: "24px" }}
+                    >
+                      <img src={Twitter} alt="Twitter" className="mb-0" />
+                    </a>
+                  </div>
+                  <div className="icon-container d-inline-block">
+                    <a
+                      target="_blank"
+                      href="https://github.com/dgraph-io/graphql-dgraph-web"
+                      rel="noopener noreferrer"
+                      style={{ paddingRight: "0" }}
+                    >
+                      <img src={Github} alt="Github" className="mb-0" />
+                    </a>
+                  </div>
+                </Row>
+              </Container>
             </Container>
           </Dropdown.Menu>
         </Dropdown>

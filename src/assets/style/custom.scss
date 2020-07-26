@@ -3,6 +3,7 @@
 $TABLET_MAX-SIZE: 992px;
 $MOBILE_MAX_SIZE: 769px;
 $LARGE_SCREEN_MIN_SIZE: 1025px;
+$EXTRA_SMALL_DEVICES: 321px;
 
 .font-weight-medium {
   font-weight: 400;
@@ -115,28 +116,43 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
     overflow-y: auto;
     @media screen and (max-width: $TABLET_MAX-SIZE) {
       height: fit-content;
+    }
+    .menu-container {
+      padding: 24px 0 24px 24px;
+      @media screen and (max-width: $TABLET_MAX-SIZE) {
+        padding: 24px 0 0 0;
+      }
+      @media screen and (max-width: $EXTRA_SMALL_DEVICES) {
+        width: 100vw;
+      }
       .initial-menu-container {
-        margin: 0;
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
+        @media screen and (max-width: $MOBILE_MAX_SIZE) {
+          margin: 0;
+          display: flex;
+          width: 100%;
+          flex-direction: column;
+          justify-content: space-between;
+        }
       }
     }
 
     @media screen and (max-width: $MOBILE_MAX_SIZE) {
-      min-height: 60vh;
-      height: 75vh;
+      min-height: 50vh;
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .bottom-icon-container {
-      @media screen and (max-width: $TABLET_MAX_SIZE) {
+      display: none;
+      @media screen and (max-width: $MOBILE_MAX_SIZE) {
         padding: 12px 0px;
-        width: 100%;
         margin: 0;
         position: relative;
-        vertical-align: bottom;
-        &:before {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        &::before {
           content: "";
           position: absolute;
           top: 0;
@@ -159,10 +175,10 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
     }
 
     .container {
-      padding: 24px;
-      @media screen and (max-width: $TABLET_MAX-SIZE) {
-        padding: 0px;
-      }
+      // padding: 24px;
+      // @media screen and (max-width: $TABLET_MAX-SIZE) {
+      //   padding: 0px;
+      // }
       .list-item-menu-header {
         padding: 0px 24px 24px 0px;
         font-family: inherit;
@@ -176,7 +192,7 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
         @media screen and (max-width: $TABLET_MAX-SIZE) {
           padding: 24px;
         }
-        @media screen and (max-width: 320px) {
+        @media screen and (max-width: $MOBILE_MAX_SIZE) {
           width: 100%;
         }
       }
@@ -550,15 +566,29 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
     width: 366px;
     max-width: 366px;
   }
+  @media screen and (max-width: $MOBILE_MAX_SIZE) {
+    height: fit-content;
+    // display: none;
+  }
 
   .sidebar-menu-bootstrap-container {
     padding: 0px 24px 0 0;
     @media screen and (max-width: $LARGE_SCREEN_MIN_SIZE) {
-      padding: 0 0 24px 24px;
+      padding: 0 0 24px 0px;
+    }
+    @media screen and (max-width: $MOBILE_MAX_SIZE) {
+      padding: 0 0 24px 0px;
+      justify-content: flex-end;
     }
     .section-content-row {
       @media screen and (max-width: $LARGE_SCREEN_MIN_SIZE) {
         flex-direction: column !important;
+      }
+      @media screen and (max-width: $MOBILE_MAX_SIZE) {
+        flex-direction: column !important;
+        width: 100%;
+        margin: 0;
+        padding: 0 0 24px 0px;
       }
       .col {
         padding: 0 24px 0 0;
@@ -838,4 +868,11 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
   font-size: 16px;
   line-height: 19px;
   color: #555555;
+}
+.close-button {
+  background: transparent;
+}
+
+.pad-lg-bottom-0 {
+  // padding-bottom: 0;
 }

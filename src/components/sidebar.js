@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
 import { connect } from "react-redux"
-import { Accordion } from "react-bootstrap"
+import { Accordion, Button } from "react-bootstrap"
 import VersionDropdown from "./VersionDropdown"
 import SideBarContentDropdown from "./sideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
@@ -9,6 +9,7 @@ import { GoChevronDown, GoChevronUp } from "react-icons/go"
 import { getCategoryIndex } from "../helper-functions/find-current-path"
 import { Location } from "@reach/router"
 import BackButtonMainWebsite from "./MainWebsiteRedirect"
+import { IoMdArrowRoundBack } from "react-icons/io"
 
 const config = require("../../config")
 
@@ -120,10 +121,18 @@ const SideBar = props => {
       <Location>
         {locationProp => (
           <div className="sidenav">
-            <div className="page-logo">
+            <div className="page-logo d-flex justify-content-between align-items-start">
               <Link to="/" className="img-logo header-link">
                 <img src={DgraphLogo} alt="Dgraph logo" />
               </Link>
+              <Button
+                bsPrefix="d-lg-none d-md-inline d-sm-inline d-xs-inline border-0 close-button p-0"
+                onClick={() => {
+                  props.showSideBar(false)
+                }}
+              >
+                <IoMdArrowRoundBack />
+              </Button>
             </div>
             <VersionDropdown />
             <SideBarContentDropdown
@@ -133,13 +142,11 @@ const SideBar = props => {
             />
             <div className="sidebar-wrap">
               <ul>{completeRes(locationProp)}</ul>
-
             </div>
 
-
             <div className="backbutton-container-mobile">
-                <BackButtonMainWebsite />
-              </div>
+              <BackButtonMainWebsite />
+            </div>
           </div>
         )}
       </Location>

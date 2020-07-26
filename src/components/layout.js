@@ -78,7 +78,8 @@ const Layout = props => {
               selectSideBarContent={(nodeTitle, contentClass) => {
                 setContentCategory(nodeTitle, contentClass)
               }}
-              sidebarcategoryindex={sideBarCategoryIndex}
+              sidebarcategoryindex={sideBarCategoryIndex}  
+              showSideBar={isSideBarVisible => showSideBar(isSideBarVisible)}
             />
           </div>
           {isSideBarVisible && (
@@ -93,6 +94,7 @@ const Layout = props => {
                   setContentCategory(nodeTitle, contentClass)
                 }}
                 sidebarcategoryindex={sideBarCategoryIndex}
+                showSideBar={isSideBarVisible => showSideBar(isSideBarVisible)}
               />
             </div>
           )}
@@ -120,7 +122,10 @@ const Layout = props => {
             {renderRightSideBar && (
               <div
                 onClick={() => {
-                  dispatch({ type: "GET_CURRENT_REF", showSearchResult: false })
+                  dispatch({
+                    type: "GET_CURRENT_REF",
+                    showSearchResult: false
+                  })
                 }}
                 className={
                   getSideBarClass(props)
