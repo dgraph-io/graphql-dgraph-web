@@ -1,0 +1,26 @@
+---
+title: 'Advanced Queries with GraphQL+-'
+---
+<h1>{props.pageContext.frontmatter.title}</h1>
+
+*These are draft docs for Slash GraphQL, which is currently in beta*
+
+Slash GraphQL also supports running advanced queries with `GraphQL+-`, a query language that is unique to Dgraph. GraphQL+- should be used by advanced users who wish to make queries and mutations using existing Dgraph client libraries, either via the HTTP or GRPC endpoints.
+
+If you are getting started with Slash GraphQL, you might want to consider using our GraphQL APIs instead (link to graphql docs here)
+
+Do note that Slash GraphQL does not allow you to change the schema or create new predicates via GraphQL+-. 
+
+## Authentication and Endpoint
+
+It is important to note that all APIs must be authenticated by an API key from the settings page.
+
+### HTTP
+For HTTP requests it must be passed in a header (name, example). For HTTP, you must use the same hostname as your endpoint.
+
+### GRPC
+For GRPC requests it must be passed in as metadata to every request (name, example). How to find the GRPC endpoint
+
+## Limitations
+
+It should be possible to use most GRPC based libraries to access . We will add support to ratel and dgraph-js-http. We will also be figuring out a way to get this to work with live loader. Please watch out for releases.
