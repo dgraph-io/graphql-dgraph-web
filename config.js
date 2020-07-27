@@ -155,7 +155,7 @@ const slashGraphQL = [
   },
   {
     path: "slash-graphql/slash-quick-start.mdx",
-    title: "Slash Quick Start (draft)"
+    title: "Slash Quick Start"
   },
   {
     title: "Administering your Backend",
