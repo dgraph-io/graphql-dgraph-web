@@ -213,6 +213,9 @@ $EXTRA_SMALL_DEVICES: 321px;
         margin: 2px 0;
         width: 100%;
         display: flex !important;
+        @media screen and (max-width: $MOBILE_MAX_SIZE) {
+          margin-bottom: 13px;
+        }
         .list-item-title {
           padding-top: 9px;
           .list-item-title-text {
@@ -226,6 +229,9 @@ $EXTRA_SMALL_DEVICES: 321px;
         }
         .list-item-subtitle {
           margin-top: 6px;
+          @media screen and (max-width: $MOBILE_MAX_SIZE) {
+            margin-top: 10px;
+          }
         }
       }
     }
