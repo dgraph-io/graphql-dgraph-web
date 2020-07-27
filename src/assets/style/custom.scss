@@ -117,21 +117,31 @@ $EXTRA_SMALL_DEVICES: 321px;
     @media screen and (max-width: $TABLET_MAX-SIZE) {
       height: fit-content;
     }
+    @media screen and (max-width: $MOBILE_MAX_SIZE) {
+      width: 90vw;
+    }
+    @media screen and (max-width: $TABLET_MAX-SIZE) {
+      width: 366px;
+      max-width: 366px;
+    }
+
     .menu-container {
       padding: 24px 0 24px 24px;
       @media screen and (max-width: $TABLET_MAX-SIZE) {
         padding: 24px 0 0 0;
       }
-      @media screen and (max-width: $EXTRA_SMALL_DEVICES) {
-        width: 100vw;
+      @media screen and (max-width: $MOBILE_MAX_SIZE) {
+        padding-left: 0;
+        padding-right: 0;
       }
       .initial-menu-container {
         @media screen and (max-width: $MOBILE_MAX_SIZE) {
           margin: 0;
           display: flex;
-          width: 100%;
+          width: inherit;
           flex-direction: column;
           justify-content: space-between;
+          padding: 0;
         }
       }
     }
@@ -384,6 +394,10 @@ $EXTRA_SMALL_DEVICES: 321px;
   min-height: calc(100vh - 450px);
 }
 .back-to-mainwebsite-container {
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    height: 100%;
+    vertical-align: middle;
+  }
   @media screen and (max-width: $MOBILE_MAX_SIZE) {
     display: none;
   }
@@ -565,12 +579,16 @@ $EXTRA_SMALL_DEVICES: 321px;
   max-width: 700px;
 
   @media screen and (max-width: $LARGE_SCREEN_MIN_SIZE) {
-    width: 366px;
-    max-width: 366px;
+    width: 90vw;
+    max-width: 90vw;
+  }
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    width: inherit;
   }
   @media screen and (max-width: $MOBILE_MAX_SIZE) {
     height: fit-content;
     // display: none;
+    // width: fit-content;
   }
 
   .sidebar-menu-bootstrap-container {
@@ -672,7 +690,7 @@ $EXTRA_SMALL_DEVICES: 321px;
         color: #555555;
         outline: none !important;
         padding: 15px;
-        width: 100%;
+        width: 110%;
 
         &::placeholder {
           color: #999999;
@@ -832,12 +850,9 @@ $EXTRA_SMALL_DEVICES: 321px;
 .backbutton-container-mobile {
   display: none;
   @media screen and (max-width: $MOBILE_MAX_SIZE) {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding-bottom: 40px;
-    padding-left: 24px;
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 16px;
   }
 }
 .code-editor-wrapper {

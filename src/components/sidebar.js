@@ -9,7 +9,8 @@ import { GoChevronDown, GoChevronUp } from "react-icons/go"
 import { getCategoryIndex } from "../helper-functions/find-current-path"
 import { Location } from "@reach/router"
 import BackButtonMainWebsite from "./MainWebsiteRedirect"
-import { IoMdArrowRoundBack } from "react-icons/io"
+import { MdClose } from "react-icons/md"
+import { IconContext } from "react-icons"
 
 const config = require("../../config")
 
@@ -122,17 +123,19 @@ const SideBar = props => {
         {locationProp => (
           <div className="sidenav">
             <div className="page-logo d-flex justify-content-between align-items-start">
-              <Link to="/" className="img-logo header-link">
-                <img src={DgraphLogo} alt="Dgraph logo" />
-              </Link>
               <Button
                 bsPrefix="d-lg-none d-md-inline d-sm-inline d-xs-inline border-0 close-button p-0"
                 onClick={() => {
                   props.showSideBar(false)
                 }}
               >
-                <IoMdArrowRoundBack />
+                <IconContext.Provider value={{ color: "#555555" }}>
+                  <MdClose />
+                </IconContext.Provider>
               </Button>
+              <Link to="/" className="img-logo header-link">
+                <img src={DgraphLogo} alt="Dgraph logo" />
+              </Link>
             </div>
             <VersionDropdown />
             <SideBarContentDropdown
@@ -142,10 +145,10 @@ const SideBar = props => {
             />
             <div className="sidebar-wrap">
               <ul>{completeRes(locationProp)}</ul>
-            </div>
 
-            <div className="backbutton-container-mobile">
-              <BackButtonMainWebsite />
+              <div className="backbutton-container-mobile">
+                <BackButtonMainWebsite />
+              </div>
             </div>
           </div>
         )}

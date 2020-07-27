@@ -6,7 +6,7 @@ export const GlobalReducerContext = React.createContext()
 const initialState = {
   sideBarCategoryIndex: 3,
   sideBarCategoryClassName: "Dgraph GraphQL",
-  renderRightSideBar: false,
+  renderRightSideBar: true,
   currentVersion: "master",
   currentExpandedAccordion: '',
   showSearchResult:true

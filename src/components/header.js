@@ -40,7 +40,11 @@ const Hithighlight = ({ hit }) => {
 
           <Col md={9} className="border-left d-flex justify-content-start">
             <div className="search-result-subtitle">
-              {hit.excerpt ? hit.excerpt : hit.frontmatter.title}
+              <Link to={`${hit.fields.slug}`} className="search-link">
+                <div className="search-result-subtitle">
+                  {hit.excerpt ? hit.excerpt : hit.frontmatter.title}
+                </div>
+              </Link>
             </div>
           </Col>
         </Row>
@@ -61,16 +65,13 @@ const ConnectStateResults = connectStateResults(
 )
 
 const SearchBar = props => {
-  console.log("is visible", props)
   return (
-      <InstantSearch searchClient={searchClient} indexName="GraphQL">
-        <CustomInstantSearch />
-        <ConnectStateResults>
-          {props.isPopUpVisible? (
-            <Hits hitComponent={Hithighlight} />
-          ) : null}
-        </ConnectStateResults>
-      </InstantSearch>
+    <InstantSearch searchClient={searchClient} indexName="GraphQL">
+      <CustomInstantSearch />
+      <ConnectStateResults>
+        {props.isPopUpVisible ? <Hits hitComponent={Hithighlight} /> : null}
+      </ConnectStateResults>
+    </InstantSearch>
   )
 }
 
@@ -103,9 +104,11 @@ const Header = props => {
             />
           </Link>
         </div>
-        <div className="topbar d-flex page-header">
-          <SearchBar isPopUpVisible={props.showSearchResult}/>
-          <div className="page-header justify-content-end">
+        <div className="topbar d-lg-flex page-header justify-content-between d-sm-block">
+          <div className="d-none d-lg-flex">
+          <SearchBar isPopUpVisible={props.showSearchResult} />
+          </div>
+          <div className="page-header d-lg-inline-flex d-md-flex justify-content-end d-sm-block">
             <div className="back-to-mainwebsite-container">
               <BackButtonMainWebsite />
             </div>
@@ -142,8 +145,7 @@ Header.defaultProps = {
   siteTitle: ""
 }
 
-
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
   return {
     showSearchResult: state.showSearchResult
   }
@@ -151,4 +153,3 @@ const mapStateToProps = state =>{
 
 export default connect(mapStateToProps)(Header)
 
-// className="d-flex justify-content-between align-items-start"
