@@ -157,6 +157,10 @@ const slashGraphQL = [
     path: "slash-graphql/slash-quick-start.mdx",
     title: "Slash Quick Start (draft)"
   },
+  {
+    path: "slash-graphql/advanced-queries.mdx",
+    title: "Advanced Queries (draft)"
+  },
 ]
 
 const exampleApps = [
