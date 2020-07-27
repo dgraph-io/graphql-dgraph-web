@@ -17,12 +17,12 @@ const SideBarRight = props => {
   let optsChildren = []
   let list
 
-  let opts = config.sidebarOptions[categoryIndex].filter(function (sidebar) {
+  let opts = config.sidebarOptions[categoryIndex].filter(function(sidebar) {
     if (
       "/" + sidebar.path.replace("index.mdx", "").replace(".mdx", "") ===
-      props.file ||
+        props.file ||
       "/" + sidebar.path.replace("index.mdx", "").replace(".mdx", "") + "/" ===
-      props.file
+        props.file
     ) {
       if (sidebar.subOptions === undefined) {
         return
@@ -34,13 +34,13 @@ const SideBarRight = props => {
         optsChildren = sidebar.children.filter(child => {
           if (
             child.path.replace("index.mdx", "").replace(".mdx", "") ===
-            props.file ||
+              props.file ||
             "/" +
-            child.path.replace("index.mdx", "").replace(".mdx", "") +
-            "/" ===
-            props.file ||
+              child.path.replace("index.mdx", "").replace(".mdx", "") +
+              "/" ===
+              props.file ||
             "/" + child.path.replace("index.mdx", "").replace(".mdx", "") ===
-            props.file
+              props.file
           ) {
             if (child.subOptions === undefined) {
             } else {
@@ -57,7 +57,7 @@ const SideBarRight = props => {
   if (optsChildren.length !== 0) opts = optsChildren
 
   if (opts.length !== 0) {
-    completeRes = opts[0].subOptions.map(node => {
+    completeRes = opts[0].subOptions.map((node, index) => {
       currentParent = node.name
       let mainNode = (
         <li key={node.name} className="sidebar-inline font-weight-medium">
@@ -78,7 +78,13 @@ const SideBarRight = props => {
             <a
               href={"#" + node.scrollTo}
               className={
-                selectedLink === node.name ? "grey-link-active" : "grey-link"
+                selectedLink === ""
+                  ? index === 0
+                    ? "grey-link-active"
+                    : "grey-link"
+                  : selectedLink === node.name
+                  ? "grey-link-active"
+                  : "grey-link"
               }
               onClick={() => {
                 getSelectedLink(node.name)
