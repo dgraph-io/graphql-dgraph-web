@@ -9,7 +9,7 @@ import { GoChevronDown, GoChevronUp } from "react-icons/go"
 import { getCategoryIndex } from "../helper-functions/find-current-path"
 import { Location } from "@reach/router"
 import BackButtonMainWebsite from "./MainWebsiteRedirect"
-import { MdClose } from "react-icons/md"
+import { GrClose } from "react-icons/gr"
 import { IconContext } from "react-icons"
 
 const config = require("../../config")
@@ -129,8 +129,8 @@ const SideBar = props => {
                   props.showSideBar(false)
                 }}
               >
-                <IconContext.Provider value={{ color: "#555555" }}>
-                  <MdClose />
+                <IconContext.Provider value={{ color: "#555555"  , size:'20px'}}>
+                  <GrClose />
                 </IconContext.Provider>
               </Button>
               <Link to="/" className="img-logo header-link">
