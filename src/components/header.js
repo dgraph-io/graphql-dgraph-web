@@ -40,6 +40,11 @@ const Hithighlight = ({ hit }) => {
 
           <Col md={9} className="border-left d-flex justify-content-start">
             <div className="search-result-subtitle">
+            <Link to={`${hit.fields.slug}`} className="search-link">
+                {/* <div className="search-result-title">
+                  {hit.tableOfContents.items[1].title}
+                </div> */}
+              </Link>
               <Link to={`${hit.fields.slug}`} className="search-link">
                 <div className="search-result-subtitle">
                   {hit.excerpt ? hit.excerpt : hit.frontmatter.title}
