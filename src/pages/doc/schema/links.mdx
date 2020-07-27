@@ -1,0 +1,48 @@
+Dgraph uses the types and fields in the schema to work out what to accept for mutations and what shape responses should take.  Dgraph also defines a set of GraphQL directives that it uses to further refine what services the GraphQL API offers.  In particular, how to handle two-way edges and what search capability to build in.
+
+# <a name="Inverse"></a>Inverse Edges
+
+GraphQL schemas are always under-specified in that
+
+```graphql
+type Author {
+    ...
+    posts: [Post]
+}
+
+type Post {
+    ...
+    author: Author
+}
+```
+
+says that an author has a list of posts and a post has an author, but it doesn't tell us that every post in the list of posts for an author has that author as their `author`.  In GraphQL, it's left up to the implementation to make the two-way connection.  Here, we'd expect an author to be the author of all their posts, but that's not what GraphQL enforces.
+
+There's not always a two-way edge. Consider if `Author` were defined as:
+
+```graphql
+type Author {
+    ...
+    posts: [Post]
+    liked: [Post]
+}
+```
+
+There should be no two-way edge for `liked`.  
+
+In Dgraph, the directive `@hasInverse` is used to sort out which edges are bi-directional and which aren't. Adding
+
+```graphql
+type Author {
+    ...
+    posts: [Post] @hasInverse(field: author)
+    liked: [Post]
+}
+
+type Post {
+    ...
+    author: Author @hasInverse(field: posts)
+}
+```
+
+tells Dgraph to link `posts` and `author`.  When a new post is added Dgraph ensures that it's also in the list of its author's posts.  Field   `liked`, on the other hand, has no such linking.

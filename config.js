@@ -1,32 +1,127 @@
 const DocumentationReference = [
-  
   {
     path: "doc/index.mdx",
     title: "Introduction",
   },
   {
-    path: "doc/api.mdx",
-    title: "The API",
-
+    path: "doc/how-it-works.mdx",
+    title: "How Dgraph GraphQL Works",
   },
   {
-    path: "doc/example.mdx",
-    title: "Example",
-  },
-  {
-    path: "doc/schema.mdx",
+    path: "doc/schema/index.mdx",
     title: "Schema",
-    showSideBar: true,
-    subOptions: [
-      { name: "Scalars" },
-      { name: "Enums" },
-      { name: "Types" },
-      { name: "Interfaces" },
+    children: [
       {
-        name: "Directives",
-        children: [{ name: "Inverse" }, { name: "Search" }]
-      }
-    ]
+        path: "doc/schema/types.mdx",
+        title: "Types",
+        showSideBar: true,
+        subOptions: [
+          { name: "Scalars" },
+          { name: "Enums" },
+          { name: "Types" },
+          { name: "Interfaces" },
+          {
+            name: "Directives",
+            children: [{ name: "Inverse" }, { name: "Search" }],
+          },
+        ],
+      },
+      {
+        path: "doc/schema/ids.mdx",
+        title: "IDs",
+      },
+      {
+        path: "doc/schema/links.mdx",
+        title: "Linking Objects",
+      },
+      {
+        path: "doc/schema/search.mdx",
+        title: "Search and Filtering",
+      },
+      {
+        path: "doc/schema/deprecated.mdx",
+        title: "Deprecation",
+      },
+      {
+        path: "doc/schema/dgraph-schema.mdx",
+        title: "Dgraph Schema Fragment",
+      },
+    ],
+  },
+  {
+    path: "doc/api/index.mdx",
+    title: "The API",
+    children: [
+      {
+        path: "doc/api/requests.mdx",
+        title: "Requests and Responses",
+      },
+      {
+        path: "doc/api/variables.mdx",
+        title: "GraphQL Variables",
+      },
+      {
+        path: "doc/api/fragments.mdx",
+        title: "GraphQL Fragments",
+      },
+      {
+        path: "doc/api/multiples.mdx",
+        title: "Multiple GraphQL Operations in a Request",
+      },
+      {
+        path: "doc/api/errors.mdx",
+        title: "GraphQL Errors",
+      },
+    ],
+  },
+  {
+    path: "doc/queries/index.mdx",
+    title: "Queries",
+    children: [
+      {
+        path: "doc/queries/search.mdx",
+        title: "Search and Filtering",
+      },
+      {
+        path: "doc/queries/and-or-not.mdx",
+        title: "And Or, and Not",
+      },
+      {
+        path: "doc/queries/search.mdx",
+        title: "Order and Pagination",
+      },
+      {
+        path: "doc/queries/search.mdx",
+        title: "Skip and Include",
+      },
+    ],
+  },
+  {
+    path: "doc/mutations/index.mdx",
+    title: "Mutations",
+    children: [
+      {
+        path: "doc/mutations/add.mdx",
+        title: "Add",
+      },
+      {
+        path: "doc/mutations/update.mdx",
+        title: "Update",
+      },
+      {
+        path: "doc/mutations/delete.mdx",
+        title: "Delete",
+      },
+      {
+        path: "doc/mutations/deep.mdx",
+        title: "Deep mutations",
+      },
+    ],
+  },
+  {
+    path: "doc/subscriptions/index.mdx",
+    title: "Subscriptions",
+    children: [ ],
   },
   {
     path: "doc/authorization/index.mdx",
@@ -34,13 +129,13 @@ const DocumentationReference = [
     children: [
       {
         path: "doc/authorization/directive.mdx",
-        title: "The `@auth` directive"
+        title: "The `@auth` directive",
       },
       {
         path: "doc/authorization/mutations.mdx",
-        title: "Mutations"
-      }
-    ]
+        title: "Mutations",
+      },
+    ],
   },
   {
     path: "doc/custom/index.mdx",
@@ -48,31 +143,34 @@ const DocumentationReference = [
     children: [
       {
         path: "doc/custom/directive.mdx",
-        title: "The `@custom` directive"
+        title: "The `@custom` directive",
       },
       {
         path: "doc/custom/query.mdx",
-        title: "Custom Queries"
+        title: "Custom Queries",
       },
       {
         path: "doc/custom/mutation.mdx",
-        title: "Custom Mutations"
+        title: "Custom Mutations",
       },
       {
         path: "doc/custom/field.mdx",
-        title: "Custom Fields"
-      }
-    ]
+        title: "Custom Fields",
+      },
+    ],
   },
- 
+  {
+    path: "doc/directives.mdx",
+    title: "Index of Directives",
+  },
   {
     path: "doc/admin.mdx",
-    title: "Admin"
+    title: "Admin",
   },
   {
     path: "doc/dgraph.mdx",
-    title: "GraphQL on Existing Dgraph"
-  }
+    title: "GraphQL on Existing Dgraph",
+  },
 ]
 
 const Graphql = [

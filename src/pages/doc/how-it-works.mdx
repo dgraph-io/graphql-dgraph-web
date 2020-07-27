@@ -1,0 +1,24 @@
+**basically change this page to be some info about how we generate a GraphQL API from your input + general description of the app building process, etc + some read-more pointers**
+
+**then we remove the example page (it served a purpose when we first started, but is superseded by the new quick start and all the tutorial  material)**
+
+# GraphQL, Dgraph and Graphs
+
+You're familiar with GraphQL types, fields and resolvers.  Maybe you've written an app that adds GraphQL over a REST endpoint or maybe over a relational database.  So you know how GraphQL sits over those sources and issues many queries to translate the REST/relational data into something that looks like a graph.  
+
+You know there's a cognitive jump because your app is about a graph, but you've got to design a relational schema and work out how that translates as a graph; you'll think about the app in terms of the graph, but always have to mentally translate back and forth between the relational and graph models.  There are engineering challenges around the translation as well as the efficiency of the queries.  
+
+There's none of that here.  
+
+Dgraph GraphQL is part of Dgraph, which stores a graph - it's a database of nodes and edges.  So it's efficient to store, query and traverse as a graph.  Your data will get stored just like you design it in the schema, and the queries are a single graph query that does just what the GraphQL query says.
+
+
+## How it Works
+
+With Dgraph you design your application in GraphQL.  You design a set of GraphQL types that describes your requirements.  Dgraph takes those types, prepares graph storage for them and generates a GraphQL API with queries and mutations.
+
+You design a graph, store a graph and query a graph.  You think and design in terms of the graph that your app is based around.
+
+
+
+

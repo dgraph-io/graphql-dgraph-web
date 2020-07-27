@@ -1,0 +1,19 @@
+For POST requests, the body must be "application/json" encoded with the following form.
+
+```json
+{
+  "query": "...",
+  "operationName": "...",
+  "variables": { "var": "val", ... }
+}
+```
+
+For GET requests, the query, variables and operation are sent as query parameters in the url.
+
+```
+http://localhost:8080/graphql?query={...}&variables={...}&operation=...
+```
+
+In both cases, only `query` is required. `variables` is only required if the query contains GraphQL variables: i.e. it starts like `query myQuery($var: String...)`. While, `operationName` is required if there are multiple operations in the query; in which case, operations must also be named.
+
+Compressed requests and responses are available with gzip. Set header `Content-Encoding` to `gzip` to post encoded data, and `Accept-Encoding` to `gzip` to receive a compressed response.

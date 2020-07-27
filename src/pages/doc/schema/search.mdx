@@ -1,0 +1,172 @@
+## <a name="Search"></a>Search
+
+The `@search` directive tells Dgraph what search to build into your API.
+
+When a type contains an `@search` directive, Dgraph constructs a search input type and a query in the GraphQL `Query` type. For example, if the schema contains
+
+```graphql
+type post {
+    ...
+    text: Int @search(by: [term])
+}
+```
+
+then, Dgraph constructs an input type `PostFilter` and adds all possible search options for posts to that.  The search options it constructs are different for each type and argument to `@search` as explained below.
+
+### Int, Float and DateTime
+
+Search for fields of types `Int`, `Float` and `DateTime` is enabled by adding `@search` to the field.  For example, if a schema contains:
+
+```graphql
+type Post {
+    ...
+    numLikes: Int @search
+}
+```
+
+Dgraph generates search into the API for `numLikes` in two ways: a query for posts and field search on any post list.
+
+A field `queryPost` is added to the `Query` type of the schema.
+
+```graphql
+queryPost(filter: PostFilter, order: PostOrder, first: Int, offset: Int): [Post]
+```
+
+`PostFilter` will contain less than `lt`, less than or equal to `le`, equal `eq`, greater than or equal to `ge` and greater than `gt` search on `numLikes`.  Allowing for example:
+
+```graphql
+queryPost(filter: { numLikes: { gt: 50 }}) { ... }
+```
+
+Also, any field with a type of list of posts has search options added to it. For example, if the input schema also contained:
+
+```graphql
+type Author {
+    ...
+    posts: [Post]
+}
+```
+
+Dgraph would insert search into `posts`, with
+
+```graphql
+type Author {
+    ...
+    posts(filter: PostFilter, order: PostOrder, first: Int, offset: Int): [Post]
+}
+```
+
+That allows search within the GraphQL query.  For example, to find Karthic's posts with more than 50 likes.
+
+```graphql
+queryAuthor(filter: { name: { eq: "Karthic" } } ) {
+    ...
+    posts(filter: { numLikes: { gt: 50 }}) {
+        title
+        text
+    }
+}
+```
+
+`DateTime` also allows specifying how the search index should be built: by year, month, day or hour.  `@search` defaults to year, but once you understand your data and query patterns, you might want to changes that like `@search(by: [day])`.
+
+### Boolean
+
+Booleans can only be tested for true or false.  If `isActiveMember: Boolean @search` is in the schema, then the search allows
+
+```graphql
+filter: { isPublished: true }
+```
+
+and
+
+```graphql
+filter: { isPublished: false }
+```
+
+### String
+
+Strings allow a wider variety of search options than other types.  For strings, you have the following options as arguments to `@search`.
+
+| argument | constructed searches |
+|----------|----------------------|
+| `hash` | `eq` |
+| `exact` | `lt`, `le`, `eq`, `ge` and `gt` (lexicographically) |
+| `regexp` | `regexp` (regular expressions) |
+| `term` | `allofterms` and `anyofterms` |
+| `fulltext` | `alloftext` and `anyoftext` |
+
+* *Schema rule*: `hash` and `exact` can't be used together.
+
+Exact and hash search have the standard lexicographic meaning. Search by regular expression requires bracketing the expression with `/` and `/`.  For example, query for "Karthic" and anyone else with "rti" in their name:
+
+```
+queryAuthor(filter: { name: { regexp: "/.*rti.*/" } }) { ... }
+```
+
+If the schema has 
+
+```graphql
+type Post {
+    title: String @search(by: [term])
+    text: String @search(by: [fulltext])
+    ...
+}
+```
+
+then 
+
+```graphql
+queryPost(filter: { title: { `allofterms: "GraphQL tutorial"` } } ) { ... }
+```
+
+will match all posts with both "GraphQL and "tutorial" in the title, while `anyofterms: "GraphQL tutorial"` would match posts with either "GraphQL" or "tutorial".
+
+`fulltext` search is Google-stye text search with stop words, stemming. etc.  So `alloftext: "run woman"` would match "run" as well as "running", etc.  For example, to find posts that talk about fantastic GraphQL tutorials:
+
+```graphql
+queryPost(filter: { title: { `alloftext: "fantastic GraphQL tutorials"` } } ) { ... }
+```
+
+It's possible to add multiple string indexes to a field.  For example to search for authors by `eq` and regular expressions, add both options to the type definition, as follows.
+
+```graphql
+type Author {
+    ...
+    name: String! @search(by: [hash, regexp])
+}
+```
+
+### Enums 
+
+Enums are serialized in Dgraph as strings.  `@search` with no arguments is the same as `@search(by: [hash])` and provides only `eq` search.  Also available for enums are `exact` and `regexp`.  For hash and exact search on enums, the literal enum value, without quotes `"..."`, is used, for regexp, strings are required. For example:
+
+```graphql
+enum Tag {
+    GraphQL
+    Database
+    Question
+    ...
+}
+
+type Post {
+    ...
+    tags: [Tag!]! @search
+}
+```
+
+would allow
+
+```graphql
+queryPost(filter: { tags: { eq: GraphQL } } ) { ... }
+```
+
+Which would find any post with the `GraphQL` tag.
+
+While `@search(by: [exact, regexp]` would also admit `lt` etc. and 
+
+```graphql
+queryPost(filter: { tags: { regexp: "/.*aph.*/" } } ) { ... }
+```
+
+which is helpful for example if the enums are something like product codes where regular expressions can match a number of values. 

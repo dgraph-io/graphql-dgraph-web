@@ -1,0 +1,3 @@
+When an operation contains multiple queries, they are run concurrently and independently in a single Dgraph transaction.
+
+When an operation contains multiple mutations, they are run serially, in the order listed in the request, and in a transaction per mutation. If a mutation fails, the following mutations are not executed, and previous mutations are not rolled back.
