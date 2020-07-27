@@ -1,0 +1,72 @@
+---
+title: 'Administering Your Slash GraphQL Backend'
+---
+<h1>{props.pageContext.frontmatter.title}</h1>
+
+*These are draft docs for Slash GraphQL, which is currently in beta*
+
+Here is a guide to programatically administering your Slash GraphQL backend. Wherever possible, we have maintained compatibility with the corresponding Dgraph API, with the additional step of requiring authentication via the 'X-Auth-Token' header.
+
+## Authentication and Endpoint
+
+All the APIs documented here require an API token for access. A new API token can be generated from Slash GraphQL by selecting the ["Settings" button](https://slash.dgraph.io/_/settings) from the sidebar, then clicking the Add API Key button. Do remember to keep your API key safely, as we will not show you the same API key again.
+
+All admin API requests must be authenticated by passing the API token as the 'X-Auth-Token' header to every HTTP request. You can check if your API token works by using the following HTTP example.
+
+```sh
+curl 'https://testy-sink-2236.us-west-2.aws.cloud.dgraph.io/admin' \
+  -H 'X-Auth-Token: <your-token>' \
+  --data-binary '{"query":"{ getGQLSchema { schema } }"}'
+```
+
+In order to get the admin endpoint, replace the `/graphql` from your GraphQL Backend url with `/admin` or `/admin/slash`, depending on which API you are trying to access.
+
+## Fetching and Updating Your Schema
+
+Your GraphQL schema can be fetched and updated using the `/admin` endpoint of your cluster. This endpoint works in a similar way to the [/admin](https://graphql.dgraph.io/doc/admin) endpoint of Dgraph, with the additional constraint of requiring authentication, as described in the Authentication section above.
+
+### Fetching the Current Schema
+
+It is possible to fetch your current schema using the `getGQLSchema` query on `/admin`. Below is a sample GraphQL query which will fetch this schema.
+```graphql
+{
+  getGQLSchema {
+    schema
+  }
+}
+```
+
+### Setting a new schema
+
+You can save a new schema using the `updateGQLSchema` mutation on `/admin`. Below is an example GraphQL body, with a variable called sch which must be passed in as a [variable](https://graphql.org/graphql-js/passing-arguments/)
+
+```graphql
+mutation($sch: String!) {
+  updateGQLSchema(input: { set: { schema: $sch}})
+  {
+    gqlSchema {
+      schema
+      generatedSchema
+    }
+  }
+}
+```
+
+## Exporting Data
+
+It is possible to export your data via a JSON format. In order to do this, call the `export` mutation on `/admin/slash`. Do note that this endpoint requires Authentication as described in the sections above.
+
+Below is a sample GraphQL body to export data to JSON.
+
+```graphql
+{
+  mutation {
+    export {
+      response { code message }
+      signedUrls
+    }
+  }
+}
+```
+
+The `signedUrls` output field contains a list of URLs which can be downloaded. These files can be imported into a local Dgraph cluster with [live loader](https://dgraph.io/docs/deploy/#live-loader). The URLs will expire after 48 hours.

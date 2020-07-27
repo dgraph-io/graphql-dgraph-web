@@ -1,5 +1,5 @@
 const DocumentationReference = [
-  
+
   {
     path: "doc/index.mdx",
     title: "Introduction",
@@ -64,7 +64,7 @@ const DocumentationReference = [
       }
     ]
   },
- 
+
   {
     path: "doc/admin.mdx",
     title: "Admin"
@@ -156,6 +156,10 @@ const slashGraphQL = [
   {
     path: "slash-graphql/slash-quick-start.mdx",
     title: "Slash Quick Start (draft)"
+  },
+  {
+    title: "Administering your Backend",
+    path: "slash-graphql/administering-your-backend.mdx",
   },
 ]
 
