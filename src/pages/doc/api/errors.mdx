@@ -1,3 +1,5 @@
+**FIXME: does this need something else?  maybe an example?**
+
 # GraphQL Error Propagation
 
 Before returning query and mutation results, Dgraph uses the types in the schema to apply GraphQL [value completion](https://graphql.github.io/graphql-spec/June2018/#sec-Value-Completion) and [error handling](https://graphql.github.io/graphql-spec/June2018/#sec-Errors-and-Non-Nullability).  That is, `null` values for non-nullable fields, e.g. `String!`, cause error propagation to parent fields.  
