@@ -8,6 +8,9 @@ const DocumentationReference = [
     title: "How Dgraph GraphQL Works",
   },
   {
+    path: "doc/app-architectures.mdx",
+    title: "App Architecture with Dgraph",
+  },  {
     path: "doc/schema/index.mdx",
     title: "Schema",
     children: [
