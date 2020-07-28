@@ -161,6 +161,10 @@ const slashGraphQL = [
     title: "Administering your Backend",
     path: "slash-graphql/administering-your-backend.mdx",
   },
+  {
+    path: "slash-graphql/advanced-queries.mdx",
+    title: "Advanced Queries (draft)"
+  },
 ]
 
 const exampleApps = [
