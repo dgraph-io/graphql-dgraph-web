@@ -570,9 +570,6 @@ $EXTRA_SMALL_DEVICES: 321px;
     margin-bottom: 0;
   }
 }
-.collapse:not(.show):not(.show-collapse) {
-  display: none;
-}
 
 .sidebar-container-list-item {
   height: 100%;
@@ -899,3 +896,32 @@ $EXTRA_SMALL_DEVICES: 321px;
 .pad-lg-bottom-0 {
   // padding-bottom: 0;
 }
+
+.accordion-hide {
+  .collapse,
+  .show {
+    height: 100%;
+    transition: height 0.35s ease-in;
+    display: block;
+  }
+}
+
+.accordion-hide,
+.accordion-show {
+  .collapsing {
+    display: none;
+    transition: none;
+    height: 0;
+  }
+}
+
+.accordion-show {
+  .collapse {
+    height: 0;
+    transition: height 0.35s ease-in;
+    display: none;
+  }
+}
+// .collapse:not(.show):not(.show-collapse) {
+//   display: none;
+// }

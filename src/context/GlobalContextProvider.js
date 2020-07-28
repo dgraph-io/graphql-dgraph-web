@@ -9,8 +9,9 @@ const initialState = {
   renderRightSideBar: true,
   currentVersion: "master",
   currentExpandedAccordion: '',
-  showSearchResult:true,
-  searchKeyowrd: ''
+  showSearchResult: true,
+  searchKeyowrd: '',
+  toggleAccordionArray: []
 }
 
 export function reducer(state = initialState, action) {
@@ -38,25 +39,40 @@ export function reducer(state = initialState, action) {
     }
 
     case "CURRENT_EXPANDED_ACCORDION": {
-          return {
+      return {
         ...state,
         currentExpandedAccordion: action.expandedAccordion
       }
     }
 
-    case 'GET_CURRENT_REF':{
-      return{
+    case 'GET_CURRENT_REF': {
+      return {
         ...state,
         showSearchResult: action.showSearchResult
 
       }
     }
 
-    case 'SEARCH_KEYWORD':{
-      console.log('[...]'+state.searchKeyowrd);
+    case 'SEARCH_KEYWORD': {
+      console.log('[...]' + state.searchKeyowrd);
       return {
         ...state,
-        searchKeyowrd:action.searchKeyowrd
+        searchKeyowrd: action.searchKeyowrd
+      }
+    }
+
+    case 'TOGGLE_ACCORDION': {
+      let tempToogleAccordionArray = state.toggleAccordionArray;
+
+      tempToogleAccordionArray[action.index] = {
+        toggleListItemMarker: action.toggleListItemMarker,
+        showAccordion: action.showAccordion
+      }
+      console.log('The current array is' , tempToogleAccordionArray);
+
+      return {
+        ...state,
+        toggleAccordionArray:[...tempToogleAccordionArray]
       }
     }
 
