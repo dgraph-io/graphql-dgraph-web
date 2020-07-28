@@ -87,15 +87,25 @@ module.exports = {
       },
     },
     `gatsby-plugin-meta-redirect`,
+    // {
+    //   resolve: `gatsby-plugin-algolia`,
+    //   options: {
+    //     appId: process.env.GATSBY_ALGOLIA_APP_ID,
+    //     apiKey: process.env.ALGOLIA_ADMIN_KEY,
+    //     indexName:'GraphQL',
+    //     queries: require("./src/utils/algolia-queries.js")
+    //   },
+    // },
     {
-      resolve: `gatsby-plugin-algolia`,
-      options: {
-        appId: process.env.GATSBY_ALGOLIA_APP_ID,
-        apiKey: process.env.ALGOLIA_ADMIN_KEY,
-        indexName:'GraphQL',
-        queries: require("./src/utils/algolia-queries.js")
-      },
+      resolve: `gatsby-plugin-algolia-docsearch`,
+    options: {
+      apiKey: process.env.ALGOLIA_ADMIN_KEY, // required
+      indexName: 'GraphQL', // required
+      inputSelector: 'search-keyword', // required
+      debug: true // (bool) Optional. Default `false`
     }
+  }
+  
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

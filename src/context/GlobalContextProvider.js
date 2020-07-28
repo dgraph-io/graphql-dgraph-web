@@ -9,7 +9,8 @@ const initialState = {
   renderRightSideBar: true,
   currentVersion: "master",
   currentExpandedAccordion: '',
-  showSearchResult:true
+  showSearchResult:true,
+  searchKeyowrd: ''
 }
 
 export function reducer(state = initialState, action) {
@@ -48,6 +49,14 @@ export function reducer(state = initialState, action) {
         ...state,
         showSearchResult: action.showSearchResult
 
+      }
+    }
+
+    case 'SEARCH_KEYWORD':{
+      console.log('[...]'+state.searchKeyowrd);
+      return {
+        ...state,
+        searchKeyowrd:action.searchKeyowrd
       }
     }
 

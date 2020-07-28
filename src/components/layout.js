@@ -51,6 +51,9 @@ const Layout = props => {
       `}
       render={data => (
         <>
+        {/* <Helmet>
+          <script src="./docSearch.js" type="text/javascript" />
+        </Helmet> */}
           <SEO
             title={
               props.pageContext !== undefined

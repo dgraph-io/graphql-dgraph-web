@@ -18,6 +18,7 @@ import {
 import { CustomInstantSearch } from "./InstantSearchBar"
 import BackButtonMainWebsite from "./MainWebsiteRedirect"
 import { connect } from "react-redux"
+import SearchKeyowrdComponent from '../helper-functions/getSearchHits'
 
 const searchClient = algoliasearch(
   "0AG2ENC6EL",
@@ -28,6 +29,11 @@ const config = require("../../config")
 //*****************Highlight the search result *******************/
 
 const Hithighlight = ({ hit }) => {
+  let tableHit;
+
+  if(hit.tableOfContents.items)
+  tableHit = <SearchKeyowrdComponent tableOfContentArray={hit.tableOfContents.items}/>;
+
   return hit ? (
     <div className="search-list-item-container">
       <Container>
@@ -41,9 +47,9 @@ const Hithighlight = ({ hit }) => {
           <Col md={9} className="border-left d-flex justify-content-start">
             <div className="search-result-subtitle">
             <Link to={`${hit.fields.slug}`} className="search-link">
-                {/* <div className="search-result-title">
-                  {hit.tableOfContents.items[1].title}
-                </div> */}
+                <div className="search-result-title">
+                  {hit.tableOfContents.items!== undefined?tableHit:null}
+                </div>
               </Link>
               <Link to={`${hit.fields.slug}`} className="search-link">
                 <div className="search-result-subtitle">
@@ -152,8 +158,7 @@ Header.defaultProps = {
 
 const mapStateToProps = state => {
   return {
-    showSearchResult: state.showSearchResult
-  }
+    showSearchResult: state.showSearchResult,  }
 }
 
 export default connect(mapStateToProps)(Header)

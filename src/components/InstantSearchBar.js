@@ -41,9 +41,15 @@ const InstantSearch = ({ dispatch, currentRefinement, refine }) => (
           type="input"
           size="lg"
           placeholder="Search documentation..."
-          bsPrefix="document-form-control"
+          bsPrefix="document-form-control search-keyword"
           value={currentRefinement}
-          onChange={e => refine(e.currentTarget.value)}
+          onChange={e => {
+            refine(e.currentTarget.value)
+            dispatch({
+              type: "SEARCH_KEYWORD",
+              searchKeyowrd: e.currentTarget.value
+            })
+          }}
           onFocus={() =>
             dispatch({ type: "GET_CURRENT_REF", showSearchResult: true })
           }
