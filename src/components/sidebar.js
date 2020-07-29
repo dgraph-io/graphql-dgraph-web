@@ -30,13 +30,17 @@ const SideBar = props => {
       (node, arrayIndex) => {
         currentParent = node.title
 
-        if (toggleAccordionArray[arrayIndex]=== undefined)
-          dispatch({
-            type: "TOGGLE_ACCORDION",
-            toggleListItemMarker: node.title,
-            showAccordion: false,
-            index: arrayIndex
-          })
+        if (!toggleAccordionArray.length)
+          config.sidebarOptions[getCategoryIndex(dispatch, locationProp)].map(
+            (value, index) => {
+              dispatch({
+                type: "TOGGLE_ACCORDION",
+                toggleListItemMarker: node.title,
+                showAccordion: false,
+                index: index
+              })
+            }
+          )
 
         let mainNode = (
           <li key={node.title} className="sidebar-inline font-weight-medium">
@@ -79,6 +83,9 @@ const SideBar = props => {
         // const resetToggleMarker = () => {
         //   toggleAccordion(false)
         // }
+        {
+          console.log("[index]", arrayIndex)
+        }
 
         const res = (
           <React.Fragment key={currentParent}>
