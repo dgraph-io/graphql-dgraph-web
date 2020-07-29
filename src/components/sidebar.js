@@ -25,22 +25,21 @@ const SideBar = props => {
   let currentParent
   let completeRes = []
 
+  const setAccordion =(arrayIndex ,dispatch , nodeTitle) =>{
+    dispatch({
+      type: "TOGGLE_ACCORDION",
+      toggleListItemMarker: nodeTitle,
+      showAccordion:false,
+      index:arrayIndex
+    })
+
+    return "accordion-show"
+  }
+
   completeRes = locationProp =>
     config.sidebarOptions[getCategoryIndex(dispatch, locationProp)].map(
       (node, arrayIndex) => {
         currentParent = node.title
-
-        if (!toggleAccordionArray.length)
-          config.sidebarOptions[getCategoryIndex(dispatch, locationProp)].map(
-            (value, index) => {
-              dispatch({
-                type: "TOGGLE_ACCORDION",
-                toggleListItemMarker: node.title,
-                showAccordion: false,
-                index: index
-              })
-            }
-          )
 
         let mainNode = (
           <li key={node.title} className="sidebar-inline font-weight-medium">
@@ -80,18 +79,14 @@ const SideBar = props => {
           })
         }
 
-        // const resetToggleMarker = () => {
-        //   toggleAccordion(false)
-        // }
-        {
-          console.log("[index]", arrayIndex)
-        }
 
         const res = (
           <React.Fragment key={currentParent}>
             <Accordion
               bsPrefix={
-                !toggleAccordionArray[arrayIndex].showAccordion
+                toggleAccordionArray[arrayIndex] === undefined
+                  ? setAccordion(arrayIndex ,dispatch ,node.title)
+                  : !toggleAccordionArray[arrayIndex].showAccordion
                   ? "accordion-show"
                   : "accordion-hide"
               }

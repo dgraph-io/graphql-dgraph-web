@@ -68,7 +68,6 @@ export function reducer(state = initialState, action) {
         toggleListItemMarker: action.toggleListItemMarker,
         showAccordion: action.showAccordion
       }
-      console.log('The current array is' , tempToogleAccordionArray);
 
       return {
         ...state,
