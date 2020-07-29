@@ -86,7 +86,7 @@ const DocumentationReference = [
     title: "Queries",
     children: [
       {
-        path: "doc/queries/search.mdx",
+        path: "doc/schema/search.mdx",
         title: "Search and Filtering",
       },
       {
@@ -94,11 +94,15 @@ const DocumentationReference = [
         title: "And Or, and Not",
       },
       {
-        path: "doc/queries/search.mdx",
+        path: "doc/queries/order-page.mdx",
         title: "Order and Pagination",
       },
       {
-        path: "doc/queries/search.mdx",
+        path: "doc/queries/cascade.mdx",
+        title: "Cascade",
+      },
+      {
+        path: "doc/queries/skip-include.mdx",
         title: "Skip and Include",
       },
     ],
