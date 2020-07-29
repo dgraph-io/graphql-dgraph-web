@@ -4,9 +4,7 @@
 
 GraphQL requests can be sent via HTTP POST or HTTP GET requests.
 
-## POST requests
-
-For POST requests, the body must be sent with the Content-Type header `application/json` and encoded with the following form.
+POST requests must be sent with the Content-Type header `application/json`. The body must in JSON in the following format:
 
 ```json
 {
@@ -16,17 +14,113 @@ For POST requests, the body must be sent with the Content-Type header `applicati
 }
 ```
 
-## GET requests
-
-For GET requests, the query, variables and operation are sent as query parameters in the url.
+GET requests must be sent with the Content-Type header `application/graphql`. The query, variables, and operation are sent as query parameters in the URL.
 
 ```
 http://localhost:8080/graphql?query={...}&variables={...}&operation=...
 ```
 
-In both cases, only `query` is required. `variables` is only required if the query contains GraphQL variables: i.e. it starts like `query myQuery($var: String...)`. While, `operationName` is required if there are multiple operations in the query; in which case, operations must also be named.
+In either request method (POST or GET), only `query` is required. `variables` is only required if the query contains GraphQL variables: i.e. the query starts like `query myQuery($var: String...)`. `operationName` is only required if there are multiple operations in the query; in which case, operations must also be named.
 
 # Responses
+
+GraphQL responses always return HTTP 200 OK status codes. They follow the following formats.
+
+<!-- 
+query {
+  getTask(id: "0x3") {
+    id
+    title
+    completed
+    user {
+      username
+      name
+      tasks {
+        id
+      }
+    }
+  }
+}
+-->
+
+Successful queries are in the following format:
+
+```json
+{
+  "data": { ... },
+  "extensions": { ... }
+}
+```
+
+Queries that have errors are in the following format:
+
+```json
+{
+  "errors": [
+    {
+      "message": "...",
+      "locations": [
+        {
+          "line": 1,
+          "column": 1,
+        }
+      ]
+    },
+    ...
+  ],
+}
+```
+
+```json
+{
+  "data": {
+    "getTask": {
+      "id": "0x3",
+      "title": "GraphQL docs",
+      "completed": false,
+      "user": {
+        "username": "dmai",
+        "name": "Daniel Mai",
+        "tasks": [
+          {
+            "id": "0x3"
+          }
+        ]
+      }
+    }
+  },
+  "extensions": {
+    "touched_uids": 11,
+    "tracing": {
+      "version": 1,
+      "startTime": "2020-07-29T01:51:59.117333778Z",
+      "endTime": "2020-07-29T01:51:59.119512696Z",
+      "duration": 2178938,
+      "execution": {
+        "resolvers": [
+          {
+            "path": [
+              "getTask"
+            ],
+            "parentType": "Query",
+            "fieldName": "getTask",
+            "returnType": "Task",
+            "startOffset": 119546,
+            "duration": 2036026,
+            "dgraph": [
+              {
+                "label": "query",
+                "startOffset": 168156,
+                "duration": 1934383
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
+```
 
 ## Format
 
