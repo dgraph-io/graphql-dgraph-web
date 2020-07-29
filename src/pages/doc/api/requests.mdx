@@ -47,22 +47,6 @@ In either request method (POST or GET), only `query` is required. `variables` is
 # Responses
 
 GraphQL responses are in JSON. Every response is a JSON map, and will include JSON keys for `"data"`, `"errors"`, or `"extensions"` following the GraphQL specification. They follow the following formats.
-<!-- 
-query {
-  getTask(id: "0x3") {
-    id
-    title
-    completed
-    user {
-      username
-      name
-      tasks {
-        id
-      }
-    }
-  }
-}
--->
 
 Successful queries are in the following format:
 
