@@ -9,13 +9,14 @@ redirect_from:
 
 How to use the GraphQL API. 
 
-**FIXME: just a quick description of what's served, not much needed here ... though it shouldn't be localhost, cause that doesn't work with slash**
-
-Dgraph serves [spec compliant
-GraphQL](https://graphql.github.io/graphql-spec/June2018/) over HTTP. By
-default, GraphQL is served at `http://localhost:8080/graphql`. Both GET and POST
+Dgraph serves [spec-compliant
+GraphQL](https://graphql.github.io/graphql-spec/June2018/) over HTTP to two endpoints: `/graphql` and `/admin`. By
+default, GraphQL is served at `https://YOUR-SUBDOMAIN.REGION.aws.cloud.dgraph.io`. Both GET and POST
 requests are served.
 
 
+- `/graphql` is where you'll find the GraphQL API for the types you've added. That is the single GraphQL entry point for your apps to Dgraph.
 
+- `/admin` is where you'll find an admin API for administering your GraphQL instance. That's where you can update your GraphQL schema, perform health checks of your backend, and more.
 
+This section covers the API served at `/graphql`. See [Admin](/doc/admin) to learn more about the admin API.
