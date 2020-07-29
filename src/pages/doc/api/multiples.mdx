@@ -1,5 +1,31 @@
 **FIXME: should discuss multiple queries/mutations in a single operation, as well as multiple operations in a request and how they  have to be named then**
 
-When an operation contains multiple queries, they are run concurrently and independently in a single Dgraph transaction.
+you can do this
+```
+query {
+  q1 { ... }
+  q2 { ... }
+}
+```
+
+and you can do this
+
+```
+query Op1  {
+  q1 { ... }
+  q2 { ... }  
+}
+
+query Op2 {
+    q3 { ... }
+    q4 { ... }
+}
+```
+
+when you do the second,  you need to include the operation name in the request (see on request page) 
+
+... what's the result look like in each case
+
+When an operation contains multiple queries, they are run concurrently and independently in a  Dgraph transaction each.
 
 When an operation contains multiple mutations, they are run serially, in the order listed in the request, and in a transaction per mutation. If a mutation fails, the following mutations are not executed, and previous mutations are not rolled back.

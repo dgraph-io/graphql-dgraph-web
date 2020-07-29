@@ -46,6 +46,10 @@ const DocumentationReference = [
         title: "Deprecation",
       },
       {
+        path: "doc/schema/documentation.mdx",
+        title: "Documentation and Comments",
+      },
+      {
         path: "doc/schema/dgraph-schema.mdx",
         title: "Dgraph Schema Fragment",
       },
