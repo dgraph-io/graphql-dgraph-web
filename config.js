@@ -98,7 +98,7 @@ const DocumentationReference = [
         title: "Order and Pagination",
       },
       {
-        path: "doc/queries/search.mdx",
+        path: "doc/queries/skip-include.mdx",
         title: "Skip and Include",
       },
     ],
