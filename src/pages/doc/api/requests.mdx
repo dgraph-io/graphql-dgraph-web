@@ -10,7 +10,23 @@ In this section, we'll cover the structure for GraphQL requests and responses, h
 
 GraphQL requests can be sent via HTTP POST or HTTP GET requests.
 
-POST requests must be sent with the Content-Type header `application/json`. The body must in JSON in the following format:
+POST requests sent with the Content-Type header `application/graphql` must have a POST body content as a GraphQL query string. For example, the following is a valid POST body for a query:
+
+```json
+query {
+  getTask(id: "0x3") {
+    id
+    title
+    completed
+    user {
+      username
+      name
+    }
+  }
+}
+```
+
+POST requests sent with the Content-Type header `application/json` must have a POST body in the following JSON format:
 
 ```json
 {
@@ -20,7 +36,7 @@ POST requests must be sent with the Content-Type header `application/json`. The 
 }
 ```
 
-GET requests must be sent with the Content-Type header `application/graphql`. The query, variables, and operation are sent as query parameters in the URL.
+GET requests must be sent in the following format. The query, variables, and operation are sent as URL-encoded query parameters in the URL.
 
 ```
 http://localhost:8080/graphql?query={...}&variables={...}&operation=...
