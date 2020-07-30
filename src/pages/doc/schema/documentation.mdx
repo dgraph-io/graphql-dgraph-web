@@ -1,3 +1,6 @@
-You can document you api with `""" ... """` style GraphQL documentation (this gets passed through to the generated API and is shown as documentation in GraphQL tools like graphiql, graphql Playground, etc .... so maybe needs an example)
+Dgraph accepts GraphQL documentation comments `"""..."""`  that gets passed through to the generated API and thus shown as documentation in GraphQL tools like GraphiQL, GraphQL Playground, Insomnia etc.
 
-You can also add `# ...` comments where ever you like ... those are just like code comments on the input schema and get dropped.  (any comment starting with `# Dgraph` is reserved)
+You can also add `# ...` comments where ever you like.  Those are just like code comments in the input schema and get dropped.  
+
+Any comment starting with `# Dgraph.` is reserved and shouldn't be used to document your input schema.
+
