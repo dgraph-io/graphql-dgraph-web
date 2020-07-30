@@ -42,12 +42,12 @@ const DocumentationReference = [
         title: "Search and Filtering",
       },
       {
-        path: "doc/schema/deprecated.mdx",
-        title: "Deprecation",
-      },
-      {
         path: "doc/schema/documentation.mdx",
         title: "Documentation and Comments",
+      },
+      {
+        path: "doc/schema/deprecated.mdx",
+        title: "Deprecation",
       },
       {
         path: "doc/schema/dgraph-schema.mdx",
