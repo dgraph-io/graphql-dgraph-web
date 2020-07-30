@@ -34,8 +34,8 @@ const DocumentationReference = [
         title: "IDs",
       },
       {
-        path: "doc/schema/links.mdx",
-        title: "Linking Objects",
+        path: "doc/schema/graph-links.mdx",
+        title: "Links in the Graph",
       },
       {
         path: "doc/schema/search.mdx",
@@ -86,7 +86,7 @@ const DocumentationReference = [
     title: "Queries",
     children: [
       {
-        path: "doc/schema/search.mdx",
+        path: "doc/queries/queries.mdx",
         title: "Search and Filtering",
       },
       {
