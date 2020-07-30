@@ -10,7 +10,8 @@ const DocumentationReference = [
   {
     path: "doc/app-architectures.mdx",
     title: "App Architecture with Dgraph",
-  },  {
+  },  
+  {
     path: "doc/schema/index.mdx",
     title: "Schema",
     children: [
@@ -36,10 +37,21 @@ const DocumentationReference = [
       {
         path: "doc/schema/graph-links.mdx",
         title: "Links in the Graph",
+        showSideBar: true,
+        subOptions: [
+          { name: "One-way Edges" },
+          { name: "Inverse" },
+          { name: "Many edges" }
+        ]
       },
       {
         path: "doc/schema/search.mdx",
         title: "Search and Filtering",
+        showSideBar: true,
+        subOptions: [
+          { name: "Int, Float and DateTime" },
+          { name: "DateTime" },
+        ]
       },
       {
         path: "doc/schema/documentation.mdx",

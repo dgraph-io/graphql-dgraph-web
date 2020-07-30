@@ -1,3 +1,5 @@
+import SubscriptionGif from "../../../images/docs/subscription_example.gif"
+
 <h1>GraphQL Subscriptions</h1>
 
 Subscriptions allow clients to listen to real-time messages from the server. The client connects to the server via a bi-directional communication channel using WebSocket and sends a subscription query that specifies which event it is interested in. When an event is triggered, the server executes the stored GraphQL query, and the result is sent through the same communication channel back to the client.
@@ -23,7 +25,7 @@ type Todo @withSubscription {
 
 Once the schema is added, you can fire a subscription query, and we receive updates when the subscription query result is updated.
 
-![Subscription Example](../../../images/docs/subscription_example.gif)
+<img src={SubscriptionGif} alt="Subscription Example" />
 
 ## Apollo Client Setup
 
