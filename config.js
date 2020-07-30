@@ -180,6 +180,10 @@ const DocumentationReference = [
         path: "doc/custom/field.mdx",
         title: "Custom Fields",
       },
+      {
+        path: "doc/custom/graphqlpm.mdx",
+        title: "Custom DQL",
+      },
     ],
   },
   {
