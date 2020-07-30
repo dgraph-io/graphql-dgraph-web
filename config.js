@@ -14,6 +14,7 @@ const DocumentationReference = [
   {
     path: "doc/schema/index.mdx",
     title: "Schema",
+    showSideBar: true,
     children: [
       {
         path: "doc/schema/types.mdx",
@@ -23,24 +24,25 @@ const DocumentationReference = [
           { name: "Scalars" },
           { name: "Enums" },
           { name: "Types" },
-          { name: "Interfaces" },
-          {
-            name: "Directives",
-            children: [{ name: "Inverse" }, { name: "Search" }],
-          },
-        ],
+          { name: "Interfaces" }
+        ]
       },
       {
         path: "doc/schema/ids.mdx",
         title: "IDs",
+        showSideBar: true,
+        subOptions: [
+          { name: "The ID type" },
+          { name: "The @id directive" }
+        ]
       },
       {
         path: "doc/schema/graph-links.mdx",
         title: "Links in the Graph",
         showSideBar: true,
         subOptions: [
-          { name: "One-way Edges" },
-          { name: "Inverse" },
+          { name: "One-way edges" },
+          { name: "Two-way edges" },
           { name: "Many edges" }
         ]
       },
@@ -51,19 +53,25 @@ const DocumentationReference = [
         subOptions: [
           { name: "Int, Float and DateTime" },
           { name: "DateTime" },
+          { name: "Boolean" },
+          { name: "String" },
+          { name: "Enum" },
         ]
       },
       {
         path: "doc/schema/documentation.mdx",
         title: "Documentation and Comments",
+        showSideBar: true,
       },
       {
         path: "doc/schema/deprecated.mdx",
         title: "Deprecation",
+        showSideBar: true,
       },
       {
         path: "doc/schema/dgraph-schema.mdx",
         title: "Dgraph Schema Fragment",
+        showSideBar: true,
       },
     ],
   },

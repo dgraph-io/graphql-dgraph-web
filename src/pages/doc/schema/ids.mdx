@@ -1,8 +1,12 @@
-# Identity
+---
+title: "Identity"
+---
+
+<h1>{props.pageContext.frontmatter.title}</h1>
 
 There's two types of identity built into Dgraph.  Those are accessed via the `ID` scalar type and the `@id` directive.
 
-## The ID type
+### <a name="The ID type"></a>The ID type
 
 In Dgraph, every node has a unique 64 bit identifier.  You can, but don't have to, expose that in GraphQL via the `ID` type.  `ID`s are auto-generated, immutable and never reused.  Each type can have at most one `ID` field.
 
@@ -21,7 +25,7 @@ In a single page app, you'll want to render the page for `http://.../posts/0x123
 
 You'll also be able to update and delete posts by id.
 
-## The `@id` directive
+### <a name="The @id directive"></a>The @id directive
 
 For some types, you'll need a unique identifier set from outside Dgraph.  A common example is a username.
 
@@ -42,6 +46,6 @@ Identities created with `@id` are reusable - if you delete an existing user, you
 
 As with `ID` types, Dgraph will generate queries and mutations so you'll also be able to query, update and delete by id.
 
-## More to come
+### More to come
 
 We are currently considering expanding uniqueness to include composite ids and multiple unique fields (e.g. [this](https://discuss.dgraph.io/t/support-multiple-unique-fields-in-dgraph-graphql/8512) issue).
