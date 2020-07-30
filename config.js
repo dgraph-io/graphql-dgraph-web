@@ -20,19 +20,29 @@ const DocumentationReference = [
         path: "doc/schema/types.mdx",
         title: "Types",
         showSideBar: true,
+        subOptions: [
+          { name: "Scalars" },
+          { name: "Enums" },
+          { name: "Types" },
+          { name: "Interfaces" }
+        ]
       },
       {
         path: "doc/schema/ids.mdx",
         title: "IDs",
         showSideBar: true,
+        subOptions: [
+          { name: "The ID type" },
+          { name: "The @id directive" }
+        ]
       },
       {
         path: "doc/schema/graph-links.mdx",
         title: "Links in the Graph",
         showSideBar: true,
         subOptions: [
-          { name: "One-way Edges" },
-          { name: "Inverse" },
+          { name: "One-way edges" },
+          { name: "Two-way edges" },
           { name: "Many edges" }
         ]
       },
