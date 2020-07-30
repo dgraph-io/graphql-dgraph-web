@@ -1,4 +1,8 @@
-# <a name="Search"></a>Search
+---
+title: "Search"
+---
+
+<h1>{props.pageContext.frontmatter.title}</h1>
 
 The `@search` directive tells Dgraph what search to build into your GraphQL API.
 
@@ -74,8 +78,7 @@ queryAuthor(filter: { name: { eq: "Diggy" } } ) {
 
 There's different search possible for each type as explained below.
 
-## <a name="Int, Float and DateTime"></a>Int, Float and DateTime
-
+### <a name="Int, Float and DateTime"></a>Int, Float and DateTime
 
 | argument | constructed filter |
 |----------|----------------------|
@@ -141,7 +144,7 @@ queryAuthor(filter: { name: { eq: "Diggy" } } ) {
 }
 ```
 
-## <a name="DateTime"></a>DateTime
+### <a name="DateTime"></a>DateTime
 
 | argument | constructed filters |
 |----------|----------------------|
@@ -149,7 +152,7 @@ queryAuthor(filter: { name: { eq: "Diggy" } } ) {
 
 As well as `@search` with no arguments, `DateTime` also allows specifying how the search index should be built: by year, month, day or hour.  `@search` defaults to year, but once you understand your data and query patterns, you might want to changes that like `@search(by: [day])`.
 
-## Boolean
+### <a name="Boolean"></a>Boolean
 
 | argument | constructed filter |
 |----------|----------------------|
@@ -167,7 +170,7 @@ and
 filter: { isPublished: false }
 ```
 
-## String
+### <a name="String"></a>String
 
 Strings allow a wider variety of search options than other types.  For strings, you have the following options as arguments to `@search`.
 
@@ -181,7 +184,7 @@ Strings allow a wider variety of search options than other types.  For strings, 
 
 * *Schema rule*: `hash` and `exact` can't be used together.
 
-### String exact and hash search
+#### String exact and hash search
 
 Exact and hash search has the standard lexicographic meaning. 
 
@@ -201,7 +204,7 @@ query {
 
 to find users with names lexicographically after "Diggy".
 
-### String regular expression search
+#### String regular expression search
 
 Search by regular expression requires bracketing the expression with `/` and `/`.  For example, query for "Diggy" and anyone else with "iggy" in their name:
 
@@ -211,7 +214,7 @@ query {
 }
 ```
 
-### String term and fulltext search
+#### String term and fulltext search
 
 If the schema has 
 
@@ -241,7 +244,7 @@ query {
 }
 ```
 
-### Strings with multiple searches
+#### Strings with multiple searches
 
 It's possible to add multiple string indexes to a field.  For example to search for authors by `eq` and regular expressions, add both options to the type definition, as follows.
 
@@ -252,7 +255,7 @@ type Author {
 }
 ```
 
-### Enums 
+### <a name="Enums"></a>Enums
 
 | argument | constructed searches |
 |----------|----------------------|

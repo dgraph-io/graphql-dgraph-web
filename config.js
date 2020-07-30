@@ -14,25 +14,17 @@ const DocumentationReference = [
   {
     path: "doc/schema/index.mdx",
     title: "Schema",
+    showSideBar: true,
     children: [
       {
         path: "doc/schema/types.mdx",
         title: "Types",
         showSideBar: true,
-        subOptions: [
-          { name: "Scalars" },
-          { name: "Enums" },
-          { name: "Types" },
-          { name: "Interfaces" },
-          {
-            name: "Directives",
-            children: [{ name: "Inverse" }, { name: "Search" }],
-          },
-        ],
       },
       {
         path: "doc/schema/ids.mdx",
         title: "IDs",
+        showSideBar: true,
       },
       {
         path: "doc/schema/graph-links.mdx",
@@ -51,19 +43,25 @@ const DocumentationReference = [
         subOptions: [
           { name: "Int, Float and DateTime" },
           { name: "DateTime" },
+          { name: "Boolean" },
+          { name: "String" },
+          { name: "Enum" },
         ]
       },
       {
         path: "doc/schema/documentation.mdx",
         title: "Documentation and Comments",
+        showSideBar: true,
       },
       {
         path: "doc/schema/deprecated.mdx",
         title: "Deprecation",
+        showSideBar: true,
       },
       {
         path: "doc/schema/dgraph-schema.mdx",
         title: "Dgraph Schema Fragment",
+        showSideBar: true,
       },
     ],
   },
