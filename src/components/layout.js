@@ -17,8 +17,9 @@ const config = require("../../config")
 const Layout = props => {
   const [sideBarContentDropDownTitle, selectSideBarContent] = useState("")
   const [sideBarCategoryIndex, setCategory] = useState(0)
-  const { categoryIndex, renderRightSideBar } = props
+  const { renderRightSideBar, dispatch } = props
   const [isSideBarVisible, showSideBar] = useState(false)
+  const [isPopUpVisible, closePopUp] = React.useState(true)
 
   const setContentCategory = (dropDownTitle, categoryIndex) => {
     selectSideBarContent(dropDownTitle)
@@ -50,6 +51,9 @@ const Layout = props => {
       `}
       render={data => (
         <>
+        {/* <Helmet>
+          <script src="./docSearch.js" type="text/javascript" />
+        </Helmet> */}
           <SEO
             title={
               props.pageContext !== undefined
@@ -67,21 +71,33 @@ const Layout = props => {
               )
             }}
           </Location>
-          <div className="sidebar-container-visible">
+          <div
+            className="sidebar-container-visible"
+            onClick={() => {
+              dispatch({ type: "GET_CURRENT_REF", showSearchResult: false })
+            }}
+          >
             <SideBar
               selectSideBarContent={(nodeTitle, contentClass) => {
                 setContentCategory(nodeTitle, contentClass)
               }}
-              sidebarcategoryindex={sideBarCategoryIndex}
+              sidebarcategoryindex={sideBarCategoryIndex}  
+              showSideBar={isSideBarVisible => showSideBar(isSideBarVisible)}
             />
           </div>
           {isSideBarVisible && (
-            <div className="toggle-sidebar">
+            <div
+              className="toggle-sidebar"
+              onClick={() => {
+                dispatch({ type: "GET_CURRENT_REF", showSearchResult: false })
+              }}
+            >
               <SideBar
                 selectSideBarContent={(nodeTitle, contentClass) => {
                   setContentCategory(nodeTitle, contentClass)
                 }}
                 sidebarcategoryindex={sideBarCategoryIndex}
+                showSideBar={isSideBarVisible => showSideBar(isSideBarVisible)}
               />
             </div>
           )}
@@ -93,6 +109,9 @@ const Layout = props => {
             />
 
             <div
+              onClick={() =>
+                dispatch({ type: "GET_CURRENT_REF", showSearchResult: false })
+              }
               className={
                 getSideBarClass(props)
                   ? "landing-pg-extend-sidebar pl-lg-5 pl-md-5"
@@ -105,6 +124,12 @@ const Layout = props => {
             </div>
             {renderRightSideBar && (
               <div
+                onClick={() => {
+                  dispatch({
+                    type: "GET_CURRENT_REF",
+                    showSearchResult: false
+                  })
+                }}
                 className={
                   getSideBarClass(props)
                     ? "sidebar-right-container-extended"
@@ -114,7 +139,12 @@ const Layout = props => {
                 {
                   <Location>
                     {({ location }) => {
-                      return <SideBarRight file={location.pathname} sectionScroll={getSideBarClass(props)}/>
+                      return (
+                        <SideBarRight
+                          file={location.pathname}
+                          sectionScroll={getSideBarClass(props)}
+                        />
+                      )
                     }}
                   </Location>
                 }
@@ -139,4 +169,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Layout)
+const mapDispatchToProps = dispatch => {
+  return {
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout)

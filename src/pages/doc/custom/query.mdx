@@ -31,7 +31,7 @@ type TwitterUser @remote {
 }
 
 type Query{
-    getTwitterUser(name: String!): TwitterUser @custom(http:{
+    getCustomTwitterUser(name: String!): TwitterUser @custom(http:{
         url: "https://api.twitter.com/1.1/users/show.json?screen_name=$name"
         method: "GET",
         forwardHeaders: ["Authorization"]
@@ -43,14 +43,14 @@ Dgraph will then be able to accept a GraphQL query like
 
 ```graphql
 query {
-    getTwitterUser(name: "dgraphlabs") {
+    getCustomTwitterUser(name: "dgraphlabs") {
         location
         description
         followers_count
     }
 }
 ```
- 
+
 construct a HTTP GET request to `https://api.twitter.com/1.1/users/show.json?screen_name=dgraphlabs`, attach header `Authorization` from the incoming GraphQL request to the outgoing HTTP, and make the call and return a GraphQL result.
 
 The result JSON of the actual HTTP call will contain the whole object from the REST endpoint (you can see how much is in the Twitter user object [here](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object)).  But, the GraphQL query only asked for some of that, so Dgraph filters out any returned values that weren't asked for in the GraphQL query and builds a valid GraphQL response to the query and returns GraphQL.
@@ -58,7 +58,7 @@ The result JSON of the actual HTTP call will contain the whole object from the R
 ```json
 {
     "data": {
-        "getTwitterUser": { "location": ..., "description": ..., "followers_count": ... }
+        "getCustomTwitterUser": { "location": ..., "description": ..., "followers_count": ... }
     }
 }
 ```

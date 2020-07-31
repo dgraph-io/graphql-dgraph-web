@@ -1044,12 +1044,12 @@ h2.page-title-summary {
   bottom: 0;
   overflow-y: auto;
 }
-
+/* 
 @media screen and (max-width: 769px) {
   .sidebar-wrap {
     margin-bottom: 200px;
   }
-}
+} */
 
 .sidenav li {
   margin-bottom: 20px;
@@ -1108,7 +1108,10 @@ h2.page-title-summary {
     width: 240px;
   }
   .sidenav .sidebar-wrap {
-    padding: 15px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .content-wrap {
     padding-left: 0px;

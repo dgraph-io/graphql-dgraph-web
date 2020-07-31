@@ -99,27 +99,15 @@ client = pydgraph.DgraphClient(client_stub)
 
 For mutations, you can use the following example:
 ```python
-mut = """
-{
-  "set": [
-    {
-      "Person.name": "Balaji",
-      "Person.age": 23,
-      "Person.country": "India"
-    },
-    {
-      "Person.name": "Daniel",
-      "Person.age": 25,
-      "Person.country": "San Diego"
-    }
-  ]
+mut = {
+  "Person.name": "John Doe",
+  "Person.age": "32",
+  "Person.country": "US"
 }
-"""
 
 txn = client.txn()
 try:
   res = txn.mutate(set_obj=mut)
-  ppl = json.loads(res.json)
   print(ppl)
 finally:
   txn.discard()

@@ -22,13 +22,15 @@ directive @custom(http: CustomHTTP) on FIELD_DEFINITION
 directive @remote on OBJECT | INTERFACE
 
 input CustomHTTP {
-	url:            String!
-	method:         HTTPMethod!
+	url: String!
+	method: HTTPMethod!
+	body: String
+	graphql: String
+	mode: Mode
 	forwardHeaders: [String!]
-    mode:           Mode
-	body:           String
-	graphql:        String
-    skipIntrospection: Boolean
+	secretHeaders: [String!]
+	introspectionHeaders: [String!]
+	skipIntrospection: Boolean
 }
 
 enum HTTPMethod { GET POST PUT PATCH DELETE }
@@ -42,13 +44,48 @@ Each definition of custom logic must include:
 
 Optionally, the custom logic definition can also include:
 
-* a list of `forwardHeaders` to take from the incoming request and add to the outgoing HTTP call.  Used, for example, if the incoming request contains an auth token that must be passed to the custom logic.
 * a `body` definition that can be used to construct a HTTP body from from arguments or fields.
+* a list of `forwardHeaders` to take from the incoming request and add to the outgoing HTTP call.
+Used, for example, if the incoming request contains an auth token that must be passed to the custom logic.
+* a list of `secretHeaders` to take from the `Dgraph.Secret` defined in the schema file and add to the outgoing HTTP call.
+Used, for example, for a server side API key and other static value that must be passed to the custom logic.
 * the `graphql` query/mutation to call if the custom logic is a GraphQL server and whether to introspect or not (`skipIntrospection`) the remote GraphQL endpoint.
+* `mode` which is used for resolving fields by calling an external GraphQL query/mutation. It can either be `BATCH` or `SINGLE`.
+* a list of `introspectionHeaders` to take from the `Dgraph.Secret` defined in the schema file and added to the
+introspection requests sent to the `graphql` query/mutation.
+
 
 The result type of custom queries and mutations can be any object type in your schema, including `@remote` types.  For custom fields the type can be object types or scalar types.
 
 The `method` can be any of the HTTP methods: `GET`, `POST`, `PUT`, `PATCH`, or `DELETE`, and `forwardHeaders` is a list of headers that should be passed from the incoming request to the outgoing HTTP custom request.  Let's look at each of the other `http` arguments in detail.
+
+## Dgraph.Secret
+
+Sometimes you might want to forward some static headers to your custom API which can't be exposed
+to the client. This could be an API key from a payment processor or an auth token for your organization
+on GitHub. These secrets can be specified as comments in the schema file and then can be used in
+`secretHeaders` and `introspectionHeaders` while defining the custom directive for a field/query.
+
+
+```graphql
+	type Query {
+		getTopUsers(id: ID!): [User] @custom(http: {
+			url: "http://api.github.com/topUsers",
+			method: "POST",
+			introspectionHeaders: ["Github-Api-Token"],
+			secretHeaders: ["Authorization:Github-Api-Token"],
+            graphql: "..."
+		})
+}
+
+# Dgraph.Secret Github-Api-Token "long-token"
+```
+
+In the above request, `Github-Api-Token` would be sent as a header with value `long-token` for
+the introspection request. For the actual request, the value `Authorization` would be sent along with
+the value `long-token`. Note `Authorization:Github-Api-Token` syntax tells us to use the value for the
+`Github-Api-Token` dgraph secret but to forward it to the custom API with the header key as `Authorization`.
+
 
 ## The URL and method
 
@@ -85,8 +122,8 @@ In this case, a query like
 
 ```graphql
 query {
-    getPosts(authorID: "auth123", numToFetch: 10) { 
-        title 
+    getPosts(authorID: "auth123", numToFetch: 10) {
+        title
     }
 }
 ```
@@ -110,7 +147,8 @@ Note that:
 
 * Fields or arguments used in the path of a URL, such as `username` or `authorID` in the exapmles above, must be marked as non-nullable (have `!` in their type); whereas, those used in parameters, such as `numToFetch`, can be nullable.
 * Currently, only scalar fields or arguments are allowed to be used in URLs or bodies; though, see body below, this doesn't restrict the objects you can construct and pass to custom logic functions.
-
+* Currently, the body can only contain alphanumeric characters in the key and other characters like `_` are not yet supported.
+* Currently, constant values are not also not allowed in the body template. This would soon be supported.
 
 ## The body
 
@@ -179,7 +217,7 @@ type Mutation {
 
 When a schema is uploaded, Dgraph will try to introspect the remote GraphQL endpoints on any custom logic that uses the `graphql` argument.  From the results of introspection, it tries to match up arguments, input and object types to ensure that the calls to and expected responses from the remote GraphQL make sense.
 
-If that introspection isn't possible, set `skipIntrospection: true` in the custom definition and Dgraph won't perform GraphQL schema introspection for this custom definition.  
+If that introspection isn't possible, set `skipIntrospection: true` in the custom definition and Dgraph won't perform GraphQL schema introspection for this custom definition.
 
 ## Remote types
 
@@ -198,9 +236,9 @@ type Respository @remote { ... }
 # Dgraph user type
 type User {
     # local user name = GitHub id
-    username: String! @id 
+    username: String! @id
 
-    # ... 
+    # ...
     # other data stored in Dgraph
     # ...
 
@@ -233,7 +271,7 @@ and a custom query
 
 ```graphql
 type Query {
-    getPost(id: ID!): Post @custom(http: {
+    getCustomPost(id: ID!): Post @custom(http: {
         url: "https://my.api.com/post/$id",
         method: GET
     })
@@ -245,7 +283,7 @@ type Query {
 }
 ```
 
-Dgraph turns the `getPost` query into a HTTP request to `https://my.api.com/post/$id` and expects a single JSON object with fields `id`, `title`, `datePublished` and `author` as result.  Any additional fields are ignored, while if non-nullable fields (like `id` and `title`) are missing, GraphQL error propagation will be triggered.
+Dgraph turns the `getCustomPost` query into a HTTP request to `https://my.api.com/post/$id` and expects a single JSON object with fields `id`, `title`, `datePublished` and `author` as result.  Any additional fields are ignored, while if non-nullable fields (like `id` and `title`) are missing, GraphQL error propagation will be triggered.
 
 For `getPosts`, Dgraph expects the HTTP call to `https://my.api.com/person/$authorID/posts?limit=$numToFetch` to return a JSON array of JSON objects, with each object matching the `Post` type as described above.
 
@@ -253,7 +291,7 @@ If the custom resolvers are GraphQL calls, like:
 
 ```graphql
 type Query {
-    getPost(id: ID!): Post @custom(http: {
+    getCustomPost(id: ID!): Post @custom(http: {
         url: "https://my.api.com/graphql",
         method: POST,
         graphql: "query(id: ID) { post(postID: $id) }"
@@ -310,7 +348,7 @@ query {
 
 Dgraph works out that it must first get `username` so it can run the custom field `posts`, even though `username` isn't part of the original query.  So Dgraph retrieves enough data to satisfy the custom request, even if that involves data that isn't asked for in the query.
 
-There are currently a few limitations on custom fields: 
+There are currently a few limitations on custom fields:
 
 * each custom call must include either an `ID` or `@id` field
 * arguments are not allowed (soon custom field arguments will be allowed and will be used in the `@custom` directive in the same manner as for custom queries and mutations), and

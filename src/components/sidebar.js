@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React from "react"
 import { Link } from "gatsby"
 import { connect } from "react-redux"
-import { Accordion } from "react-bootstrap"
+import { Accordion, Button } from "react-bootstrap"
 import VersionDropdown from "./VersionDropdown"
 import SideBarContentDropdown from "./sideBarContentDropdown"
 import DgraphLogo from "../images/graphql-logo.png"
@@ -9,14 +9,13 @@ import { GoChevronDown, GoChevronUp } from "react-icons/go"
 import { getCategoryIndex } from "../helper-functions/find-current-path"
 import { Location } from "@reach/router"
 import BackButtonMainWebsite from "./MainWebsiteRedirect"
+import { GrClose } from "react-icons/gr"
+import { IconContext } from "react-icons"
 
 const config = require("../../config")
 
 const SideBar = props => {
-  const [showAccordion, toggleAccordion] = useState(false)
-  const [toggleListItemMarker, toggleListItem] = useState("")
-
-  const { dispatch } = props
+  const { dispatch, toggleAccordionArray } = props
 
   function isActive(obj) {
     return obj.isCurrent ? { className: "active" } : null
@@ -26,10 +25,22 @@ const SideBar = props => {
   let currentParent
   let completeRes = []
 
+  const setAccordion =(arrayIndex ,dispatch , nodeTitle) =>{
+    dispatch({
+      type: "TOGGLE_ACCORDION",
+      toggleListItemMarker: nodeTitle,
+      showAccordion:false,
+      index:arrayIndex
+    })
+
+    return "accordion-show"
+  }
+
   completeRes = locationProp =>
     config.sidebarOptions[getCategoryIndex(dispatch, locationProp)].map(
-      (node, index) => {
+      (node, arrayIndex) => {
         currentParent = node.title
+
         let mainNode = (
           <li key={node.title} className="sidebar-inline font-weight-medium">
             <Link
@@ -68,19 +79,16 @@ const SideBar = props => {
           })
         }
 
-        const resetToggleMarker = () => {
-          toggleAccordion(false)
-          toggleListItem("")
-        }
 
         const res = (
           <React.Fragment key={currentParent}>
             <Accordion
-              defaultActiveKey={currentParent}
               bsPrefix={
-                toggleListItemMarker === node.title && showAccordion
-                  ? "accordion-hide"
-                  : "accordion-show"
+                toggleAccordionArray[arrayIndex] === undefined
+                  ? setAccordion(arrayIndex ,dispatch ,node.title)
+                  : !toggleAccordionArray[arrayIndex].showAccordion
+                  ? "accordion-show"
+                  : "accordion-hide"
               }
             >
               {mainNode}
@@ -91,8 +99,13 @@ const SideBar = props => {
                   eventKey={currentParent}
                   className="accordion-toggle"
                   onClick={() => {
-                    showAccordion ? resetToggleMarker() : toggleAccordion(true)
-                    toggleListItem(node.title)
+                    dispatch({
+                      type: "TOGGLE_ACCORDION",
+                      toggleListItemMarker: node.title,
+                      showAccordion: !toggleAccordionArray[arrayIndex]
+                        .showAccordion,
+                      index: arrayIndex
+                    })
                   }}
                 >
                   <span className="cursor-pointer">
@@ -120,7 +133,19 @@ const SideBar = props => {
       <Location>
         {locationProp => (
           <div className="sidenav">
-            <div className="page-logo">
+            <div className="page-logo d-flex justify-content-between align-items-start">
+              <Button
+                bsPrefix="d-lg-none d-md-inline d-sm-inline d-xs-inline border-0 close-button p-0"
+                onClick={() => {
+                  props.showSideBar(false)
+                }}
+              >
+                <IconContext.Provider
+                  value={{ color: "#555555", size: "20px" }}
+                >
+                  <GrClose />
+                </IconContext.Provider>
+              </Button>
               <Link to="/" className="img-logo header-link">
                 <img src={DgraphLogo} alt="Dgraph logo" />
               </Link>
@@ -134,12 +159,10 @@ const SideBar = props => {
             <div className="sidebar-wrap">
               <ul>{completeRes(locationProp)}</ul>
 
-            </div>
-
-
-            <div className="backbutton-container-mobile">
+              <div className="backbutton-container-mobile">
                 <BackButtonMainWebsite />
               </div>
+            </div>
           </div>
         )}
       </Location>
@@ -157,7 +180,8 @@ const mapDispatchToProp = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    currentExpandedAccordion: state.currentExpandedAccordion
+    currentExpandedAccordion: state.currentExpandedAccordion,
+    toggleAccordionArray: state.toggleAccordionArray
   }
 }
 
