@@ -18,7 +18,7 @@ import {
 import { CustomInstantSearch } from "./InstantSearchBar"
 import BackButtonMainWebsite from "./MainWebsiteRedirect"
 import { connect } from "react-redux"
-import SearchKeyowrdComponent from '../helper-functions/getSearchHits'
+import SearchKeyowrdComponent from "../helper-functions/getSearchHits"
 
 const searchClient = algoliasearch(
   "0AG2ENC6EL",
@@ -29,10 +29,18 @@ const config = require("../../config")
 //*****************Highlight the search result *******************/
 
 const Hithighlight = ({ hit }) => {
-  let tableHit;
+  let tableHit
 
-  if(hit.tableOfContents.items)
-  tableHit = <SearchKeyowrdComponent tableOfContentArray={hit.tableOfContents.items}/>;
+  const getPathName = (relativePath) =>{
+    let pathName = relativePath.split('/');
+    console.log('path' , pathName[pathName.length-2]);
+    return pathName[pathName.length-2];
+  }
+
+  if (hit.tableOfContents.items)
+    tableHit = (
+      <SearchKeyowrdComponent tableOfContentArray={hit.tableOfContents.items} />
+    )
 
   return hit ? (
     <div className="search-list-item-container">
@@ -40,15 +48,19 @@ const Hithighlight = ({ hit }) => {
         <Row className="d-flex align-items-center justify-content-end">
           <Col md={3} className="d-flex justify-content-start">
             <Link to={`${hit.fields.slug}`} className="search-link">
-              <div className="search-result-title">{hit.frontmatter.title}</div>
+              <div className="search-result-title">
+                {hit.frontmatter.title === ""
+                  ? getPathName(hit.fields.slug)
+                  : hit.frontmatter.title }
+              </div>
             </Link>
           </Col>
 
           <Col md={9} className="border-left d-flex justify-content-start">
             <div className="search-result-subtitle">
-            <Link to={`${hit.fields.slug}`} className="search-link">
+              <Link to={`${hit.fields.slug}`} className="search-link">
                 <div className="search-result-title">
-                  {hit.tableOfContents.items!== undefined?tableHit:null}
+                  {hit.tableOfContents.items !== undefined ? tableHit : null}
                 </div>
               </Link>
               <Link to={`${hit.fields.slug}`} className="search-link">
@@ -117,7 +129,7 @@ const Header = props => {
         </div>
         <div className="topbar d-lg-flex page-header justify-content-between d-sm-block">
           <div className="d-none d-lg-flex">
-          <SearchBar isPopUpVisible={props.showSearchResult} />
+            <SearchBar isPopUpVisible={props.showSearchResult} />
           </div>
           <div className="page-header d-lg-inline-flex d-md-flex justify-content-end d-sm-block">
             <div className="back-to-mainwebsite-container">
@@ -158,8 +170,8 @@ Header.defaultProps = {
 
 const mapStateToProps = state => {
   return {
-    showSearchResult: state.showSearchResult,  }
+    showSearchResult: state.showSearchResult
+  }
 }
 
 export default connect(mapStateToProps)(Header)
-
