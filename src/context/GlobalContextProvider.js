@@ -82,15 +82,6 @@ export function reducer(state = initialState, action) {
         toggleAccordionArray:[...tempToogleAccordionArray]
       }
     }
-
-    case 'CLEAR_TOGGLE_ARRAY':{
-      console.log('initil arra' , initialState.toggleAccordionArray);
-      return {
-        ...state,
-        toggleAccordionArray:[...initialState.toggleAccordionArray]
-      }
-    }
-
     case "CLEAR_LOCAL_STORAGE":
       return {
         ...initialState
