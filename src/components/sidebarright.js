@@ -31,23 +31,25 @@ const SideBarRight = props => {
       }
     } else {
       if (sidebar.children !== undefined) {
-        optsChildren = sidebar.children.filter(child => {
-          if (
-            child.path.replace("index.mdx", "").replace(".mdx", "") ===
-              props.file ||
-            "/" +
-              child.path.replace("index.mdx", "").replace(".mdx", "") +
-              "/" ===
-              props.file ||
-            "/" + child.path.replace("index.mdx", "").replace(".mdx", "") ===
-              props.file
-          ) {
-            if (child.subOptions === undefined) {
-            } else {
-              return true
+        if (optsChildren == 0) {
+          optsChildren = sidebar.children.filter(child => {
+            if (
+              child.path.replace("index.mdx", "").replace(".mdx", "") ===
+                props.file ||
+              "/" +
+                child.path.replace("index.mdx", "").replace(".mdx", "") +
+                "/" ===
+                props.file ||
+              "/" + child.path.replace("index.mdx", "").replace(".mdx", "") ===
+                props.file
+            ) {
+              if (child.subOptions === undefined) {
+              } else {
+                return true
+              }
             }
-          }
-        })
+          })
+        }
       } else {
         return
       }

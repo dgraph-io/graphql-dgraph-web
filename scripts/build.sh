@@ -66,7 +66,7 @@ rebuild() {
 
 branchUpdated() {
     local branch="$1"
-    git checkout -q "$1"
+    git checkout -qf "$1"
     UPSTREAM=$(git rev-parse "@{u}")
     LOCAL=$(git rev-parse "@")
 
@@ -135,7 +135,7 @@ while true; do
 
     echo -e "$(date)  Done checking branches.\n"
 
-    git checkout -q "$currentBranch"
+    git checkout -qf "$currentBranch"
     popd >/dev/null
 
     firstRun=0
