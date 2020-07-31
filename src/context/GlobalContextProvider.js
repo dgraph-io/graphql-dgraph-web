@@ -17,10 +17,18 @@ const initialState = {
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case "SELECT_SIDEBAR_CONTENT_CATEGORY": {
+      if(state.sideBarCategoryIndex === action.categoryIndex)
       return {
         ...state,
         sideBarCategoryClassName: action.categoryName,
         sideBarCategoryIndex: action.categoryIndex
+      }
+      else
+      return {
+        ...state,
+        sideBarCategoryClassName: action.categoryName,
+        sideBarCategoryIndex: action.categoryIndex,
+        toggleAccordionArray:[]
       }
     }
 
@@ -72,6 +80,14 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         toggleAccordionArray:[...tempToogleAccordionArray]
+      }
+    }
+
+    case 'CLEAR_TOGGLE_ARRAY':{
+      console.log('initil arra' , initialState.toggleAccordionArray);
+      return {
+        ...state,
+        toggleAccordionArray:[...initialState.toggleAccordionArray]
       }
     }
 

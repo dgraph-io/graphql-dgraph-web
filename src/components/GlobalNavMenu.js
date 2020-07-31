@@ -108,6 +108,7 @@ function GlobalNavMenu(props) {
                           .replace("index.mdx", "")
                           .replace(".mdx", "")}`}
                         onClick={() => {
+                          dispatch({type:'CLEAR_TOGGLE_ARRAY'})
                           dispatch({
                             type: "SELECT_SIDEBAR_CONTENT_CATEGORY",
                             categoryName: rightContent.title,
