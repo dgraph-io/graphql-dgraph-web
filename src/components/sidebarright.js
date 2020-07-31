@@ -9,7 +9,7 @@ const config = require("../../config")
 const SideBarRight = props => {
   const [selectedLink, getSelectedLink] = useState("")
   const [accordionShow, toggleAccordion] = useState(false)
-  const { categoryIndex } = props
+  const { categoryIndex, dispatch } = props
 
   let currentChildren = []
   let currentParent
@@ -17,7 +17,7 @@ const SideBarRight = props => {
   let optsChildren = []
   let list
 
-  let opts = config.sidebarOptions[categoryIndex].filter(function (sidebar) {
+  let opts = config.sidebarOptions[categoryIndex].filter(function(sidebar) {
     if (
       "/" + sidebar.path.replace("index.mdx", "").replace(".mdx", "") ===
         props.file ||
@@ -59,7 +59,7 @@ const SideBarRight = props => {
   if (optsChildren.length !== 0) opts = optsChildren
 
   if (opts.length !== 0) {
-    completeRes = opts[0].subOptions.map(node => {
+    completeRes = opts[0].subOptions.map((node, index) => {
       currentParent = node.name
       let mainNode = (
         <li key={node.name} className="sidebar-inline font-weight-medium">
@@ -80,7 +80,13 @@ const SideBarRight = props => {
             <a
               href={"#" + node.scrollTo}
               className={
-                selectedLink === node.name ? "grey-link-active" : "grey-link"
+                selectedLink === ""
+                  ? index === 0
+                    ? "grey-link-active"
+                    : "grey-link"
+                  : selectedLink === node.name
+                  ? "grey-link-active"
+                  : "grey-link"
               }
               onClick={() => {
                 getSelectedLink(node.name)
@@ -156,9 +162,9 @@ const SideBarRight = props => {
   }
 
   list = (
-    <React.Fragment>
+    <div className="sidebar-component">
       <ul className="sidenav-right">{completeRes}</ul>
-    </React.Fragment>
+    </div>
   )
 
   return list
@@ -166,8 +172,7 @@ const SideBarRight = props => {
 
 const mapStateToProps = state => {
   return {
-    categoryIndex: state.sideBarCategoryIndex,
+    categoryIndex: state.sideBarCategoryIndex
   }
 }
-
 export default connect(mapStateToProps)(SideBarRight)

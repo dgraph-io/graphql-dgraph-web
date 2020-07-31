@@ -12,6 +12,7 @@
     "gatsby": "^2.20.25",
     "gatsby-image": "^2.3.4",
     "gatsby-plugin-algolia": "^0.11.1",
+    "gatsby-plugin-algolia-docsearch": "^1.0.5",
     "gatsby-plugin-feed": "^2.5.3",
     "gatsby-plugin-google-analytics": "^2.3.2",
     "gatsby-plugin-gtag": "^1.0.13",

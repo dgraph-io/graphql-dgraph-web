@@ -3,6 +3,7 @@
 $TABLET_MAX-SIZE: 992px;
 $MOBILE_MAX_SIZE: 769px;
 $LARGE_SCREEN_MIN_SIZE: 1025px;
+$EXTRA_SMALL_DEVICES: 321px;
 
 .font-weight-medium {
   font-weight: 400;
@@ -115,40 +116,67 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
     overflow-y: auto;
     @media screen and (max-width: $TABLET_MAX-SIZE) {
       height: fit-content;
+    }
+    @media screen and (max-width: $MOBILE_MAX_SIZE) {
+      width: 90vw;
+    }
+    @media screen and (max-width: $TABLET_MAX-SIZE) {
+      width: 366px;
+      max-width: 366px;
+    }
+
+    .menu-container {
+      padding: 24px 0 24px 24px;
+      @media screen and (max-width: $TABLET_MAX-SIZE) {
+        padding: 24px 0 0 0;
+      }
+      @media screen and (max-width: $MOBILE_MAX_SIZE) {
+        padding-left: 0;
+        padding-right: 0;
+      }
       .initial-menu-container {
-        margin: 0;
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
+        @media screen and (max-width: $MOBILE_MAX_SIZE) {
+          margin: 0;
+          display: flex;
+          width: inherit;
+          flex-direction: column;
+          justify-content: space-between;
+          padding: 0;
+        }
       }
     }
 
     @media screen and (max-width: $MOBILE_MAX_SIZE) {
-      min-height: 60vh;
-      height: 75vh;
+      min-height: 50vh;
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .bottom-icon-container {
-      @media screen and (max-width: $TABLET_MAX_SIZE) {
+      display: none;
+      @media screen and (max-width: $MOBILE_MAX_SIZE) {
         padding: 12px 0px;
-        width: 100%;
         margin: 0;
         position: relative;
-        vertical-align: bottom;
-        &:before {
-          content: "";
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          opacity: 0.1;
-          z-index: 1;
-          background: #555555;
-        }
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         .icon-container {
           margin-right: 10px;
+          a {
+            &::before {
+              content: "";
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              opacity: 0.05;
+              z-index: 1;
+              background: #555555;
+            }
+          }
         }
       }
     }
@@ -159,10 +187,10 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
     }
 
     .container {
-      padding: 24px;
-      @media screen and (max-width: $TABLET_MAX-SIZE) {
-        padding: 0px;
-      }
+      // padding: 24px;
+      // @media screen and (max-width: $TABLET_MAX-SIZE) {
+      //   padding: 0px;
+      // }
       .list-item-menu-header {
         padding: 0px 24px 24px 0px;
         font-family: inherit;
@@ -176,7 +204,7 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
         @media screen and (max-width: $TABLET_MAX-SIZE) {
           padding: 24px;
         }
-        @media screen and (max-width: 320px) {
+        @media screen and (max-width: $MOBILE_MAX_SIZE) {
           width: 100%;
         }
       }
@@ -185,6 +213,9 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
         margin: 2px 0;
         width: 100%;
         display: flex !important;
+        @media screen and (max-width: $MOBILE_MAX_SIZE) {
+          margin-bottom: 13px;
+        }
         .list-item-title {
           padding-top: 9px;
           .list-item-title-text {
@@ -198,6 +229,9 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
         }
         .list-item-subtitle {
           margin-top: 6px;
+          @media screen and (max-width: $MOBILE_MAX_SIZE) {
+            margin-top: 10px;
+          }
         }
       }
     }
@@ -367,6 +401,10 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
   min-height: calc(100vh - 450px);
 }
 .back-to-mainwebsite-container {
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    height: 100%;
+    vertical-align: middle;
+  }
   @media screen and (max-width: $MOBILE_MAX_SIZE) {
     display: none;
   }
@@ -533,9 +571,6 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
     margin-bottom: 0;
   }
 }
-.collapse:not(.show):not(.show-collapse) {
-  display: none;
-}
 
 .sidebar-container-list-item {
   height: 100%;
@@ -548,18 +583,36 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
   max-width: 700px;
 
   @media screen and (max-width: $LARGE_SCREEN_MIN_SIZE) {
-    width: 366px;
-    max-width: 366px;
+    width: 90vw;
+    max-width: 90vw;
+  }
+  @media screen and (max-width: $TABLET_MAX-SIZE) {
+    width: inherit;
+  }
+  @media screen and (max-width: $MOBILE_MAX_SIZE) {
+    height: fit-content;
+    // display: none;
+    // width: fit-content;
   }
 
   .sidebar-menu-bootstrap-container {
     padding: 0px 24px 0 0;
     @media screen and (max-width: $LARGE_SCREEN_MIN_SIZE) {
-      padding: 0 0 24px 24px;
+      padding: 0 0 24px 0px;
+    }
+    @media screen and (max-width: $MOBILE_MAX_SIZE) {
+      padding: 0 0 24px 0px;
+      justify-content: flex-end;
     }
     .section-content-row {
       @media screen and (max-width: $LARGE_SCREEN_MIN_SIZE) {
         flex-direction: column !important;
+      }
+      @media screen and (max-width: $MOBILE_MAX_SIZE) {
+        flex-direction: column !important;
+        width: 100%;
+        margin: 0;
+        padding: 0 0 24px 0px;
       }
       .col {
         padding: 0 24px 0 0;
@@ -641,7 +694,7 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
         color: #555555;
         outline: none !important;
         padding: 15px;
-        width: 100%;
+        width: 110%;
 
         &::placeholder {
           color: #999999;
@@ -801,12 +854,9 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
 .backbutton-container-mobile {
   display: none;
   @media screen and (max-width: $MOBILE_MAX_SIZE) {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding-bottom: 40px;
-    padding-left: 24px;
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 16px;
   }
 }
 .code-editor-wrapper {
@@ -840,3 +890,39 @@ $LARGE_SCREEN_MIN_SIZE: 1025px;
   line-height: 19px;
   color: #555555;
 }
+.close-button {
+  background: transparent;
+}
+
+.pad-lg-bottom-0 {
+  // padding-bottom: 0;
+}
+
+.accordion-hide {
+  .collapse,
+  .show {
+    height: 100%;
+    transition: height 0.35s ease-in;
+    display: block;
+  }
+}
+
+.accordion-hide,
+.accordion-show {
+  .collapsing {
+    display: none;
+    transition: none;
+    height: 0;
+  }
+}
+
+.accordion-show {
+  .collapse {
+    height: 0;
+    transition: height 0.35s ease-in;
+    display: none;
+  }
+}
+// .collapse:not(.show):not(.show-collapse) {
+//   display: none;
+// }

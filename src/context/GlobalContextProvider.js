@@ -6,9 +6,12 @@ export const GlobalReducerContext = React.createContext()
 const initialState = {
   sideBarCategoryIndex: 3,
   sideBarCategoryClassName: "Dgraph GraphQL",
-  renderRightSideBar: false,
+  renderRightSideBar: true,
   currentVersion: "master",
-  currentExpandedAccordion: ''
+  currentExpandedAccordion: '',
+  showSearchResult: true,
+  searchKeyowrd: '',
+  toggleAccordionArray: []
 }
 
 export function reducer(state = initialState, action) {
@@ -36,9 +39,39 @@ export function reducer(state = initialState, action) {
     }
 
     case "CURRENT_EXPANDED_ACCORDION": {
-          return {
+      return {
         ...state,
         currentExpandedAccordion: action.expandedAccordion
+      }
+    }
+
+    case 'GET_CURRENT_REF': {
+      return {
+        ...state,
+        showSearchResult: action.showSearchResult
+
+      }
+    }
+
+    case 'SEARCH_KEYWORD': {
+      console.log('[...]' + state.searchKeyowrd);
+      return {
+        ...state,
+        searchKeyowrd: action.searchKeyowrd
+      }
+    }
+
+    case 'TOGGLE_ACCORDION': {
+      let tempToogleAccordionArray = state.toggleAccordionArray;
+
+      tempToogleAccordionArray[action.index] = {
+        toggleListItemMarker: action.toggleListItemMarker,
+        showAccordion: action.showAccordion
+      }
+
+      return {
+        ...state,
+        toggleAccordionArray:[...tempToogleAccordionArray]
       }
     }
 
