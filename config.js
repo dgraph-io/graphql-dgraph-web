@@ -296,7 +296,7 @@ const slashGraphQL = [
   },
   {
     path: "slash-graphql/advanced-queries.mdx",
-    title: "Advanced Queries (draft)"
+    title: "Advanced Queries"
   },
 ]
 
