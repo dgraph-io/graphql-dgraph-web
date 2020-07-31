@@ -155,20 +155,6 @@ const DocumentationReference = [
     children: [ ],
   },
   {
-    path: "doc/authorization/index.mdx",
-    title: "Authorization",
-    children: [
-      {
-        path: "doc/authorization/directive.mdx",
-        title: "The `@auth` directive",
-      },
-      {
-        path: "doc/authorization/mutations.mdx",
-        title: "Mutations",
-      },
-    ],
-  },
-  {
     path: "doc/custom/index.mdx",
     title: "Custom Resolvers",
     children: [
@@ -191,6 +177,20 @@ const DocumentationReference = [
       {
         path: "doc/custom/graphqlpm.mdx",
         title: "Custom DQL",
+      },
+    ],
+  },
+  {
+    path: "doc/authorization/index.mdx",
+    title: "Authorization",
+    children: [
+      {
+        path: "doc/authorization/directive.mdx",
+        title: "The `@auth` directive",
+      },
+      {
+        path: "doc/authorization/mutations.mdx",
+        title: "Mutations",
       },
     ],
   },
