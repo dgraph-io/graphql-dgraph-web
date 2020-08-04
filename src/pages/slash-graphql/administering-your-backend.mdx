@@ -84,6 +84,6 @@ It is possible to import data into a Slash GraphQL backend using [live loader](h
 3. Run the live loader as follows. Do note that running this via docker requires you to use an unreleased tag (either master or v20.07-slash)
 
 ```shell
-docker run -it --rm -v /path/to/g01.json.gz:/tmp/g01.json.gz dgraph:dgraph/v20.07-slash \
+docker run -it --rm -v /path/to/g01.json.gz:/tmp/g01.json.gz dgraph/dgraph:v20.07-slash \
   dgraph live --slash_grpc_endpoint=<grpc-endpoint>:443 -f /tmp/g01.json.gz -t <api-token>
 ```
