@@ -23,6 +23,7 @@ All HTTP API requests must be authenticated by passing the API token as the 'X-A
 ```sh
 curl 'https://<your-backend>/admin' \
   -H 'X-Auth-Token: <your-token>' \
+  -H 'Content-Type: application/json' \
   --data-binary '{"query":"{ getGQLSchema { schema } }"}'
 ```
 
