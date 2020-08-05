@@ -33,7 +33,6 @@ const Hithighlight = ({ hit }) => {
 
   const getPathName = (relativePath) =>{
     let pathName = relativePath.split('/');
-    console.log('path' , pathName[pathName.length-2]);
     return pathName[pathName.length-2];
   }
 
