@@ -10,7 +10,7 @@ const DocumentationReference = [
   {
     path: "doc/app-architectures.mdx",
     title: "App Architecture with Dgraph",
-  },  
+  },
   {
     path: "doc/schema/index.mdx",
     title: "Schema",
@@ -292,7 +292,13 @@ const slashGraphQL = [
   },
   {
     title: "Administering your Backend",
-    path: "slash-graphql/administering-your-backend.mdx",
+    path: "slash-graphql/admin/index.mdx",
+    // showSideBar: true,
+    children: [
+      { title: "Authentication", path: "slash-graphql/admin/authentication.mdx" },
+      { title: "Schema", path: "slash-graphql/admin/schema.mdx" },
+      { title: "Importing and Exporting Data", path: "slash-graphql/admin/import-export.mdx" },
+    ]
   },
   {
     path: "slash-graphql/advanced-queries.mdx",
