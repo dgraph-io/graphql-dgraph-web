@@ -3,9 +3,13 @@ title: 'Drop Data'
 ---
 <h1>{props.pageContext.frontmatter.title}</h1>
 
-### Dropping complete data and retain schema
+* Drop data allows you to reset your Slash GraphQL backend and start from a clean slate. You can reuse the same endpoint and start all over again. *
 
-This can also be done from the Slash GraphQL `Dashboard` under the `Settings` tab by clicking the `Drop Data` button.
+### Dropping Data Programatically
+
+You can drop all of your backend data while retaining the schema from the Slash GraphQL Dashboard using the `Drop Data` button under the [Settings](https://slash.dgraph.io/_/settings) tab in the sidebar.
+
+If you would like to do this programatically, simply send a dropData mutation to your instance's admin endpoint as follows.
 
 ```sh
 curl 'https://<your-backend>/admin/slash' \
@@ -14,18 +18,9 @@ curl 'https://<your-backend>/admin/slash' \
   --data-binary 'mutation { dropData(allData: true) { response { code message } } }'
 ```
 
-OR
+Refer to the [authentication](/slash-graphql/admin/authentication) doc to learn about the auth token.
 
-```sh
-curl 'https://<your-backend>/admin/slash' \
-  -H 'X-Auth-Token: <your-token>' \
-  -H 'Content-Type: application/json' \
-  --data-binary '{"query":"mutation { dropData(allData: true) { response { code message } } }","variables":{}}'
-```
-
-### Dropping complete data along with schema
-
-This option has not been provided on the Slash GraphQL `Dashboard` as it deletes the schema as well. Just a concious decision to avoid confusion with `Drop Data`.
+If you would like to drop all data along with schema, then use the following snippet.
 
 ```sh
 curl 'https://<your-backend>/admin/slash' \
@@ -33,14 +28,3 @@ curl 'https://<your-backend>/admin/slash' \
   -H 'Content-Type: application/graphql' \
   --data-binary 'mutation { dropData(allDataAndSchema: true) { response { code message } } }'
 ```
-
-OR
-
-```sh
-curl 'https://<your-backend>/admin/slash' \
-  -H 'X-Auth-Token: <your-token>' \
-  -H 'Content-Type: application/json' \
-  --data-binary '{"query":"mutation { dropData(allDataAndSchema: true) { response { code message } } }","variables":{}}'
-```
-
-The token required in the header `X-Auth-Token` can be generated on the Slash GraphQL [Dashboard](https://slash.dgraph.io/) under the [Settings](https://slash.dgraph.io/_/settings) tab on the sidebar.
