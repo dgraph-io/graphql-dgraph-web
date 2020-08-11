@@ -1,15 +1,19 @@
 ---
-title: 'Drop Data'
+title: 'Dropping Data from your Backend'
 ---
 <h1>{props.pageContext.frontmatter.title}</h1>
 
-* Drop data allows you to reset your Slash GraphQL backend and start from a clean slate. You can reuse the same endpoint and start all over again. *
+It is possible to drop all data from your Slash GraphQL backend, and start afresh while retaining the same endpoint. Be careful, as this operation is not not reversible, and all data will be lost. It is highly recommended that you [export](./import-export) your data before you drop your data.
+
+In order to drop all data while retaining the schema, please click the `Drop Data` button under the [Settings](https://slash.dgraph.io/_/settings) tab in the sidebar.
 
 ### Dropping Data Programatically
 
-You can drop all of your backend data while retaining the schema from the Slash GraphQL Dashboard using the `Drop Data` button under the [Settings](https://slash.dgraph.io/_/settings) tab in the sidebar.
+In order to do this, call the `dropData` mutation on `/admin/slash`. As an example, if your graphql endpoint is `https://frozen-mango-42.us-west-2.aws.cloud.dgraph.io/graphql`, then the admin endpoint for schema will be at `https://frozen-mango.us-west-2.aws.cloud.dgraph.io/admin/slash`.
 
-If you would like to do this programatically, simply send a dropData mutation to your instance's admin endpoint as follows.
+Please note that this endpoint requires [Authentication](./authentication).
+
+Please see the following curl as an example.
 
 ```sh
 curl 'https://<your-backend>/admin/slash' \
@@ -18,9 +22,7 @@ curl 'https://<your-backend>/admin/slash' \
   --data-binary 'mutation { dropData(allData: true) { response { code message } } }'
 ```
 
-Refer to the [authentication](/slash-graphql/admin/authentication) doc to learn about the auth token.
-
-If you would like to drop all data along with schema, then use the following snippet.
+If you would like to drop the schema along with the data, then you can set the `allDataAndSchema` flag.
 
 ```sh
 curl 'https://<your-backend>/admin/slash' \
