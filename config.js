@@ -298,6 +298,7 @@ const slashGraphQL = [
       { title: "Authentication", path: "slash-graphql/admin/authentication.mdx" },
       { title: "Schema", path: "slash-graphql/admin/schema.mdx" },
       { title: "Importing and Exporting Data", path: "slash-graphql/admin/import-export.mdx" },
+      { title: "Dropping Data", path: "slash-graphql/admin/drop-data.mdx" },
     ]
   },
   {
