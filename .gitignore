@@ -62,6 +62,8 @@ yarn.lock
 public
 # VS Code
 .vscode
+# WebStorm
+.idea
 
 # Yarn
 yarn-error.log
