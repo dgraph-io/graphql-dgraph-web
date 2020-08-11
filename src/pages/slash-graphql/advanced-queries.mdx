@@ -83,7 +83,7 @@ GRPC_PORT = "443"
 You will then need to pass your API key as follows:
 ```python
 creds = grpc.ssl_channel_credentials()
-call_credentials = grpc.metadata_call_credentials(lambda context, callback: callback((("Authorization", "<api-key>"),), None))
+call_credentials = grpc.metadata_call_credentials(lambda context, callback: callback((("authorization", "<api-key>"),), None))
 composite_credentials = grpc.composite_channel_credentials(creds, call_credentials)
 client_stub = pydgraph.DgraphClientStub('{host}:{port}'.format(host=GRPC_HOST, port=GRPC_PORT), composite_credentials)
 client = pydgraph.DgraphClient(client_stub)
