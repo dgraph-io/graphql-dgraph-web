@@ -38,6 +38,7 @@ Here is an example of a cURL for `/mutate` endpoint:
 curl -H "Content-Type: application/rdf" -H "x-auth-token: <api-key>" -X POST "<graphql-endpoint>/mutate?commitNow=true" -d $'
 {
  set {
+    _:x <dgraph.type> "Person" .
     _:x <Person.name> "John" .
     _:x <Person.age> "30" .
     _:x <Person.country> "US" .
