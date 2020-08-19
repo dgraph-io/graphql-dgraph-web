@@ -103,10 +103,6 @@ const Layout = props => {
 
                 `}
             </script>
-            {console.log(
-              "after scipt",
-              document.getElementsByTagName("head")[0].innerHTML
-            )}
           </Helmet>
           <div
             className="sidebar-container-visible"
