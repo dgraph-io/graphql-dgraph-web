@@ -75,7 +75,6 @@ const components = {
     }
   }
 }
-
 export const wrapRootElement = ({ element }) => {
   return (
     <WrapWithProvider>

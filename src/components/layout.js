@@ -71,6 +71,10 @@ const Layout = props => {
               )
             }}
           </Location>
+          <Helmet>
+            <script  src="../assets/adroll.js"/> 
+  
+          </Helmet>
           <div
             className="sidebar-container-visible"
             onClick={() => {

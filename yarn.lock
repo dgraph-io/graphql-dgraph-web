@@ -11957,6 +11957,11 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-adroll@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/react-adroll/-/react-adroll-0.1.7.tgz#079e217c760430c471016bfe68c649fb016fc4d0"
+  integrity sha512-TFCjTg7i1c+JZlpNawyT09y2d1i/e/OQg3ScMH6UzLEef2hGPig4pJLFLBNiIxsUwP01TOjZL8X8CSarWFOS+A==
+
 react-bootstrap@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-1.0.1.tgz#044b51f34a9db8e17dbfb321a71267a8d6ad11b4"
