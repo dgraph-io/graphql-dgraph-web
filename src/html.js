@@ -15,9 +15,6 @@ export default function HTML(props) {
       </head>
       <body {...props.bodyAttributes}>
         {props.preBodyComponents}
-        <script src="./helper-functions/adroll.js" type="text/javascript" async >
-          {}
-        </script>
         <div
           key={`body`}
           id="___gatsby"
