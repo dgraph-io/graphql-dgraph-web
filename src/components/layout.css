@@ -1,3 +1,35 @@
+@font-face {
+  font-family: "Helvetica_Neue_Light";
+  src: url("../assets/style/fonts/HelveticaNeue_Light.ttf"),
+    url("../assets/style/fonts/HelveticaNeue_Light.woff"),
+    url("../assets/style/fonts/HelveticaNeue_Light.woff2");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Helvetica_Neue_Regular";
+  src: url("../assets/style/fonts/HelveticaNeue_Regular.ttf"),
+    url("../assets/style/fonts/HelveticaNeue_Regular.woff"),
+    url("../assets/style/fonts/HelveticaNeue_Regular.woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Helvetica_Neue_Medium";
+  src: url("../assets/style/fonts/HelveticaNeue_Medium.ttf"),
+    url("../assets/style/fonts/HelveticaNeue_Medium.woff"),
+    url("../assets/style/fonts/HelveticaNeue_Medium.woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Helvetica_Neue_Thin";
+  src: url("../assets/style/fonts/HelveticaNeue_Thin.ttf"),
+    url("../assets/style/fonts/HelveticaNeue_Thin.woff"),
+    url("../assets/style/fonts/HelveticaNeue_Thin.woff2");
+  font-weight: 100;
+}
+
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
