@@ -1,4 +1,5 @@
 @import "./vender/scss/bootstrap.scss";
+@import "../../components/layout.css";
 
 $TABLET_MAX-SIZE: 992px;
 $MOBILE_MAX_SIZE: 769px;
@@ -64,7 +65,7 @@ $EXTRA_SMALL_DEVICES: 321px;
   width: 280px;
   max-width: 250px;
   padding: 6px 28px 28px 0px;
-  font-family: Helvetica Neue;
+  font-family: "Helvetica_Neue_Medium";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -686,7 +687,7 @@ $EXTRA_SMALL_DEVICES: 321px;
       .document-form-control {
         height: 100%;
         border: none;
-        font-family: Helvetica Neue;
+        font-family: "Helvetica_Neue_Regular";
         font-style: normal;
         font-weight: normal;
         font-size: 16px;
@@ -723,7 +724,7 @@ $EXTRA_SMALL_DEVICES: 321px;
     list-style-type: none;
 
     .ais-Hits-item {
-      font-family: Helvetica Neue;
+      font-family: "Helvetica_Neue_Regular";
       font-style: normal;
       font-weight: normal;
       font-size: 16px;
@@ -758,7 +759,7 @@ $EXTRA_SMALL_DEVICES: 321px;
 }
 
 .search-result-title {
-  font-family: Helvetica Neue;
+  font-family: "Helvetica_Neue_Regular";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -767,7 +768,7 @@ $EXTRA_SMALL_DEVICES: 321px;
 }
 
 .search-result-subtitle {
-  font-family: Helvetica Neue;
+  font-family: "Helvetica_Neue_Regular";
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -873,7 +874,7 @@ $EXTRA_SMALL_DEVICES: 321px;
 }
 .grey-link-active,
 .grey-link-active:hover {
-  font-family: Helvetica Neue;
+  font-family: "Helvetica_Neue_Regular";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -883,7 +884,7 @@ $EXTRA_SMALL_DEVICES: 321px;
 
 .grey-link,
 .grey-link:hover {
-  font-family: Helvetica Neue;
+  font-family: "Helvetica_Neue_Regular";
   font-style: normal;
   font-weight: normal;
   font-size: 16px;

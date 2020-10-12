@@ -40,7 +40,7 @@ body {
   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important; */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji","Helvetica_Neue_Regular","Helvetica_Neue_Light","Helvetica_Neue_Medium","Helvetica_Neue_Thin" !important;
 }
 
 article,
@@ -830,7 +830,7 @@ pre tt:after {
   font-size: 26px;
   color: #212121;
   margin-top: 56px;
-  font-family: HelveticaNeue-Medium;
+  font-family: "Helvetica_Neue_Medium";
 }
 .landing-pg h3 {
   font-size: 22px;
@@ -1090,7 +1090,7 @@ h2.page-title-summary {
 .sidenav li a {
   color: #212121;
   font-size: 16px;
-  font-family: HelveticaNeue-Medium;
+  font-family: "Helvetica_Neue_Medium";
 }
 .sidenav li a:hover,
 .sidenav li a:active,
