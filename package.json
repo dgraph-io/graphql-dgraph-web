@@ -30,7 +30,7 @@
     "gatsby-remark-images": "^3.3.0",
     "gatsby-source-filesystem": "^2.2.4",
     "gatsby-transformer-sharp": "^2.4.6",
-    "graphiql": "^0.17.5",
+    "graphiql": "^1.4.7",
     "graphiql-explorer": "^0.6.2",
     "node-sass": "^4.14.1",
     "prism-react-renderer": "^1.0.2",
